@@ -1,4 +1,4 @@
-# Interlude Client Updates
+# Lineage 2 Prominence Client Updates
 
 Distribution and staging repository for the custom Interlude launcher and signed client updates.
 
@@ -20,4 +20,4 @@ Draft releases are for maintainer review; they are not available through the pub
 
 This repository stores distribution documentation. Release assets belong in GitHub Releases, not Git history. The full base client, server files, account data, local configuration, and private signing keys must never be committed here.
 
-The GitHub update feed will be configured after this repository is created. Until the first remote release is published, the existing local feed remains in use.
+The GitHub repository is ready; the remote update feed awaits its first published release. Until the first remote release is published, the existing local feed remains in use.
