@@ -1,4 +1,18 @@
-# Only explicitly reviewed distribution documentation belongs in Git.
+# Track updater source and signed client history; keep runtime data and binaries out.
 *
 !.gitignore
+!.gitattributes
 !README.md
+!launcher/
+!launcher/**/
+!launcher/**/*.cs
+!launcher/**/*.py
+!launcher/**/*.ps1
+!launcher/**/*.md
+!launcher/channel.json
+!client-history/
+!client-history/**/
+!client-history/**/*.json
+!client-history/**/*.sig
+!client-history/**/*.md
+**/__pycache__/

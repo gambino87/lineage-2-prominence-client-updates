@@ -1,6 +1,13 @@
 # Lineage 2 Prominence Client Updates
 
-Distribution and staging repository for the custom Interlude launcher and signed client updates.
+Source and client release history for the custom Interlude launcher and signed client updates.
+
+## Tracked files
+
+- [launcher/](launcher/): the launcher application, release builder, publisher, and tests.
+- [client-history/](client-history/README.md): signed manifests, release notes, file changes, checksums, and patch download links for every published client release.
+
+The current workspace's `launcher/` path points to this checkout's `launcher/` directory. Editing either location changes the same source files, so edits appear in Git immediately. Build outputs, staged game files, server files, and signing keys stay outside this repository.
 
 ## Install or update
 
@@ -15,13 +22,15 @@ The original supported client is downloaded separately by the launcher when need
 1. Prepare and test client changes in an isolated staging directory.
 2. Build and validate a cumulative signed release locally, using all previous patches plus the new staged changes.
 3. Upload its manifest, signature, patch archives, and Launcher.zip to a **draft release**.
-4. Review the draft, then publish it when ready for testers.
+4. Review the draft, then publish it when ready for testers. The publisher records and pushes the signed client history automatically.
 5. Users apply the update themselves through the launcher.
 
 Draft releases are for maintainer review; they are not available through the public updater feed. Published releases are immutable: corrections use a new version.
 
-This repository stores distribution documentation. Release assets belong in GitHub Releases, not Git history. A source commit alone does not publish a client update. The full base client, server files, account data, local configuration, and private signing keys must never be committed here.
+Source changes appear in Git as soon as they are edited; commit and push them when ready. Published client changes appear under `client-history/` automatically. The game binaries and downloadable launcher package remain in GitHub Releases. A source commit alone does not publish a client update. The full base client, server files, account data, local configuration, and private signing keys must never be committed here.
 
-The first public updater release is [0.2.0](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.0): 1,504 managed files and 18 cumulative patches, matching the previously validated local client package. The signed update feed is [manifest.json](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/manifest.json).
+See [client release history](client-history/README.md) for the latest recorded changes. Releases 0.2.1 and 0.2.2 added the skill-cap trial quest journal and corrected Harrys' Kat's quest location. The signed update feed is [manifest.json](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/manifest.json).
 
 If you have an older local-feed launcher, replace its launcher files with the latest Launcher.zip and restart it, then select your existing client folder. The workspace launcher has already been configured for this GitHub feed; restart any instance that was open during that change. Applying client updates remains a manual **Install / Update** action.
+
+Maintainer commands and prerequisites: [launcher guide](launcher/README.md). If a release is published directly on GitHub, or a history push is interrupted, run `python launcher/sync_history.py --push` to synchronize its records.
