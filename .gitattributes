@@ -1,4 +1,4 @@
 * text=auto
 # Signatures cover the original bytes, so Git must not convert their line endings.
-client-history/**/manifest.json -text
+client-history/**/manifest.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 client-history/**/manifest.json.sig -text

@@ -49,6 +49,14 @@ def git(*args, check=True):
     return result
 
 
+def verify_staged_manifests(paths):
+    for path in paths:
+        if path.endswith(('/manifest.json', '/manifest.json.sig')):
+            indexed = subprocess.check_output(['git', 'cat-file', 'blob', ':' + path], cwd=SOURCE_ROOT)
+            if indexed != (SOURCE_ROOT / path).read_bytes():
+                raise ValueError('Git changed signed metadata bytes; check .gitattributes: ' + path)
+
+
 def sync_history(repository, push=False):
     if not re.fullmatch(r'[\w.-]+/[\w.-]+', repository):
         raise ValueError('Repository must be owner/repository')
@@ -122,6 +130,7 @@ def sync_history(repository, push=False):
     paths.append('client-history/README.md')
     if push:
         git('add', '--', *paths)
+        verify_staged_manifests(paths)
         changed = git('diff', '--cached', '--quiet', '--', *paths, check=False)
         if changed.returncode == 1:
             git('commit', '--only', '-m', f'docs: record client releases through {records[-1]["Version"]}', '--', *paths)

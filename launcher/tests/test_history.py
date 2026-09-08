@@ -3,11 +3,15 @@ import copy
 import json
 from pathlib import Path
 import sys
+import subprocess
+import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from release import ROOT
 from sync_history import file_changes
+import sync_history
 
 
 def manifest(version):
@@ -44,6 +48,23 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(changes[0]['Path'], removed['Path'])
         self.assertEqual(changes[0]['Change'], 'No longer managed')
         self.assertIsNone(changes[0]['AfterSha256'])
+
+    def test_git_conversion_of_signed_bytes_is_detected(self):
+        with tempfile.TemporaryDirectory(prefix='l2-history-git-') as folder:
+            root = Path(folder)
+            subprocess.run(['git','init','-q',folder], check=True)
+            subprocess.run(['git','-C',folder,'config','core.autocrlf','true'], check=True)
+            relative = 'client-history/fixture/manifest.json'
+            target = root / relative
+            target.parent.mkdir(parents=True)
+            target.write_bytes(b'{\r\n  "Version": "fixture"\r\n}\r\n')
+            subprocess.run(['git','-C',folder,'add','--',relative], check=True, capture_output=True)
+            with patch.object(sync_history, 'SOURCE_ROOT', root):
+                with self.assertRaisesRegex(ValueError, 'signed metadata bytes'):
+                    sync_history.verify_staged_manifests([relative])
+                (root / '.gitattributes').write_text('client-history/**/manifest.json -text\n')
+                subprocess.run(['git','-C',folder,'add','--renormalize','--',relative], check=True)
+                sync_history.verify_staged_manifests([relative])
 
 
 if __name__ == '__main__':
