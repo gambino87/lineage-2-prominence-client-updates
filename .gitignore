@@ -1,0 +1,4 @@
+# Only explicitly reviewed distribution documentation belongs in Git.
+*
+!.gitignore
+!README.md
