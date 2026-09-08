@@ -31,6 +31,13 @@ public class Manifest {
 }
 public class Change { public string Path; public bool Existed; }
 public class Journal { public string Phase; public List<Change> Changes = new List<Change>(); }
+public class VerifiedFile {
+ public string Sha256; public long Size; public long ModifiedUtc; public long CreatedUtc; public string ServerAddress;
+}
+public class VerificationCache {
+ public int Schema=1; public string ClientDirectory; public string Key;
+ public Dictionary<string,VerifiedFile> Files=new Dictionary<string,VerifiedFile>(StringComparer.OrdinalIgnoreCase);
+}
 
 public class Patcher {
  public static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = 32 * 1024 * 1024 };
@@ -40,6 +47,10 @@ public class Patcher {
  public string ArchiveOverride;
  public bool TestMode;
  public int FailAfter = -1;
+ public int FilesHashed {get;private set;}
+ public int FilesReused {get;private set;}
+ public long BytesHashed {get;private set;}
+ VerificationCache verification;
  string root;
  public Patcher(Settings config) { Config=config; }
  public static string Hash(byte[] bytes) { using(var h=SHA256.Create()) return Hex(h.ComputeHash(bytes)); }
@@ -108,17 +119,46 @@ public class Patcher {
   if(canonical.Length!=90624 || Hash(canonical)!="f2793b9097b33b3e3f3aa0956e72f75ce70b0c2b24446a89e23e40ea0b0bf893")throw new IOException("Unrecognized connection DLL. Connection settings were not changed.");
   byte[] bytes=(byte[])canonical.Clone();Array.Clear(bytes,0x12f7c,16);Encoding.ASCII.GetBytes(host).CopyTo(bytes,0x12f7c);return bytes;
  }
- bool Matches(ClientFile f, string directory) {
-  string path=SafePath(directory,f.Path);if(!File.Exists(path))return false;
+ bool Matches(ClientFile f, string directory, bool useCache=false) {
+  string path=SafePath(directory,f.Path);var info=new FileInfo(path);if(!info.Exists){if(verification!=null)verification.Files.Remove(f.Path);return false;}
   if(f.Preserve)return true;
-  if(new FileInfo(path).Length!=f.Size)return false;
-  if(f.Path.Equals("system/psetup.dll",StringComparison.OrdinalIgnoreCase)) {
+  if(info.Length!=f.Size){if(verification!=null)verification.Files.Remove(f.Path);return false;}
+  bool connection=f.Path.Equals("system/psetup.dll",StringComparison.OrdinalIgnoreCase);
+  long modified=info.LastWriteTimeUtc.Ticks,created=info.CreationTimeUtc.Ticks;
+  VerifiedFile cached;
+  if(useCache && verification!=null && verification.Files.TryGetValue(f.Path,out cached) && cached!=null && cached.Sha256==f.Sha256 && cached.Size==f.Size && cached.ModifiedUtc==modified && cached.CreatedUtc==created && (!connection || cached.ServerAddress==Config.ServerAddress)) {
+   FilesReused++;return true;
+  }
+  FilesHashed++;BytesHashed+=f.Size;bool matches;
+  if(connection) {
    byte[] bytes=File.ReadAllBytes(path);if(bytes.Length!=90624)return false;
    string host=Encoding.ASCII.GetString(bytes,0x12f7c,16).TrimEnd('\0');
    Array.Clear(bytes,0x12f7c,16);Encoding.ASCII.GetBytes("127.0.0.1").CopyTo(bytes,0x12f7c);
-   return Hash(bytes)==f.Sha256 && host==Config.ServerAddress;
+   matches=Hash(bytes)==f.Sha256 && host==Config.ServerAddress;
+  } else matches=FileHash(path)==f.Sha256;
+  info.Refresh();matches=matches && info.Exists && info.Length==f.Size && info.LastWriteTimeUtc.Ticks==modified && info.CreationTimeUtc.Ticks==created;
+  if(verification!=null) {
+   if(matches)verification.Files[f.Path]=new VerifiedFile{Sha256=f.Sha256,Size=f.Size,ModifiedUtc=modified,CreatedUtc=created,ServerAddress=connection?Config.ServerAddress:null};
+   else verification.Files.Remove(f.Path);
   }
-  return FileHash(path)==f.Sha256;
+  return matches;
+ }
+ void LoadVerificationCache() {
+  string key=Hash(Encoding.UTF8.GetBytes(Config.PublicKey??""));
+  verification=new VerificationCache{ClientDirectory=root,Key=key};
+  string path=SafePath(root,".launcher/verification.json");
+  try {
+   if(!File.Exists(path) || new FileInfo(path).Length>8*1024*1024)return;
+   var saved=Json.Deserialize<VerificationCache>(File.ReadAllText(path));
+   if(saved==null || saved.Schema!=1 || saved.Key!=key || !root.Equals(saved.ClientDirectory,StringComparison.OrdinalIgnoreCase) || saved.Files==null)return;
+   verification.Files=new Dictionary<string,VerifiedFile>(saved.Files,StringComparer.OrdinalIgnoreCase);
+  } catch(IOException) {} catch(UnauthorizedAccessException) {} catch(ArgumentException) {} catch(InvalidOperationException) {}
+ }
+ void SaveVerificationCache() {
+  if(verification==null || verification.Files.Count==0 || !Directory.Exists(root))return;
+  // This is an optional speed cache. A read-only client remains checkable without it.
+  try {WriteJson(SafePath(root,".launcher/verification.json"),verification);}
+  catch(IOException) {} catch(UnauthorizedAccessException) {}
  }
  void SetRoot() {
   if(string.IsNullOrWhiteSpace(Config.ClientDirectory))throw new IOException("Choose a client folder first.");
@@ -126,11 +166,13 @@ public class Patcher {
   if(root.Length<4 || root.Equals(Environment.GetFolderPath(Environment.SpecialFolder.Windows),StringComparison.OrdinalIgnoreCase))throw new IOException("Choose a dedicated client folder.");
   SafePath(root,".launcher/probe");ValidateServer(Config.ServerAddress);
  }
- public List<ClientFile> Check() {
+ public List<ClientFile> Check(bool fullVerification=false) {
   SetRoot(); if(Release==null)LoadRelease();
   if(File.Exists(SafePath(root,".launcher/transaction.json")))throw new IOException("An interrupted update needs recovery. Click Repair.");
+  LoadVerificationCache();FilesHashed=FilesReused=0;BytesHashed=0;
   var needed=new List<ClientFile>();int n=0;
-  foreach(var f in Release.Files) {Progress("Checking "+f.Path,(++n)*100/Release.Files.Count);if(!Matches(f,root))needed.Add(f);}
+  foreach(var f in Release.Files) {Progress((fullVerification?"Verifying ":"Checking ")+f.Path,(++n)*100/Release.Files.Count);if(!Matches(f,root,!fullVerification))needed.Add(f);}
+  SaveVerificationCache();
   Progress(needed.Count==0?"Ready to play":"Update available — "+needed.Count+" files",100);return needed;
  }
  void AssertClosed() {if(!TestMode && Process.GetProcessesByName("l2").Length>0)throw new IOException("Close Lineage II before applying updates.");}
@@ -176,7 +218,7 @@ public class Patcher {
   }
   File.Delete(jp);Progress("Previous update recovered",0);
  }
- public void Apply() {
+ public void Apply(bool fullVerification=false) {
   SetRoot();AssertClosed();if(Release==null)LoadRelease();
   if(Directory.Exists(root) && !File.Exists(SafePath(root,".launcher/installed.json")) && !File.Exists(SafePath(root,".launcher/transaction.json"))) {
    string executable=SafePath(root,"system/L2.exe");
@@ -187,7 +229,7 @@ public class Patcher {
   }
   Directory.CreateDirectory(root);
   using(var guard=new FileStream(SafePath(root,".launcher-lock"),FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None)) {
-   Recover();if(Release==null)LoadRelease();var needed=Check();if(needed.Count==0)return;
+   Recover();if(Release==null)LoadRelease();var needed=Check(fullVerification);if(needed.Count==0)return;
    string stage=SafePath(root,".launcher/stage");Directory.CreateDirectory(stage);
    var baseFiles=needed.Where(f=>string.IsNullOrEmpty(f.Asset)).ToList();
    if(baseFiles.Count>0)using(var z=ZipFile.OpenRead(GetBase())) {
@@ -217,6 +259,7 @@ public class Patcher {
     }
     WriteJson(SafePath(root,".launcher/installed.json"),new {Version=Release.Version,Updated=DateTime.UtcNow.ToString("o")});
     j.Phase="committed";WriteJson(jp,j);File.Delete(jp);
+    SaveVerificationCache();
    } catch {Recover();throw;}
    Progress("Ready to play — "+Release.Version,100);
   }

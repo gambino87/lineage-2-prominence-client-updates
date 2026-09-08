@@ -57,7 +57,7 @@ def verify_staged_manifests(paths):
                 raise ValueError('Git changed signed metadata bytes; check .gitattributes: ' + path)
 
 
-def sync_history(repository, push=False):
+def sync_history(repository, push=False, published_release=None):
     if not re.fullmatch(r'[\w.-]+/[\w.-]+', repository):
         raise ValueError('Repository must be owner/repository')
     expected_remote = f'https://github.com/{repository}'
@@ -73,6 +73,12 @@ def sync_history(repository, push=False):
         if len(batch) < 100:
             break
         page += 1
+    # The public list can briefly lag a successful publication. Include its confirmed API response.
+    if published_release is not None:
+        if published_release['draft'] or not published_release['html_url'].startswith(expected_remote + '/releases/'):
+            raise ValueError('Expected a confirmed public release from this repository')
+        releases = [row for row in releases if row['tag_name'] != published_release['tag_name']]
+        releases.append(published_release)
     releases.sort(key=lambda row: (row['published_at'], row['tag_name']))
     if not releases:
         raise ValueError('No published client releases found')

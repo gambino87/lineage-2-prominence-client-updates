@@ -121,7 +121,7 @@ def publish(repository, version, make_public=False):
     print(('Published: ' if not release['draft'] else 'Draft ready: ') + release['html_url'])
     if not release['draft']:
         try:
-            sync_history(repository, push=True)
+            sync_history(repository, push=True, published_release=release)
         except Exception as error:
             raise RuntimeError('Release is published, but Git history sync failed. Run python launcher/sync_history.py --push to retry.') from error
 

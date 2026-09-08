@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from release import ROOT
@@ -65,6 +66,25 @@ class HistoryTests(unittest.TestCase):
                 (root / '.gitattributes').write_text('client-history/**/manifest.json -text\n')
                 subprocess.run(['git','-C',folder,'add','--renormalize','--',relative], check=True)
                 sync_history.verify_staged_manifests([relative])
+
+    def test_just_published_release_is_recorded_before_public_list_refreshes(self):
+        repository = 'fixture/updates'
+        remote = 'https://github.com/' + repository
+        published = {'tag_name':'fixture-1','draft':False,'html_url':remote+'/releases/tag/fixture-1','published_at':'2026-09-08T00:00:00Z'}
+        release = {'Version':'fixture-1','Notes':'Fixture release','AssetBaseUrl':remote+'/releases/download/fixture-1/',
+                   'Files':[{'Path':'system/fixture.dat','Sha256':'a'*64,'Size':1,'Preserve':False,'Asset':'fixture.zip'}]}
+        def download(url):
+            if '/releases?' in url:
+                return b'[]'
+            if url.endswith('manifest.json.sig'):
+                return b'fixture signature'
+            return json.dumps(release).encode()
+        with tempfile.TemporaryDirectory(prefix='l2-history-published-') as folder:
+            root = Path(folder)
+            with patch.object(sync_history,'SOURCE_ROOT',root), patch.object(sync_history,'STATE',root/'state'), patch.object(sync_history,'git',return_value=SimpleNamespace(stdout=remote)), patch.object(sync_history,'download',side_effect=download), patch.object(sync_history.subprocess,'run'):
+                records = sync_history.sync_history(repository,published_release=published)
+            self.assertEqual([row['Version'] for row in records],['fixture-1'])
+            self.assertTrue((root/'client-history/fixture-1/changes.json').exists())
 
 
 if __name__ == '__main__':

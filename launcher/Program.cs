@@ -45,7 +45,7 @@ class Window : Form {
   status.SetBounds(30,413,720,25);status.Text="Ready to check updates";Controls.Add(status);
   progress.SetBounds(30,446,720,9);Controls.Add(progress);
   MakeButton(update,"Install",30,478,200);update.Click+=async delegate {await Run(true,false);};
-  MakeButton(repair,"Repair",244,478,150);repair.Click+=async delegate {await Run(true,false);};
+  MakeButton(repair,"Repair",244,478,150);repair.Click+=async delegate {await Run(true,false,true);};
   MakeButton(play,"Play",550,476,200);play.BackColor=Color.FromArgb(56,130,108);play.Enabled=false;play.Click+=async delegate {await Run(false,true);};
   folder.TextChanged+=delegate{InvalidateCheck();};host.TextChanged+=delegate{InvalidateCheck();};
   refreshTimer.Tick+=async delegate {
@@ -85,12 +85,12 @@ class Window : Form {
  void AddLabel(string text,int x,int y){var l=new Label {Text=text,Location=new Point(x,y),Size=new Size(400,20),ForeColor=Color.FromArgb(151,167,185),Font=new Font("Segoe UI",9,FontStyle.Bold)};Controls.Add(l);}
  void Style(TextBox t){t.BackColor=Color.FromArgb(35,41,51);t.ForeColor=ForeColor;t.BorderStyle=BorderStyle.FixedSingle;}
  void MakeButton(Button b,string text,int x,int y,int width){b.Text=text;b.SetBounds(x,y,width,36);b.FlatStyle=FlatStyle.Flat;b.FlatAppearance.BorderColor=Color.FromArgb(77,90,109);b.BackColor=Color.FromArgb(44,53,67);b.ForeColor=ForeColor;Controls.Add(b);}
- async Task Run(bool apply,bool launch) {
+ async Task Run(bool apply,bool launch,bool fullVerification=false) {
   if(busy)return;refreshTimer.Stop();operationText=apply?(HasInstallation()?"Updating…":"Installing…"):"Checking…";
   busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,archive,check})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
-   int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply)patcher.Apply();if(launch){patcher.Play();return 0;}return patcher.Check().Count;});
+   int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply)patcher.Apply(fullVerification);if(launch){patcher.Play();return 0;}return patcher.Check().Count;});
    filesNeeded=needed;notes.Text=patcher.Release.Notes;version.Text="Client release "+patcher.Release.Version;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
    if(launch)status.Text="Lineage II launched";

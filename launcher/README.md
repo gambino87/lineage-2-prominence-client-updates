@@ -9,9 +9,13 @@ The configured public update repository is [gambino87/lineage-2-prominence-clien
 1. Choose an empty client folder for installation, or an existing supported Mobius Interlude client.
 2. Wait for the folder check. The primary button says **Install** for a new installation or **Update** when managed files need updating. It says **Up to date** and is disabled when no changes are needed; it is also disabled while checking. Optionally select the original downloaded client ZIP to avoid downloading it again.
 3. The launcher verifies a signed release manifest, installs the base client as necessary, and applies changed-file packages.
-4. Play becomes available when all managed files pass verification. Repair rechecks and replaces missing/corrupt files. Existing INIs are preserved.
+4. Play becomes available when managed files pass the check. Repair performs a full checksum scan and replaces missing/corrupt files. Existing INIs are preserved.
 
 Changing the client folder or server address disables stale actions and triggers a new check automatically. A managed installation with a missing executable still offers Update after checking; interrupted transactions can be recovered with Repair.
+
+Startup fetches and verifies the signed update feed first. A per-file verification cache then reuses successful checks when the expected signed hash, file size, creation time, and modification time are unchanged. New release versions with identical client content do not trigger another full scan. Changed files are hashed again; the connection DLL cache also depends on the selected server address. Play uses the same quick check.
+
+An existing installation needs one initial scan to establish `.launcher/verification.json`; fresh installs populate it as files are installed. Missing, invalid, or incompatible caches fall back to full verification. Repair always bypasses the cache, including for corruption that leaves a file's size and timestamps unchanged. Downloaded archives and newly installed files are always checked by their full hashes.
 
 The server address must be an IPv4 address. For remote testing use the host's Tailscale IPv4 address. The game server must separately be configured to accept and advertise remote connections; this launcher does not configure Windows Firewall, Tailscale, or the server.
 

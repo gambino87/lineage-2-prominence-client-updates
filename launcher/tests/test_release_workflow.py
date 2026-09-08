@@ -70,7 +70,7 @@ class WorkflowTests(unittest.TestCase):
             publish.publish(REPOSITORY, '0.2.0', True)
             methods = [call.args[1] for call in client.return_value.request.call_args_list if len(call.args)>1]
             self.assertEqual(methods, ['PATCH'])
-            history.assert_called_once_with(REPOSITORY, push=True)
+            history.assert_called_once_with(REPOSITORY, push=True, published_release=dict(draft, draft=False))
 
 
 if __name__ == '__main__':
