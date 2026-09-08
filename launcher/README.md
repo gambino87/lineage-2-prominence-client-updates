@@ -7,9 +7,11 @@ The configured public update repository is [gambino87/lineage-2-prominence-clien
 ## Tester flow
 
 1. Choose an empty client folder for installation, or an existing supported Mobius Interlude client.
-2. Click Install / Update. Optionally select the original downloaded client ZIP to avoid downloading it again.
+2. Wait for the folder check. The primary button says **Install** for a new installation or **Update** when managed files need updating. It says **Up to date** and is disabled when no changes are needed; it is also disabled while checking. Optionally select the original downloaded client ZIP to avoid downloading it again.
 3. The launcher verifies a signed release manifest, installs the base client as necessary, and applies changed-file packages.
 4. Play becomes available when all managed files pass verification. Repair rechecks and replaces missing/corrupt files. Existing INIs are preserved.
+
+Changing the client folder or server address disables stale actions and triggers a new check automatically. A managed installation with a missing executable still offers Update after checking; interrupted transactions can be recovered with Repair.
 
 The server address must be an IPv4 address. For remote testing use the host's Tailscale IPv4 address. The game server must separately be configured to accept and advertise remote connections; this launcher does not configure Windows Firewall, Tailscale, or the server.
 
@@ -54,7 +56,7 @@ After publication, the publisher verifies public manifests and automatically com
 
 ## Installation safety and recovery
 
-All downloads and extracted content are verified in .launcher before replacing live files. No files are applied while L2 is running. A journal and backups allow rollback after a write failure and recovery on the next Update / Repair after a crash. Unsupported paths, reparse points, unsigned/tampered manifests, and non-HTTPS remote downloads are rejected. Downloads interrupted mid-file restart; completed verified files are cached.
+All downloads and extracted content are verified in .launcher before replacing live files. No files are applied while L2 is running. A journal and backups allow rollback after a write failure and recovery with Repair after a crash. Unsupported paths, reparse points, unsigned/tampered manifests, and non-HTTPS remote downloads are rejected. Downloads interrupted mid-file restart; completed verified files are cached.
 
 Personal INIs are preserved even during Repair; repair does not reset user preferences. Server-side job hotbars are unaffected. Unknown extra files are left alone. Deletion migrations and binary deltas are not implemented in this first version. Custom interface tooltip labels are distributed as part of managed DAT files; only personal INI settings are preserved automatically.
 
@@ -69,3 +71,5 @@ Use `--local` explicitly to generate a file:// feed with AllowLocalFeed=true. Wi
 test.ps1 uses isolated fixtures to test real install/update/repair, failed writes, rollback, crash recovery, signatures, path rejection, settings preservation and connection-module pinning. tests/RealRelease.cs installs and verifies the actual complete client in a separate directory without launching it. It must never point at an existing client directory.
 
 `python -m unittest discover -s launcher/tests -p "test_*.py" -v` checks client-history comparisons, the first GitHub release against the previously validated client payload, and publication safeguards. `tests/RemoteRelease.cs` exercises real HTTPS patch downloads against the existing disposable `state/launcher-real-install` fixture, deliberately replacing its managed patch files and verifying repair plus INI preservation. It never targets the live client or launches the game.
+
+`powershell -ExecutionPolicy Bypass -File launcher/test-ui.ps1` runs the actual launcher window against an isolated signed feed and checks Install, Update, Up to date, busy states, missing-executable recovery, and automatic folder rechecks. It also writes screenshots for visual verification.

@@ -128,7 +128,7 @@ public class Patcher {
  }
  public List<ClientFile> Check() {
   SetRoot(); if(Release==null)LoadRelease();
-  if(File.Exists(SafePath(root,".launcher/transaction.json")))throw new IOException("An interrupted update needs recovery. Click Update / Repair.");
+  if(File.Exists(SafePath(root,".launcher/transaction.json")))throw new IOException("An interrupted update needs recovery. Click Repair.");
   var needed=new List<ClientFile>();int n=0;
   foreach(var f in Release.Files) {Progress("Checking "+f.Path,(++n)*100/Release.Files.Count);if(!Matches(f,root))needed.Add(f);}
   Progress(needed.Count==0?"Ready to play":"Update available — "+needed.Count+" files",100);return needed;

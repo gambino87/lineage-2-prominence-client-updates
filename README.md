@@ -11,7 +11,7 @@ The current workspace's `launcher/` path points to this checkout's `launcher/` d
 
 ## Install or update
 
-Download [Launcher.zip](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/Launcher.zip), extract it, and open Interlude Launcher.exe. Close Lineage II, then click **Install / Update** to apply the release.
+Download [Launcher.zip](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/Launcher.zip), extract it, and open Interlude Launcher.exe. Close Lineage II, then click **Install** or **Update** when available to apply the release.
 
 The launcher checks this repository's latest published release, verifies its signed manifest, and downloads only managed files that need updating. Existing INI settings are preserved. Future client releases use the same feed; users do not need a GitHub account.
 
@@ -31,6 +31,6 @@ Source changes appear in Git as soon as they are edited; commit and push them wh
 
 See [client release history](client-history/README.md) for the latest recorded changes. Releases 0.2.1 and 0.2.2 added the skill-cap trial quest journal and corrected Harrys' Kat's quest location. The signed update feed is [manifest.json](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/manifest.json).
 
-If you have an older local-feed launcher, replace its launcher files with the latest Launcher.zip and restart it, then select your existing client folder. The workspace launcher has already been configured for this GitHub feed; restart any instance that was open during that change. Applying client updates remains a manual **Install / Update** action.
+If you have an older local-feed launcher, replace its launcher files with the latest Launcher.zip and restart it, then select your existing client folder. The workspace launcher has already been configured for this GitHub feed; restart any instance that was open during that change. Applying client updates remains a manual **Install** or **Update** when available action.
 
 Maintainer commands and prerequisites: [launcher guide](launcher/README.md). If a release is published directly on GitHub, or a history push is interrupted, run `python launcher/sync_history.py --push` to synchronize its records.
