@@ -1,0 +1,57 @@
+{
+  "Version": "0.2.12",
+  "PreviousVersion": "0.2.11",
+  "Published": "2026-09-09T21:15:20Z",
+  "Notes": "Add six labeled fire-spirit souls for comparing complete aura effects.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.12",
+  "FilesChanged": [
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "65e3f43c6c79c9d2a937a9d3ba4088f646f6a833bf5b2db596ebef92ff10848e",
+      "AfterSha256": "d2732039b74016752d590d6a7c6cb8bc87219d56e8e8661826250f94f6ba76c1",
+      "Size": 101552,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.12/b35becbc48134b7b5af07f49589a0f249d06e69dbba037d0359b7bc234c377ca.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "915ce4dc52b8972b3cf933a06493a2b184de5bb9b2166a6c909f60f12ef91f86",
+      "AfterSha256": "57ec57f0801d2739097d7855982a221da2ad50ed6b77397d41ff7e2d9aed9403",
+      "Size": 30711808,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.12/b882f1350880494c7d66d09cdac26a3ab0cf4139d65cd03b4a7799545e27e32b.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "f6fcd4accf8d28e5b37834b238bd3cd1f6eebd74f6f280d7e10699abec9bba15",
+      "AfterSha256": "c1051b9a59e221674e12641bde89d0e29f1f769035e1ab80c06fd7dae5fd5567",
+      "Size": 232880,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.12/a7e5e3b3b2cf11e8c529abe14291243dbd07d499c66af60e8383131b81636464.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "3cc1a9dd646d00243e4d9ddc62be70c43b60dc06c481febafb6c49cfbfffe4a7",
+      "AfterSha256": "1a9840f423aa145153f3c48211d59a3b6f21a1aa9072a9722f4497af09a1e014",
+      "Size": 2161737,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.12/56483d7bddbf786924f0cef088725b9268eeda669aff7b57b0857bccd073ff98.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "802d5b5f328b322307427b40b9f8daf75df9fe64965bfce41ae79f9329613a6c",
+      "AfterSha256": "52bf23de4001274fa0251b0d8e83c1e54f7da6569d460c087f1ffc13bd2683f1",
+      "Size": 160944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.12/bf34eff646cae4df771074e7cc2addd0d837f7ddfa2faf6c1e9ba48591743ebd.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "0437d91a3cd4f7d606a8a7709d6356675a65ebb72d6b1c4ac4630952a013dd61",
+      "AfterSha256": "68ca7d01146393691567e5b7f268525aa4d1acd38c19a98d9db83311a23991a5",
+      "Size": 305968,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.12/643586a2617acb3c68a48b42a88ec3d82809548e7a0424b03ca03491b325ac44.zip"
+    }
+  ]
+}
