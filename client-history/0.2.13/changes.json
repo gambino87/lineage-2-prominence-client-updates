@@ -1,0 +1,57 @@
+{
+  "Version": "0.2.13",
+  "PreviousVersion": "0.2.12",
+  "Published": "2026-09-09T21:24:42Z",
+  "Notes": "Use Mass Frenzy for the fire soul and add seven physical/elemental aura color previews.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.13",
+  "FilesChanged": [
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "d2732039b74016752d590d6a7c6cb8bc87219d56e8e8661826250f94f6ba76c1",
+      "AfterSha256": "cecb589a39d0150ac86e1ec74fb1b2c6aa46b27eb937d90dd12b51d9fe9c18b9",
+      "Size": 101552,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.13/b41b0a660906ec739142eb38f2a281257ce08efafc0a42810e238e10628d4400.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "57ec57f0801d2739097d7855982a221da2ad50ed6b77397d41ff7e2d9aed9403",
+      "AfterSha256": "faa1f2eba4f84946cec31fd86a9ae7b0d9ebe84321e070af248919c29dea887c",
+      "Size": 30713344,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.13/461692d32de221aced59bcaecfe1fcc58c3d3b7ea08998304c37fb184b632dc6.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c1051b9a59e221674e12641bde89d0e29f1f769035e1ab80c06fd7dae5fd5567",
+      "AfterSha256": "11ece761644771316c7f3eb4920e34a8e0ee9e08b5a9c072bf550307174b575c",
+      "Size": 233008,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.13/f96cb08e8240e3237b157cdad0fcf0480c471cede37d5d9f039342ecd6c70fad.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "1a9840f423aa145153f3c48211d59a3b6f21a1aa9072a9722f4497af09a1e014",
+      "AfterSha256": "d8e31b6f323c70a6d6b3451a8095aa734c1055b84938b019293818e70e270b14",
+      "Size": 2177858,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.13/1b54f2616cc1f76fd756ea240b4b8f481783e2da844fc045143c988ad5c26535.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "52bf23de4001274fa0251b0d8e83c1e54f7da6569d460c087f1ffc13bd2683f1",
+      "AfterSha256": "1c7e5b5d1c5fc53c8694db60559c52e81092a8cd76e7fa6ed0e66fc294adecd1",
+      "Size": 160944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.13/d8a185bca0518db09b938d7f02a583750410af8da32b2f89ffefcc70569050b4.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "68ca7d01146393691567e5b7f268525aa4d1acd38c19a98d9db83311a23991a5",
+      "AfterSha256": "e7a37366d4e4673cfd01fe73403cc620d48f6f64c56ace8050e78e6f4e0cbf41",
+      "Size": 306096,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.13/47bab8e80f2e2778e9876cf53724fae57d7b01853b5231522ca91af626ab4c73.zip"
+    }
+  ]
+}
