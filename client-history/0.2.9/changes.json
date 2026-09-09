@@ -1,0 +1,65 @@
+{
+  "Version": "0.2.9",
+  "PreviousVersion": "0.2.8",
+  "Published": "2026-09-09T03:12:31Z",
+  "Notes": "Prototype Soul of a Feeble Fire Spirit: accessory item, instant Activate Soulshot buff, red activation flash and persistent red ember aura. Requires matching server activation.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.9",
+  "FilesChanged": [
+    {
+      "Path": "animations/Skill.usk",
+      "Change": "Updated",
+      "BeforeSha256": "ba4f29245f5228e733fd3079ef3478bc9a6e461e11d0ab3bdfc67325feb7d9e2",
+      "AfterSha256": "6c80d232a6d0dad87a4854649f0c1ba3ff444bd80e928c5491c2f829e7dd9472",
+      "Size": 232318,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/129e0de9c3c07a6d5aac6ff54ec4f487d83632b0097d49188626a18b06d86220.zip"
+    },
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "be00243d984d3018ad7ad0ac88f55d80f64aa50e45bde2a11b3455812c462b65",
+      "AfterSha256": "65e3f43c6c79c9d2a937a9d3ba4088f646f6a833bf5b2db596ebef92ff10848e",
+      "Size": 101552,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/c0ef63f2d9e6f28642456a862767b319ce1d11579ccba0523032be9fc1ef3e1f.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "504f712170ab10b75b6006867621232e14213b77b96b5e3f79ada876865a02ae",
+      "AfterSha256": "2ca312972967afb585e29f6cac276644677b20e98afc69beed41d876746ade1b",
+      "Size": 30710272,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/135a1c2b19abc58f078ec5d2bae2276350f7302a0eda8f36ee4e510366829e97.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "ae3e14bfe85ccceb6e44e2805965af7432df966dd0b63b3be8419cc20cf7235e",
+      "AfterSha256": "f6fcd4accf8d28e5b37834b238bd3cd1f6eebd74f6f280d7e10699abec9bba15",
+      "Size": 232624,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/8ab1a08d32fa76a39ab0901e554e26469d398b48ffd28a12b760cc319a9ec181.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "87a9ba079bb178825f48c468a8b1907cca397356b45f720ace8258f224c2f235",
+      "AfterSha256": "a83fce4b7917b491d8dd36be189435d05ba164ac662be8eb365e37dc28824958",
+      "Size": 2136205,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/8aafc85e8cb332646058fde59099f6819a2042ce916064dd0ed6470d01d5c92b.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "883bc0cd8356af63ca58108fb9a83bf8b380da0a5d92c1d528b0a22aa92cd4f7",
+      "AfterSha256": "802d5b5f328b322307427b40b9f8daf75df9fe64965bfce41ae79f9329613a6c",
+      "Size": 160816,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/0cc58c657a4e72312e9cd22c212969e03bbcd69f646040309fef4ecaac966f34.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "fa5dafb486b014f99afab0e18e54d1a648cf6c8acb8ce39c03333778e5a8bf3e",
+      "AfterSha256": "0437d91a3cd4f7d606a8a7709d6356675a65ebb72d6b1c4ac4630952a013dd61",
+      "Size": 305840,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.9/8dddb518dc68a7645c9c9c79c3cc71e7868dac28ba43d651bc7bc678de1819e6.zip"
+    }
+  ]
+}
