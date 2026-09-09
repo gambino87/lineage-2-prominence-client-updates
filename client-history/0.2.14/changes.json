@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.14",
+  "PreviousVersion": "0.2.13",
+  "Published": "2026-09-09T21:46:08Z",
+  "Notes": "Soulshot impacts now match the active soul color for normal and critical hits. All seven Mass Frenzy soul colors are supported; ordinary Soulshots retain their original effects.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.14",
+  "FilesChanged": [
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "faa1f2eba4f84946cec31fd86a9ae7b0d9ebe84321e070af248919c29dea887c",
+      "AfterSha256": "1224ce98b846eb3129fb0b0e869787654893675ab0ae72122334990aaca0e4b9",
+      "Size": 30715904,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.14/4e0aab4c2c46f96bdacd63846dfeda43c96982e9782bd9c2b035ac5053aad0e9.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "d8e31b6f323c70a6d6b3451a8095aa734c1055b84938b019293818e70e270b14",
+      "AfterSha256": "183601df6bd92411b9fc7958557d1e9ffcfd256914763cbec36d3fa37d412743",
+      "Size": 2257105,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.14/0212d0f5ba7210ed2e81e31654b94af51b16fc103daa0296d9d2b26e9fb32a4f.zip"
+    }
+  ]
+}
