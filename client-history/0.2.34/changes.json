@@ -1,0 +1,17 @@
+{
+  "Version": "0.2.34",
+  "PreviousVersion": "0.2.33",
+  "Published": "2026-09-10T08:05:35Z",
+  "Notes": "Update Meditate tooltip with roleplay-focused wording.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.34",
+  "FilesChanged": [
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "dc73f116210ed5b0c2226688f48b38ae2351a0bfd164cc71a4e0f69056c71102",
+      "AfterSha256": "55c19143c534af3b7a440f9f5b83916890cbdc094e538149f4e4037ddf544016",
+      "Size": 306096,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.34/d13e96613f27d5b8f0f1dd6b68859d7fc780f80f152815ed6ec4468531fd950a.zip"
+    }
+  ]
+}
