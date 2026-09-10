@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.28",
+  "PreviousVersion": "0.2.27",
+  "Published": "2026-09-10T06:22:45Z",
+  "Notes": "Fix custom quest monster titles to use native orange Quest Monster text while preserving their models.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.28",
+  "FilesChanged": [
+    {
+      "Path": "system/npcgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "8ac7ce502769e25e503047e3a477da54703fc4e7f92aeb4c8c621e2729688d57",
+      "AfterSha256": "9be7b2cb95b8f335f7f68890b0d351ea1082544eab1b77110ddb3bdde4a5f2fc",
+      "Size": 235312,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.28/d4c03808306b2ec9fc735b1fbe48f9385c50188c78ff2d2153ab4e350b466a9f.zip"
+    },
+    {
+      "Path": "system/npcname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "84c79b73a97e489b455f44f21d8c8cba0f4df401ccb1d56887a1eacc62285b9a",
+      "AfterSha256": "0a5509d62a0d8488ddf1a7a9e0516fb5063cda933f7c40099e52bae20897c9ba",
+      "Size": 51504,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.28/e258640f2adcdf2b92cc29aa485c23a1ef41767234870027dae15c0ae861989e.zip"
+    }
+  ]
+}
