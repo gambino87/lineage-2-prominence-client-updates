@@ -1,0 +1,33 @@
+{
+  "Version": "0.2.20",
+  "PreviousVersion": "0.2.19",
+  "Published": "2026-09-10T02:56:25Z",
+  "Notes": "Added 20 Tier 2 equipment recipes and key materials. Recipes require three keys, Create Item Lv. 2, 45 MP and have 100% success. Recipe quest rewards will be added later.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.20",
+  "FilesChanged": [
+    {
+      "Path": "system/etcitemgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "db0d71bc9ca5af6b7b27766fef6885530f1f9a8cb946121ac814c80b2c2b8b31",
+      "AfterSha256": "7e3620468e40b2038e43f201856b7bbafcfb3cdebf5aa6abad20bce9bd87a7ce",
+      "Size": 81712,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.20/36377da1d2e3e788038f38d65077fab27e91aaf6073facf246700dd4505a44ae.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "5a928da92e72d5f4173d235859bbcdc21b93023262c1421a7d085ac8c02ca6cf",
+      "AfterSha256": "63954640f8ec57796f42d27963af9df2f975b2c9e87dd52a754ef85936b9a7dc",
+      "Size": 233648,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.20/1c31d84e6a222abf940636a425e483374623ffe3e6dc905a085068c291f7ce76.zip"
+    },
+    {
+      "Path": "system/recipe-c.dat",
+      "Change": "Updated",
+      "BeforeSha256": "44e3613eee0cd0d57157a891bd5ced957fea218d302e0ab6ea96bf5c19a361fb",
+      "AfterSha256": "5e2b4acc0381087ebb567f2be185455ac3991ba52e3780d6a07a849a9f4a4a6e",
+      "Size": 1072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.20/736dcd3b90767598929eae1c980e17d28d8c36d9e3308307e947b25ef4528cc8.zip"
+    }
+  ]
+}
