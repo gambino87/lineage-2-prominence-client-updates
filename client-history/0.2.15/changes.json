@@ -1,0 +1,49 @@
+{
+  "Version": "0.2.15",
+  "PreviousVersion": "0.2.14",
+  "Published": "2026-09-10T01:21:54Z",
+  "Notes": "Seven permanent Feeble Souls replace the aura test items: Fire, Earth, Water, Wind, Forgotten Soldier, Demon, and Angel. Active souls add their matching impact to physical and magical abilities, including debuffs.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.15",
+  "FilesChanged": [
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "cecb589a39d0150ac86e1ec74fb1b2c6aa46b27eb937d90dd12b51d9fe9c18b9",
+      "AfterSha256": "09d1215d14d35c5daacd11d60e96fde4a951f404cf9a34479d23e6da8d827eb4",
+      "Size": 101552,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.15/4ff06be81a8bc4f4f693d76fc4c0e51ca20a27eb5e43d3340c201a30ed0a66be.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "1224ce98b846eb3129fb0b0e869787654893675ab0ae72122334990aaca0e4b9",
+      "AfterSha256": "35413c73c14de37e78baf826df958f5d0411d48fae172f0c7fc362aaf8885ec8",
+      "Size": 30716928,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.15/3233585fbeafadd3e8caa48ce55febee75fe7432e624160f793c373c4098eb6b.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "11ece761644771316c7f3eb4920e34a8e0ee9e08b5a9c072bf550307174b575c",
+      "AfterSha256": "5a928da92e72d5f4173d235859bbcdc21b93023262c1421a7d085ac8c02ca6cf",
+      "Size": 232752,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.15/914996f8cbe83ec5220ace54c2199e227724e3f0de69b66de6f3b2df9b33ab1a.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "1c7e5b5d1c5fc53c8694db60559c52e81092a8cd76e7fa6ed0e66fc294adecd1",
+      "AfterSha256": "ae3eb93c1c39827a316e92b3455252304aad4cc78491e83d6cf977bd7f1273fd",
+      "Size": 160944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.15/fbaa9caaf06a2c7f099a6d172e685d949a3385278b9a5e3d0779639c137deb6f.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "e7a37366d4e4673cfd01fe73403cc620d48f6f64c56ace8050e78e6f4e0cbf41",
+      "AfterSha256": "10f98b5cac2cb3030c609a70c53710cccebaa71a8c35c0e7a22d24968b7f5009",
+      "Size": 305968,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.15/6d8fd5a9eac2a6d401ae8585f39062b7400f8a41bc7297f48ef422535c4fe72a.zip"
+    }
+  ]
+}
