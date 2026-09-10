@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.32",
+  "PreviousVersion": "0.2.31",
+  "Published": "2026-09-10T07:54:33Z",
+  "Notes": "Add Meditate: level-10 base Mystic toggle converting HP regeneration into MP at 1:1, alongside normal MP regeneration.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.32",
+  "FilesChanged": [
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "30bb5d718c4499c8a0ff737c8c6fb8306b6c0065756be17a15ab931daaef8faf",
+      "AfterSha256": "f59c1d52892c0717f0d6782e653b09e8700fd12e3ae81f76cf249bfc48f93fd1",
+      "Size": 160944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.32/b66ca44f9716346cb659b37b11425728ee9e6e470b61099a09ba32ebf7015b66.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "03e5a421e6a55e399485d4970a3319d14f5bf3a32d0b15d242f028ef42b2b960",
+      "AfterSha256": "3eac90d732318c76a946e8d15f200dcdcf4ea2c02f975aaa11acdd115f676e6a",
+      "Size": 306096,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.32/45cff361841887e01130e56c0f0307f08da5596416bd1cd7a5b3402ea2f4b24b.zip"
+    }
+  ]
+}
