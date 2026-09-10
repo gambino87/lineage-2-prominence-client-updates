@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.29",
+  "PreviousVersion": "0.2.28",
+  "Published": "2026-09-10T07:37:09Z",
+  "Notes": "Add Mend: level-10 base Fighter toggle that sits and converts MP regeneration into additional HP recovery.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.29",
+  "FilesChanged": [
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "ae3eb93c1c39827a316e92b3455252304aad4cc78491e83d6cf977bd7f1273fd",
+      "AfterSha256": "30bb5d718c4499c8a0ff737c8c6fb8306b6c0065756be17a15ab931daaef8faf",
+      "Size": 160944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.29/cdd41385ee78fb6435fee9a7691f94661523e76f794e6040ea620f775df7ce3d.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "10f98b5cac2cb3030c609a70c53710cccebaa71a8c35c0e7a22d24968b7f5009",
+      "AfterSha256": "6d7d602bcd4a96f82b8f3c64fd297a9c2766c5f50237dccb8b12cb3ad2fe480b",
+      "Size": 306096,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.29/89806f863abfc5a8f148b8d6a50d14e92540099a1521dae854849e24436ea553.zip"
+    }
+  ]
+}
