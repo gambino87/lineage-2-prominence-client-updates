@@ -41,6 +41,9 @@ class Window : Form {
   server.SetBounds(255,205,490,24);server.Text="Server status unchecked";Controls.Add(server);
   MakeButton(archive,"Use downloaded client ZIP…",30,244,260);archive.Click+=delegate {using(var d=new OpenFileDialog {Filter="Client archive (*.zip)|*.zip"})if(d.ShowDialog()==DialogResult.OK){patcher.ArchiveOverride=d.FileName;status.Text="Client archive selected; it will be verified before installation.";}};
   MakeButton(check,"Check updates",305,244,145);check.Click+=async delegate {await Run(false,false);};
+  var clientLink=new LinkLabel {Text="Download base client (browser)",LinkColor=Color.FromArgb(133,193,239),ActiveLinkColor=Color.White,VisitedLinkColor=Color.FromArgb(133,193,239),AutoSize=true,Location=new Point(468,253),AccessibleName="Download base client in your browser"};
+  clientLink.LinkClicked+=delegate {try {System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://interlude.l2mobius.net/downloads/Lineage%20II%20Mobius%20Interlude.zip") {UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,"Could not open your browser: "+e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}};
+  Controls.Add(clientLink);
   notes.SetBounds(30,291,720,108);notes.Multiline=true;notes.ReadOnly=true;notes.ScrollBars=ScrollBars.Vertical;Style(notes);notes.Text="Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.";Controls.Add(notes);
   status.SetBounds(30,413,720,25);status.Text="Ready to check updates";Controls.Add(status);
   progress.SetBounds(30,446,720,9);Controls.Add(progress);
