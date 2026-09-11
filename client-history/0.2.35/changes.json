@@ -1,0 +1,33 @@
+{
+  "Version": "0.2.35",
+  "PreviousVersion": "0.2.34",
+  "Published": "2026-09-11T00:46:40Z",
+  "Notes": "Add a separate Broker Sale drag-and-drop preview, opened with Broker in the Character window. This prototype does not reserve or sell items; Sell is disabled. Original augmentation removal is unchanged.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.35",
+  "FilesChanged": [
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "b2346dbd446f732cc2cfcd34977c6f54a346311e3a9cca0e11f155253edf5752",
+      "AfterSha256": "e9d230448b776bae33806e247df3222d32a08bbfd75d658b25b9cf01ce449618",
+      "Size": 1224620,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.35/b29befcc4b0661dcb05c8f219b1d9b03466c5f9eb9cdea85b973418d02c37ed6.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "e7c0172d2470182177bd9105c92c349fc7caa0ce5f7f4860adf0e0491ec82ac8",
+      "AfterSha256": "6c1fa3a0fb237c96c91b368ddf08db18ecdb321b5235db9737339c8aca8cdeab",
+      "Size": 753815,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.35/b1be4c69114c1491def3496d5a821bd02c5568d33dda9eb70ca99d6def08907d.zip"
+    },
+    {
+      "Path": "system/sysstring-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "58e1c73f0beca148d8282b04cbe8d8ca765fe35fa95160c0d3ba3cdb2d230916",
+      "AfterSha256": "1ac95202a901a5b389952de80412b4c7c8c7f51ff40d16f4fac0702a189e8036",
+      "Size": 16944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.35/553dbe13489dccd38fe0f2fcfe0570fc4d65dd6395ae0d7aaeabe23e53e767e9.zip"
+    }
+  ]
+}
