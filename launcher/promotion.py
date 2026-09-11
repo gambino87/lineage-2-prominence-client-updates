@@ -47,7 +47,7 @@ def prepare(args):
     if folder.exists():
         raise ValueError('Candidate exists; choose a new version')
     bench, _=validate(args.bench_release)
-    if not bench['Version'].startswith('bench-'):
+    if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',bench['Version']) or not bench.get('AssetBaseUrl','').startswith('file:'):
         raise ValueError('Use a tested private bench release')
     previous=latest(GitHub())
     public_source=ROOT/'outputs/releases'/previous['tag_name']
@@ -158,8 +158,8 @@ if __name__=='__main__':
     parser.add_argument('--notes',default='Promote the tested test-bench candidate to the hosted server.')
     parser.add_argument('--approved',action='store_true')
     args=parser.parse_args()
-    if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',args.version):
-        parser.error('Use a numeric public version, e.g. 0.2.45')
+    if not re.fullmatch(r'alpha-[0-9]+\.[0-9]+\.[0-9]+',args.version):
+        parser.error('Use a live version such as alpha-0.0.1')
     if args.action=='prepare' and (not args.bench_release or not args.test_notes):
         parser.error('Preparation requires --bench-release and --test-notes describing completed testing')
     (prepare if args.action=='prepare' else perform)(args)

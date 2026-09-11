@@ -40,14 +40,14 @@ private feed, signing keys, or deployment credentials.
    release. Edit staged files only; never edit either installed client:
 
    ```powershell
-   python launcher/stage_release.py --from-release outputs/releases/bench-20260911-01 --output state/launcher-staging/bench-20260911-02
+   python launcher/stage_release.py --from-release outputs/releases/0.2.45 --output state/launcher-staging/0.2.46
    # Edit files in that new staging directory.
-   python launcher/testbench.py --version bench-20260911-02 --client-dir state/launcher-staging/bench-20260911-02 --notes "Describe the changes to test."
+   python launcher/testbench.py --version 0.2.46 --client-dir state/launcher-staging/0.2.46 --notes "Describe the changes to test."
    ```
 
    Close the private launcher before rebuilding its executable. The command
    validates and signs the candidate, then switches only the private feed.
-   All `bench-*` versions remain local. Use a new version for every candidate.
+   New numeric test-bench versions remain local. Use a new version for every candidate.
 4. The owner closes the game, installs/updates through the private launcher,
    and tests login, affected features, rewards/items if relevant, and relog
    persistence. Check local logs for new errors. Record results and known issues.
@@ -57,14 +57,16 @@ private feed, signing keys, or deployment credentials.
 
 ## 2. Freeze and review a candidate without downtime
 
-Use the next unused public version. These version numbers are examples:
+Live versions start at `alpha-0.0.1`, then `alpha-0.0.2`, independently of the
+bench sequence (`0.2.45`, `0.2.46`, etc.). Existing published numeric releases
+are historical and remain unchanged. These commands are examples:
 
 ```powershell
-python launcher/promotion.py prepare --version 0.2.45 --bench-release outputs/releases/bench-20260911-02 --test-notes "Owner passed login, affected quest, reward, and relog checks." --notes "Describe this public update."
+python launcher/promotion.py prepare --version alpha-0.0.1 --bench-release outputs/releases/0.2.46 --test-notes "Owner passed login, affected quest, reward, and relog checks." --notes "Describe this public update."
 ```
 
 This reads the live file inventory over SSH, freezes the local runtime into
-`state/promotions/0.2.45/server.tar.gz`, builds a signed public client candidate
+`state/promotions/alpha-0.0.1/server.tar.gz`, builds a signed public client candidate
 with the exact bench client payload, and writes `REVIEW.txt` and `candidate.json`.
 The public launcher executable comes from the latest validated public release,
 so the private launcher can never be included by this path. Launcher UI updates
@@ -87,9 +89,9 @@ Tell players the maintenance time before starting. The operator performs these
 commands only after the owner approves this specific reviewed candidate:
 
 ```powershell
-python launcher/promotion.py install --version 0.2.45 --approved
-python launcher/promotion.py publish --version 0.2.45 --approved
-python launcher/promotion.py activate --version 0.2.45 --approved
+python launcher/promotion.py install --version alpha-0.0.1 --approved
+python launcher/promotion.py publish --version alpha-0.0.1 --approved
+python launcher/promotion.py activate --version alpha-0.0.1 --approved
 ```
 
 **Install** closes public login/game ports for IPv4 and IPv6, gracefully stops
@@ -122,7 +124,7 @@ Stop the sequence; do not manually open ports. Before players have been
 readmitted, run:
 
 ```powershell
-python launcher/promotion.py rollback --version 0.2.45 --approved
+python launcher/promotion.py rollback --version alpha-0.0.1 --approved
 ```
 
 Rollback restores the previous public feed if it was switched, stops the

@@ -14,8 +14,8 @@ from workspace import ROOT
 
 
 def prepare(version, source, client_dir=None, notes='Private test-bench candidate.'):
-    if not re.fullmatch(r'bench-[A-Za-z0-9][A-Za-z0-9._-]{0,54}',version):
-        raise ValueError('Use a simple private version such as bench-20260911-01')
+    if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',version):
+        raise ValueError('Use a numeric test-bench version such as 0.2.45')
     if (ROOT/'outputs/releases'/version).exists():
         raise ValueError('Private release already exists; choose a new version')
     output = ROOT/'outputs/test-bench'

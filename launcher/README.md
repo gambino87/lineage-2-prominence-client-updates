@@ -37,10 +37,10 @@ The actual source lives in `publishing/interlude-client-updates/launcher/`. The 
 ```powershell
 powershell -ExecutionPolicy Bypass -File launcher/build.ps1
 powershell -ExecutionPolicy Bypass -File launcher/test.ps1
-python launcher/stage_release.py --from-release outputs/releases/0.2.2 --output state/launcher-staging/0.2.3
+python launcher/stage_release.py --from-release outputs/releases/0.2.2 --output state/launcher-staging/alpha-0.0.1
 # Prepare and test changes inside that staging directory, preserving its other cumulative patches.
-python launcher/release.py --version 0.2.3 --client-dir state/launcher-staging/0.2.3 --notes "Describe the tested changes."
-python launcher/validate_release.py outputs/releases/0.2.3 --repo gambino87/lineage-2-prominence-client-updates
+python launcher/release.py --version alpha-0.0.1 --client-dir state/launcher-staging/alpha-0.0.1 --notes "Describe the tested changes."
+python launcher/validate_release.py outputs/releases/alpha-0.0.1 --repo gambino87/lineage-2-prominence-client-updates
 ```
 
 `channel.json` supplies the default repository, title, and server address. Override these with `--repo`, `--title`, or `--host` when necessary. The default server address remains `127.0.0.1` for local testing.
@@ -56,7 +56,7 @@ The dedicated **public** GitHub repository tracks launcher/update-tool source an
 With the existing Git Credential Manager login (or a `GH_TOKEN` / `GITHUB_TOKEN` environment variable), upload a draft. GitHub CLI is not required:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File launcher/publish.ps1 -Version 0.2.3
+powershell -ExecutionPolicy Bypass -File launcher/publish.ps1 -Version alpha-0.0.1
 ```
 
 Review the draft and publish it on GitHub, or run the same command with `-Publish` when publication is authorized. The publisher validates the signature and every archive before uploading, verifies GitHub's uploaded asset hashes, and resumes only matching drafts. It refuses to modify published releases. Publishing changes what testers receive on their next launcher check; it does not update an already running client. Authentication stays in memory and is sent only to GitHub API hosts.

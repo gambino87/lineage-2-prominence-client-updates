@@ -40,7 +40,7 @@ class PromotionTests(unittest.TestCase):
     def bundle(self,files=None):
         files=files or {'game/data/new.xml':b'new','libs/GameServer.jar':b'tested jar'}
         import hashlib
-        metadata=dict(version='0.2.45',files={n:hashlib.sha256(d).hexdigest() for n,d in files.items()},
+        metadata=dict(version='alpha-0.0.1',files={n:hashlib.sha256(d).hexdigest() for n,d in files.items()},
                       expected_live=worker.inventory(self.server))
         target=self.root/'server.tar.gz'
         with tarfile.open(target,'w:gz') as archive:
@@ -79,8 +79,8 @@ class PromotionTests(unittest.TestCase):
         self.assertEqual((self.server/'login/config/LoginServer.ini').read_bytes(),b'LIVE LOGIN SETTINGS')
         self.assertTrue((self.server/'game/data/new.xml').exists())
         self.assertFalse((self.server/'game/data/old.xml').exists())
-        self.assertTrue((self.history/'0.2.45/previous-server/game/data/old.xml').exists())
-        self.assertEqual(json.loads((self.history/'0.2.45/state.json').read_text())['status'],'installed-maintenance')
+        self.assertTrue((self.history/'alpha-0.0.1/previous-server/game/data/old.xml').exists())
+        self.assertEqual(json.loads((self.history/'alpha-0.0.1/state.json').read_text())['status'],'installed-maintenance')
 
     def test_failed_backup_never_swaps(self):
         bundle,sha=self.bundle()
@@ -88,31 +88,31 @@ class PromotionTests(unittest.TestCase):
              patch.object(worker,'backup',side_effect=RuntimeError('dump failed')):
             with self.assertRaises(RuntimeError):worker.install(bundle,sha)
         self.assertTrue((self.server/'game/data/old.xml').exists())
-        self.assertFalse((self.history/'0.2.45/previous-server').exists())
+        self.assertFalse((self.history/'alpha-0.0.1/previous-server').exists())
 
     def state(self,status):
-        folder=self.history/'0.2.45';folder.mkdir(parents=True,exist_ok=True)
-        worker.save(folder,dict(version='0.2.45',status=status))
+        folder=self.history/'alpha-0.0.1';folder.mkdir(parents=True,exist_ok=True)
+        worker.save(folder,dict(version='alpha-0.0.1',status=status))
         return folder
 
     def test_health_failure_stays_closed(self):
         folder=self.state('installed-maintenance')
         with patch.object(worker,'gate') as gate,patch.object(worker,'command'),\
              patch.object(worker,'health',side_effect=RuntimeError('failed')):
-            with self.assertRaises(RuntimeError):worker.activate('0.2.45')
+            with self.assertRaises(RuntimeError):worker.activate('alpha-0.0.1')
             gate.assert_called_once_with(True)
         self.assertEqual(json.loads((folder/'state.json').read_text())['status'],'installed-maintenance')
 
     def test_no_database_restore_after_admission(self):
         self.state('live')
         with patch.object(worker,'stop') as stop:
-            with self.assertRaises(ValueError):worker.rollback('0.2.45')
+            with self.assertRaises(ValueError):worker.rollback('alpha-0.0.1')
             stop.assert_not_called()
 
     def test_rollback_retry_only_reopens(self):
         self.state('rolled-back')
         with patch.object(worker,'stop') as stop,patch.object(worker,'command') as command,patch.object(worker,'gate') as gate:
-            worker.rollback('0.2.45')
+            worker.rollback('alpha-0.0.1')
             stop.assert_not_called();command.assert_not_called();gate.assert_called_once_with(False)
 
     def test_offline_rollback_restores_previous_files_and_backup(self):
@@ -121,7 +121,7 @@ class PromotionTests(unittest.TestCase):
         (old/'prior.txt').write_text('previous')
         with gzip.open(folder/'database.sql.gz','wb') as out:out.write(b'LIVE DATABASE BACKUP')
         with patch.object(worker,'stop'),patch.object(worker,'gate'),patch.object(worker,'health'),patch.object(worker,'command') as command:
-            worker.rollback('0.2.45')
+            worker.rollback('alpha-0.0.1')
             command.assert_any_call('mariadb','l2jmobiusinterlude',input=b'LIVE DATABASE BACKUP')
         self.assertTrue((self.server/'prior.txt').exists())
         self.assertEqual(json.loads((folder/'state.json').read_text())['status'],'rolled-back')
