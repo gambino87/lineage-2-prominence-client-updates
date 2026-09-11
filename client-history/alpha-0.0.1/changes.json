@@ -1,0 +1,8 @@
+{
+  "Version": "alpha-0.0.1",
+  "PreviousVersion": "0.2.44",
+  "Published": "2026-09-11T23:26:30Z",
+  "Notes": "Launcher update support: separate client and launcher versions; signed launcher updates preserve settings. Existing live game client payload unchanged.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.1",
+  "FilesChanged": []
+}
