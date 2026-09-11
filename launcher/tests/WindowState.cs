@@ -37,6 +37,10 @@ class WindowState {
     var button=Field<Button>(window,"update");var play=Field<Button>(window,"play");var folder=Field<TextBox>(window,"folder");
     Check(button.Text=="Install" && !button.Enabled,"Empty folder starts with a disabled Install button until checked");
     window.Show();Checked(window);
+#if TEST_BENCH
+    Check(folder.ReadOnly && Field<TextBox>(window,"host").ReadOnly,"Private launcher locks client folder and host");
+    Check(!Field<Button>(window,"browse").Visible,"Private launcher hides the folder picker");
+#endif
     Check(button.Text=="Install" && button.Enabled,"Initial check enables Install for an empty folder");Snapshot(window,Path.Combine(root,"install.png"));
     Run(window,true);Check(button.Text=="Up to date" && !button.Enabled && play.Enabled,"Successful installation disables the primary button and enables Play");Snapshot(window,Path.Combine(root,"current.png"));
     patch.Sha256=Patcher.Hash(second);patch.Size=second.Length;patch.Asset="interface-v2.zip";Zip(Path.Combine(feed,patch.Asset),new Dictionary<string,byte[]>{{patch.Path,second}});patch.AssetSha256=Patcher.FileHash(Path.Combine(feed,patch.Asset));patch.AssetSize=new FileInfo(Path.Combine(feed,patch.Asset)).Length;manifest.Version="fixture-2";Sign(mf,manifest,key);

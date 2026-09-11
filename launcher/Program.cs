@@ -61,6 +61,11 @@ class Window : Form {
   patcher.Progress=(text,value)=>{if(!IsDisposed && IsHandleCreated)BeginInvoke((Action)(()=>{status.Text=text;progress.Value=Math.Max(0,Math.Min(100,value));}));};
   FormClosing+=delegate(object sender,FormClosingEventArgs e){if(busy){e.Cancel=true;MessageBox.Show(this,"Please wait for the current operation to finish. Updates are recovered automatically if interrupted.",Text);}};
   RefreshUpdateButton();
+#if TEST_BENCH
+  folder.ReadOnly=true;host.ReadOnly=true;browse.Visible=false;
+  version.Text="OWNER TEST BENCH • Local server only";
+  notes.Text="Your private test client connects only to the local test server. Click Install to create its separate client folder.\r\n\r\nChanges here are tested privately before promotion to the hosted server.";
+#endif
   if(automaticChecks)Shown+=async delegate {if(!string.IsNullOrWhiteSpace(settings.Feed))await Run(false,false);};
  }
  bool HasInstallation() {
@@ -115,8 +120,19 @@ static class Program {
    string home=AppDomain.CurrentDomain.BaseDirectory,path=Path.Combine(home,"launcher.json");
    if(!File.Exists(path))throw new IOException("launcher.json is missing. Keep it next to the launcher.");
    var settings=Patcher.Json.Deserialize<Settings>(File.ReadAllText(path));
+#if TEST_BENCH
+   settings.Title="Prominence — TEST BENCH";
+   settings.ServerAddress="127.0.0.1";
+   settings.ClientDirectory=Path.Combine(home,"client");
+   Uri benchFeed;
+   if(!settings.AllowLocalFeed || !Uri.TryCreate(settings.Feed,UriKind.Absolute,out benchFeed) || !benchFeed.IsFile)
+    throw new IOException("The test bench requires its private local update feed.");
+#endif
    if(args.Length>0 && args[0]=="--check") {
-    if(args.Length>1)settings.ClientDirectory=args[1];var p=new Patcher(settings);p.LoadRelease();var missing=p.Check();Console.WriteLine("Release "+p.Release.Version+": "+missing.Count+" files need updating.");return missing.Count==0?0:2;
+#if !TEST_BENCH
+    if(args.Length>1)settings.ClientDirectory=args[1];
+#endif
+    var p=new Patcher(settings);p.LoadRelease();var missing=p.Check();Console.WriteLine("Release "+p.Release.Version+": "+missing.Count+" files need updating.");return missing.Count==0?0:2;
    }
    Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
    bool preview=args.Length>0 && args[0]=="--preview";

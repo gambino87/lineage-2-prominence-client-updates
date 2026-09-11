@@ -1,5 +1,7 @@
 # Interlude Launcher
 
+For the owner's private local environment and the approved bench-to-live process, see [Test bench and live promotion](TEST-BENCH.md). New experiments use the private feed; public publication happens only after the owner declares a candidate ready.
+
 Portable Windows launcher using the installed .NET Framework 4.x. No Python, Java, GitHub account, or server project is required on testers' computers. Extract Launcher.zip to a writable folder and open Interlude Launcher.exe. Keep launcher.json beside it.
 
 The configured public update repository is [gambino87/lineage-2-prominence-client-updates](https://github.com/gambino87/lineage-2-prominence-client-updates). Download [Launcher.zip](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/Launcher.zip) for a portable launcher. Its signed manifest feed is `https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/manifest.json`. Client updates are distributed through published release assets; committing files to the repository alone does not publish an update.
