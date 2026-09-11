@@ -29,6 +29,8 @@ client ZIP URL in the user's default browser. Clicking the link does not start
 an in-launcher download or installation. After downloading, select the ZIP with
 **Use downloaded client ZIP…**. The existing Install flow is unchanged.
 
+New public launchers default the client folder to the directory containing the launcher executable (for example, `C:\Games\L2 Prominence`). A saved client-folder selection is preserved. The private test bench retains its separate locked client folder.
+
 1. Choose an empty client folder for installation, or an existing supported Mobius Interlude client.
 2. Wait for the folder check. The primary button says **Install** for a new installation or **Update** when managed files need updating. It says **Up to date** and is disabled when no changes are needed; it is also disabled while checking. Optionally select the original downloaded client ZIP to avoid downloading it again.
 3. The launcher verifies a signed release manifest, installs the base client as necessary, and applies changed-file packages.

@@ -10,7 +10,7 @@ namespace InterludeLauncher {
 public class LauncherPayload { public string Version; public string Channel; public string Sha256; public long Size; public string ExeSha256; }
 class LauncherFeed { public string AssetBaseUrl; public LauncherPayload Launcher; }
 public static class LauncherUpdate {
- public const string Version="1.1.0";
+ public const string Version="1.1.1";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else
