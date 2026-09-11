@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.41",
+  "PreviousVersion": "0.2.40",
+  "Published": "2026-09-11T02:48:09Z",
+  "Notes": "All 20 No Grade T2 equipment recipes now require Dwarven Craft level 1. Recipe scroll descriptions corrected; ingredients, MP costs, and success rates unchanged.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.41",
+  "FilesChanged": [
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c20d1af97b2f6198bd3bc57364fb3806c46c4513d6a7bff266cdbbd582ac3cc5",
+      "AfterSha256": "f254e5349376a2e81949f3abb02458723ef320c85edc5910180f1b249496234f",
+      "Size": 233776,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.41/34214377ffdbc11d594391e61863777b1b09932773f95fd7c7afb9f24835c90d.zip"
+    },
+    {
+      "Path": "system/recipe-c.dat",
+      "Change": "Updated",
+      "BeforeSha256": "5e2b4acc0381087ebb567f2be185455ac3991ba52e3780d6a07a849a9f4a4a6e",
+      "AfterSha256": "f3976fdebd705f0d3d8301b599672e86b259ed9785f3a8b5fdb1c00be472860f",
+      "Size": 1072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.41/b2ed5d4718535273ecbfdf9f6b9710026e35a70ff3a734f8c016a05373c3f348.zip"
+    }
+  ]
+}
