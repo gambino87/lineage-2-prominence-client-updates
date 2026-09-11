@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.37",
+  "PreviousVersion": "0.2.36",
+  "Published": "2026-09-11T01:07:25Z",
+  "Notes": "Expand Broker Sale preview with an Adena unit-price field and nine independent castle-territory selections. Remove the augmentation fee label and show seller fee information. Listing remains disabled pending server integration.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.37",
+  "FilesChanged": [
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "6c1fa3a0fb237c96c91b368ddf08db18ecdb321b5235db9737339c8aca8cdeab",
+      "AfterSha256": "75c5f2b5b2ad705e1bff556cd5e96bdc43bfb74f329da4f08b2a4c26b2cfa6a2",
+      "Size": 756539,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.37/9554e9569b7ce76ba2eea565ae7d34769ddc358e75b678e46ad567d505730df2.zip"
+    },
+    {
+      "Path": "system/sysstring-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "1ac95202a901a5b389952de80412b4c7c8c7f51ff40d16f4fac0702a189e8036",
+      "AfterSha256": "9cd4ab8085f795edfb5708aa64b25dead80e16e8be580d54a6bef10d95d197fb",
+      "Size": 17072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.37/ae1bee110bd913eed254b0600dfaf70f8533163f32c57f0d9624929c71fb8af2.zip"
+    }
+  ]
+}
