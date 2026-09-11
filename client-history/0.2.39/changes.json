@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.39",
+  "PreviousVersion": "0.2.38",
+  "Published": "2026-09-11T01:22:08Z",
+  "Notes": "Replace Broker Sale's shop-grid backdrop with a plain opaque stretch panel. Use matching native-size Calculate, Sell and Cancel buttons on one row. Preserve working net calculation.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.39",
+  "FilesChanged": [
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "e44bc317cdf70e231a5ef0e83ccb338f89eb53f09ea4ed7b0b802fdf1c252770",
+      "AfterSha256": "c8bfac9bd3e82d5b9705437988d722ceec87e813905a35f25999f1f0e95a37e5",
+      "Size": 756979,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.39/ecffc9b2e89c4b4d766d72b184d8ebe3cb85a3e4586e5b6287bc86dcea733099.zip"
+    },
+    {
+      "Path": "system/sysstring-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "f9d63d53d852e68ef9d50dcdf6e334c3d6852a8ffdc1e621a15b704842322692",
+      "AfterSha256": "a0c2c467257d34504ab807ada234077f7643fc1da5bb72fc5b08721447ca87ab",
+      "Size": 17072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.39/21343eaca7db7f6c615034875b2a7a19a65b8c0ebe5df2b4416d22e4b3bc33a3.zip"
+    }
+  ]
+}
