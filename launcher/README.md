@@ -8,6 +8,22 @@ The configured public update repository is [gambino87/lineage-2-prominence-clien
 
 ## Tester flow
 
+The launcher displays separate **Client** and **Launcher** versions after checking
+the feed. **Install/Update** applies game-client files; **Update launcher** checks
+the same channel for a signed launcher package, replaces the executable after
+the old process closes, and restarts. Your `launcher.json` and client folder are
+preserved. A backup executable is retained as `.launcher-backup.exe`.
+
+Launchers older than 1.1.0 need one manual bootstrap: close the launcher, download
+the new Launcher.zip once, and replace **only Interlude Launcher.exe** in the
+existing launcher folder. Keep the existing launcher.json. Subsequent launcher
+updates use the button. The public GitHub feed and private test-bench feed are
+separate; updating a public launcher does not switch it to the test bench.
+
+Launcher package and executable hashes are included in the signed client
+manifest. The updater verifies the signature, channel, archive and executable
+before starting the replacement helper; it never installs an unsigned package.
+
 The **Download base client (browser)** link opens the original Mobius Interlude
 client ZIP URL in the user's default browser. Clicking the link does not start
 an in-launcher download or installation. After downloading, select the ZIP with
@@ -71,7 +87,7 @@ All downloads and extracted content are verified in .launcher before replacing l
 
 Personal INIs are preserved even during Repair; repair does not reset user preferences. Server-side job hotbars are unaffected. Unknown extra files are left alone. Deletion migrations and binary deltas are not implemented in this first version. Custom interface tooltip labels are distributed as part of managed DAT files; only personal INI settings are preserved automatically.
 
-The launcher itself is manually replaced when a new Launcher.zip is distributed. Existing installations automatically receive **client** updates, not launcher executable updates. A server/client minimum-version handshake is not yet implemented. The Windows executable is not Authenticode-signed.
+Launcher 1.1.0 and later support signed executable updates through **Update launcher**. Older launchers need the one-time bootstrap described above. A server/client minimum-version handshake is not yet implemented. The Windows executable is not Authenticode-signed.
 
 ## Local development feed
 

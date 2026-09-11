@@ -43,6 +43,14 @@ def baseline():
     json_write(cache, dict(archive_sha256=provenance['sha256'], files=rows))
     return provenance, rows
 
+def sign_launcher(folder, executable, channel):
+    manifest=json.loads((folder/'manifest.json').read_text(encoding='utf-8'))
+    manifest['Launcher']=dict(Version='1.1.0',Channel=channel,Sha256=sha(folder/'Launcher.zip'),
+                              Size=(folder/'Launcher.zip').stat().st_size,ExeSha256=sha(executable))
+    json_write(folder/'manifest.json',manifest)
+    subprocess.run([str(executable),'--sign',str(STATE/'signing-private.xml'),str(folder/'manifest.json')],check=True)
+
+
 def build(args):
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,60}', args.version):
         raise ValueError('Use a simple version label, e.g. 0.1.0')
@@ -103,6 +111,7 @@ def build(args):
         z.write(EXE, EXE.name)
         z.writestr('launcher.json', json.dumps(config, indent=2))
         z.writestr('START HERE.txt', 'Extract this folder, then open Interlude Launcher.exe. Choose a client folder and wait for the check. Click Install for a new client or Update when changes are available. Up to date is disabled. You can select the supported downloaded ZIP to avoid downloading it again.\r\n')
+    sign_launcher(out,EXE,'live' if args.repo else 'test-bench')
     json_write(STATE/f'release-{args.version}.json', dict(version=args.version, repository=args.repo, client_staging=str(client), modified=assets, files=len(rows), download_bytes=sum(a['download_bytes'] for a in assets), local_only=not bool(args.repo)))
     print(f'Release {args.version}: {len(rows)} client files, {len(assets)} patches, {sum(a["download_bytes"] for a in assets)/1048576:.1f} MiB download', flush=True)
     print(out)

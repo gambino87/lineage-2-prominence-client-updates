@@ -38,6 +38,7 @@ def prepare(version, source, client_dir=None, notes='Private test-bench candidat
         z.write(release.EXE,release.EXE.name)
         z.writestr('launcher.json',json.dumps(config,indent=2))
         z.writestr('START HERE.txt','Private test bench. Start Test Bench.cmd; apply updates yourself. Never distribute this package.\r\n')
+    release.sign_launcher(folder,release.EXE,'test-bench')
     validate(folder)
     config['Feed']=(output/'manifest.json').as_uri()
     # Signed manifest references immutable per-version assets; pointer moves only after validation.

@@ -23,7 +23,7 @@ class Window : Form {
  readonly TextBox folder=new TextBox(),host=new TextBox(),notes=new TextBox();
  readonly Label status=new Label(),server=new Label(),version=new Label();
  readonly ProgressBar progress=new ProgressBar();
- readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),archive=new Button(),check=new Button();
+ readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),archive=new Button(),check=new Button(),launcherUpdate=new Button();
  readonly Timer refreshTimer=new Timer {Interval=600};
  readonly bool automaticChecks;
  int? filesNeeded;
@@ -60,6 +60,13 @@ class Window : Form {
   Disposed+=delegate{refreshTimer.Dispose();};
   patcher.Progress=(text,value)=>{if(!IsDisposed && IsHandleCreated)BeginInvoke((Action)(()=>{status.Text=text;progress.Value=Math.Max(0,Math.Min(100,value));}));};
   FormClosing+=delegate(object sender,FormClosingEventArgs e){if(busy){e.Cancel=true;MessageBox.Show(this,"Please wait for the current operation to finish. Updates are recovered automatically if interrupted.",Text);}};
+  MakeButton(launcherUpdate,"Update launcher",405,478,135);launcherUpdate.Click+=async delegate {
+   if(busy)return;busy=true;launcherUpdate.Enabled=false;
+   try {string staged=await Task.Run(()=>LauncherUpdate.Prepare(settings,AppDomain.CurrentDomain.BaseDirectory));if(staged==null){status.Text="Launcher "+LauncherUpdate.Version+" is up to date";return;}LauncherUpdate.StartReplacement(staged,AppDomain.CurrentDomain.BaseDirectory);busy=false;Close();}
+   catch(Exception e){MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
+   finally{busy=false;launcherUpdate.Enabled=true;}
+  };
+  version.Text="Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
   RefreshUpdateButton();
 #if TEST_BENCH
   folder.ReadOnly=true;host.ReadOnly=true;browse.Visible=false;
@@ -95,16 +102,16 @@ class Window : Form {
  void MakeButton(Button b,string text,int x,int y,int width){b.Text=text;b.SetBounds(x,y,width,36);b.FlatStyle=FlatStyle.Flat;b.FlatAppearance.BorderColor=Color.FromArgb(77,90,109);b.BackColor=Color.FromArgb(44,53,67);b.ForeColor=ForeColor;Controls.Add(b);}
  async Task Run(bool apply,bool launch,bool fullVerification=false) {
   if(busy)return;refreshTimer.Stop();operationText=apply?(HasInstallation()?"Updating…":"Installing…"):"Checking…";
-  busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,archive,check})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
+  busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,archive,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
    int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply)patcher.Apply(fullVerification);if(launch){patcher.Play();return 0;}return patcher.Check().Count;});
-   filesNeeded=needed;notes.Text=patcher.Release.Notes;version.Text="Client release "+patcher.Release.Version;
+   filesNeeded=needed;notes.Text=patcher.Release.Notes;version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
    if(launch)status.Text="Lineage II launched";
    await ServerStatus();
   } catch(Exception e) {status.Text=e.Message;MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
-  finally {busy=false;foreach(var b in new[]{repair,browse,archive,check})b.Enabled=true;folder.Enabled=host.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}
+  finally {busy=false;foreach(var b in new[]{repair,browse,archive,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}
  }
  async Task ServerStatus(){bool ok=await Task.Run(()=>{try{using(var c=new TcpClient()){var r=c.BeginConnect(settings.ServerAddress,2106,null,null);if(!r.AsyncWaitHandle.WaitOne(1500))return false;c.EndConnect(r);return true;}}catch{return false;}});server.Text=ok?"Login server reachable":"Login server unavailable • Check server / Tailscale";}
 }
@@ -112,6 +119,7 @@ static class Program {
  [STAThread] static int Main(string[] args) {
   ServicePointManager.SecurityProtocol=SecurityProtocolType.Tls12;
   try {
+   if(args.Length==4 && args[0]=="--finish-launcher-update"){LauncherUpdate.Finish(args[1],int.Parse(args[2]),args[3]);return 0;}
    if(args.Length>0 && args[0]=="--create-key") {
     if(File.Exists(args[1]))throw new IOException("Signing key already exists.");
     using(var r=new RSACryptoServiceProvider(3072)){r.PersistKeyInCsp=false;File.WriteAllText(args[1],r.ToXmlString(true));File.WriteAllText(args[2],r.ToXmlString(false));}return 0;

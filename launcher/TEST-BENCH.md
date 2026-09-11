@@ -17,6 +17,11 @@ On first use, click **Use downloaded client ZIP…** and select
 `downloads/Lineage II Mobius Interlude.zip` to reuse the existing archive.
 Click **Install**, then **Play**. For later candidates, close Lineage II and
 click **Update** when available. The owner performs these installation steps.
+Use **Update launcher** for the launcher executable itself. Launcher version
+1.1.0 is independent of the numeric bench or alpha live client release. The
+GitHub download is the public launcher; use `Test Bench.cmd` for this private
+environment. Old public launchers need one replacement executable download to
+gain the new button; preserve their existing launcher.json when replacing it.
 Use `Stop Test Bench.cmd` when finished; it gracefully saves and stops the local
 servers. The older `Play Local.cmd` now forwards to this private launcher.
 

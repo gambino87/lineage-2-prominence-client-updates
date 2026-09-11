@@ -52,6 +52,12 @@ def validate(folder, repository=None):
     with zipfile.ZipFile(folder / 'Launcher.zip') as archive:
         if set(archive.namelist()) != {'Interlude Launcher.exe', 'launcher.json', 'START HERE.txt'}:
             raise ValueError('Unexpected launcher package content')
+        if manifest.get('Launcher'):
+            item=manifest['Launcher']
+            if sha(folder/'Launcher.zip')!=item['Sha256'] or (folder/'Launcher.zip').stat().st_size!=item['Size'] or hashlib.sha256(archive.read('Interlude Launcher.exe')).hexdigest()!=item['ExeSha256']:
+                raise ValueError('Signed launcher checksums failed')
+            if repository and item['Channel']!='live':
+                raise ValueError('Private launcher cannot be published')
         config = json.loads(archive.read('launcher.json'))
         if config['PublicKey'].strip() != (STATE / 'signing-public.xml').read_text().strip():
             raise ValueError('Launcher public key differs from the established signing key')
