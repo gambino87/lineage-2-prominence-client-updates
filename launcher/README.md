@@ -6,6 +6,22 @@ Portable Windows launcher using the installed .NET Framework 4.x. No Python, Jav
 
 The configured public update repository is [gambino87/lineage-2-prominence-client-updates](https://github.com/gambino87/lineage-2-prominence-client-updates). Download [Launcher.zip](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/Launcher.zip) for a portable launcher. Its signed manifest feed is `https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/manifest.json`. Client updates are distributed through published release assets; committing files to the repository alone does not publish an update.
 
+## Bundled keybind editor
+
+Launcher 1.1.2 includes the portable Keybind Editor inside its signed executable.
+Opening the launcher places `Keybind Editor.exe` beside it. This keeps the package
+compatible with the existing launcher updater, which accepts the original three
+ZIP entries. No separate download, Java runtime, or developer files are needed.
+
+Click **Keybinds** to edit the currently selected client. You can also open the
+extracted editor directly; it reads the client folder from launcher.json.
+Close the game before editing bindings and restart it afterward. Saves create
+backups under the selected client's `system/backups/` folder. Future game-client
+updates or Repair may replace edited interface files; keep those backups.
+
+The portable codec uses the same 413 encryption format as the existing editor;
+its MIT notice is embedded in the editor and retained in `keybinds/LICENSE-L2crypt.txt`.
+
 ## Tester flow
 
 The launcher displays separate **Client** and **Launcher** versions after checking

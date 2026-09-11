@@ -9,8 +9,23 @@ using System.Text;
 namespace InterludeLauncher {
 public class LauncherPayload { public string Version; public string Channel; public string Sha256; public long Size; public string ExeSha256; }
 class LauncherFeed { public string AssetBaseUrl; public LauncherPayload Launcher; }
+public static class BundledTools {
+ public static string Ensure(string home){
+  string target=Patcher.SafePath(home,"Keybind Editor.exe");
+  using(var input=typeof(BundledTools).Assembly.GetManifestResourceStream("KeybindEditor")){
+   if(input==null)throw new IOException("The bundled keybind editor is missing.");
+   using(var output=new MemoryStream()){
+    input.CopyTo(output);byte[] bytes=output.ToArray();
+    if(File.Exists(target) && Patcher.FileHash(target)==Patcher.Hash(bytes))return target;
+    string next=Patcher.SafePath(home,".keybind-next.exe");File.WriteAllBytes(next,bytes);
+    if(File.Exists(target))File.Replace(next,target,null);else File.Move(next,target);
+   }
+  }
+  return target;
+ }
+}
 public static class LauncherUpdate {
- public const string Version="1.1.1";
+ public const string Version="1.1.2";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else

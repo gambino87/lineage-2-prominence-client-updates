@@ -35,6 +35,8 @@ class Window : Form {
   StartPosition=FormStartPosition.CenterScreen;BackColor=Color.FromArgb(23,27,34);ForeColor=Color.FromArgb(229,234,240);Font=new Font("Segoe UI",10);
   var title=new Label {Text=config.Title,Location=new Point(28,22),Size=new Size(700,35),Font=new Font("Segoe UI Semibold",21)};Controls.Add(title);
   version.Text="Private playtest • Interlude";version.SetBounds(30,66,700,24);Controls.Add(version);
+  var keybinds=new LinkLabel {Text="Keybinds",AutoSize=true,Location=new Point(665,69),LinkColor=Color.FromArgb(133,193,239)};
+  keybinds.LinkClicked+=delegate {if(busy)return;try {string tool=BundledTools.Ensure(AppDomain.CurrentDomain.BaseDirectory);System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tool,"--client-dir \""+Path.GetFullPath(folder.Text.Trim()).TrimEnd('\\')+"\""){UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,e.Message,Text);}};Controls.Add(keybinds);
   AddLabel("CLIENT FOLDER",30,109);folder.SetBounds(30,134,600,28);folder.Text=string.IsNullOrWhiteSpace(config.ClientDirectory)?AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar):config.ClientDirectory;Style(folder);Controls.Add(folder);
   MakeButton(browse,"Browse…",642,132,108);browse.Click+=delegate {using(var d=new FolderBrowserDialog()){d.Description="Select a compatible client, or an empty folder for a new installation.";d.SelectedPath=folder.Text;if(d.ShowDialog()==DialogResult.OK){folder.Text=d.SelectedPath;play.Enabled=false;}}};
   AddLabel("SERVER ADDRESS",30,178);host.SetBounds(30,203,210,28);host.Text=config.ServerAddress;Style(host);Controls.Add(host);
@@ -142,6 +144,7 @@ static class Program {
 #endif
     var p=new Patcher(settings);p.LoadRelease();var missing=p.Check();Console.WriteLine("Release "+p.Release.Version+": "+missing.Count+" files need updating.");return missing.Count==0?0:2;
    }
+   if(args.Length==0)BundledTools.Ensure(home);
    Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
    bool preview=args.Length>0 && args[0]=="--preview";
    using(var w=new Window(settings,path,preview)) {
