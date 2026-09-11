@@ -1,0 +1,25 @@
+{
+  "Version": "0.2.40",
+  "PreviousVersion": "0.2.39",
+  "Published": "2026-09-11T01:29:21Z",
+  "Notes": "Show Broker fee instead of net return. Display current castle tax percentages in parentheses beside each territory, refreshed on opening and calculation.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.40",
+  "FilesChanged": [
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "98a4c41da49d26335a5e49635311e67d4fd7674c567c5d0d7f4e57271369864b",
+      "AfterSha256": "10b2b2b157d4cc9e629c5e05fc135664e5c1a3d9c18291754ece44a21d3f5de8",
+      "Size": 1227101,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.40/e81dc37006255554a74e0b79ce8e9fe5950bfebc71de9189e82370c8e3ac0ba8.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "c8bfac9bd3e82d5b9705437988d722ceec87e813905a35f25999f1f0e95a37e5",
+      "AfterSha256": "364fcdc52a59f64d0d0f3922b7550c07517bd4aea5a00568db55e064a39c2aae",
+      "Size": 758660,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.40/d077be7567d8159d618e8fad5483d57497f6dbd06efe40db857e9c8d499423dc.zip"
+    }
+  ]
+}
