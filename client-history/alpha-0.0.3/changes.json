@@ -1,0 +1,8 @@
+{
+  "Version": "alpha-0.0.3",
+  "PreviousVersion": "alpha-0.0.2",
+  "Published": "2026-09-11T23:54:39Z",
+  "Notes": "Launcher 1.1.2 includes the portable Keybind Editor and a Keybinds link for the selected client folder. Existing Update launcher delivers the bundled tool. Game-client content unchanged.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.3",
+  "FilesChanged": []
+}
