@@ -1,0 +1,8 @@
+{
+  "Version": "alpha-0.0.2",
+  "PreviousVersion": "alpha-0.0.1",
+  "Published": "2026-09-11T23:32:59Z",
+  "Notes": "Launcher 1.1.1 defaults new client-folder selections to the launcher executable directory. Saved folder selections are preserved. Game-client content unchanged.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.2",
+  "FilesChanged": []
+}
