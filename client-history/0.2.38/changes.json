@@ -1,0 +1,33 @@
+{
+  "Version": "0.2.38",
+  "PreviousVersion": "0.2.37",
+  "Published": "2026-09-11T01:17:18Z",
+  "Notes": "Restore Broker Sale background and add Calculate return using current server castle taxes and territory fees. Show only net Adena per item (a range where territories differ); remove tax explanations. Posting remains disabled.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.2.38",
+  "FilesChanged": [
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "0488214ea64ad3411c4afc56792cbd31cb3fdcdf4a586299bcc8e1b390e150d4",
+      "AfterSha256": "98a4c41da49d26335a5e49635311e67d4fd7674c567c5d0d7f4e57271369864b",
+      "Size": 1226235,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.38/f87c5a104e397a6501dfcaaf4960b09a4c63aa3251cd60b8c9c822cb952fd0bc.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "75c5f2b5b2ad705e1bff556cd5e96bdc43bfb74f329da4f08b2a4c26b2cfa6a2",
+      "AfterSha256": "e44bc317cdf70e231a5ef0e83ccb338f89eb53f09ea4ed7b0b802fdf1c252770",
+      "Size": 756814,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.38/5c7f74ac679c778ad6d393fb39bf73b29597a3e2688a579d7b834239258586a7.zip"
+    },
+    {
+      "Path": "system/sysstring-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "9cd4ab8085f795edfb5708aa64b25dead80e16e8be580d54a6bef10d95d197fb",
+      "AfterSha256": "f9d63d53d852e68ef9d50dcdf6e334c3d6852a8ffdc1e621a15b704842322692",
+      "Size": 17072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.2.38/d7da6ecd4dc142bedbae5f0aa80d5616ac1a7d94a91d42e5dbb7394339deb405.zip"
+    }
+  ]
+}
