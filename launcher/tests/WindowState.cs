@@ -21,7 +21,7 @@ class WindowState {
  static void Sign(string path,Manifest manifest,RSACryptoServiceProvider key){Patcher.WriteJson(path,manifest);File.WriteAllText(path+".sig",Convert.ToBase64String(key.SignData(File.ReadAllBytes(path),CryptoConfig.MapNameToOID("SHA256"))));}
  static void Wait(Func<bool> done){var timer=Stopwatch.StartNew();while(!done()){if(timer.ElapsedMilliseconds>30000)throw new Exception("Window operation timed out");Application.DoEvents();Thread.Sleep(5);}Application.DoEvents();}
  static void Checked(Window window){Wait(()=>!Field<bool>(window,"busy") && Field<int?>(window,"filesNeeded").HasValue);}
- static void Run(Window window,bool apply,bool fullVerification=false){var task=(Task)typeof(Window).GetMethod("Run",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(window,new object[]{apply,false,fullVerification});Check(!Field<Button>(window,"update").Enabled,"Primary button must remain disabled while busy");Wait(()=>task.IsCompleted);task.GetAwaiter().GetResult();}
+ static void Run(Window window,bool apply,bool fullVerification=false){SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());var task=(Task)typeof(Window).GetMethod("Run",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(window,new object[]{apply,false,fullVerification});Check(!Field<Button>(window,"update").Enabled,"Primary button must remain disabled while busy");Wait(()=>task.IsCompleted);task.GetAwaiter().GetResult();}
  static void Snapshot(Window window,string path){using(var bitmap=new Bitmap(window.Width,window.Height)){window.DrawToBitmap(bitmap,new Rectangle(0,0,window.Width,window.Height));bitmap.Save(path);}}
  [STAThread] static void Main(string[] args){
   Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
@@ -36,7 +36,8 @@ class WindowState {
     Field<Patcher>(window,"patcher").TestMode=true;window.ShowInTaskbar=false;window.StartPosition=FormStartPosition.Manual;window.Location=new Point(-30000,-30000);
     var button=Field<Button>(window,"update");var play=Field<Button>(window,"play");var folder=Field<TextBox>(window,"folder");
     Check(button.Text=="Install" && !button.Enabled,"Empty folder starts with a disabled Install button until checked");
-    window.Show();Checked(window);
+    window.Show();SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());Checked(window);
+    Check(!Field<Button>(window,"launcherUpdate").Enabled,"Startup check disables current launcher update");
 #if TEST_BENCH
     Check(folder.ReadOnly && Field<TextBox>(window,"host").ReadOnly,"Private launcher locks client folder and host");
     Check(!Field<Button>(window,"browse").Visible,"Private launcher hides the folder picker");
@@ -46,6 +47,22 @@ class WindowState {
     patch.Sha256=Patcher.Hash(second);patch.Size=second.Length;patch.Asset="interface-v2.zip";Zip(Path.Combine(feed,patch.Asset),new Dictionary<string,byte[]>{{patch.Path,second}});patch.AssetSha256=Patcher.FileHash(Path.Combine(feed,patch.Asset));patch.AssetSize=new FileInfo(Path.Combine(feed,patch.Asset)).Length;manifest.Version="fixture-2";Sign(mf,manifest,key);
     Run(window,false);Check(button.Text=="Update" && button.Enabled && !play.Enabled,"New release enables Update and disables Play");Snapshot(window,Path.Combine(root,"update.png"));
     Run(window,true);Check(button.Text=="Up to date" && !button.Enabled && play.Enabled,"Successful update disables primary button again");
+    manifest.Launcher=new LauncherPayload{Version=LauncherUpdate.Version,Channel=LauncherUpdate.Channel,ExeSha256=new string('0',64)};Sign(mf,manifest,key);Run(window,false);
+    Check(play.Enabled && !Field<Button>(window,"launcherUpdate").Enabled,"Same launcher version with a rebuilt checksum is current");
+    File.Delete(Path.Combine(client,"system/interface.u"));Run(window,false);
+    Check(button.Enabled && !play.Enabled && !Field<Button>(window,"launcherUpdate").Enabled,"Client-only update leaves launcher update disabled even with a different checksum");
+    Run(window,true);
+    manifest.Launcher.Version="99.0.0";Sign(mf,manifest,key);
+    Run(window,false);Check(!play.Enabled && !button.Enabled,"Launcher-only update blocks Play with current client");
+    Check(Field<Button>(window,"launcherUpdate").Enabled,"Pending launcher update enables its button");
+    Check(Field<System.Windows.Forms.Timer>(window,"pulseTimer").Enabled,"Launcher-only update pulses");
+    var launcherButton=Field<Button>(window,"launcherUpdate");Color initial=launcherButton.BackColor;Wait(()=>launcherButton.BackColor!=initial);Check(launcherButton.BackColor!=initial,"Pending launcher button animates");
+    Run(window,true);Check(!play.Enabled,"Client update cannot bypass launcher requirement");
+    SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());var attempt=(Task)typeof(Window).GetMethod("Run",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(window,new object[]{false,true,false});Wait(()=>attempt.IsCompleted);attempt.GetAwaiter().GetResult();
+    Check(!Field<Label>(window,"status").Text.Contains("launched") && !play.Enabled,"Play rechecks launcher requirement");
+    manifest.Launcher.Version=LauncherUpdate.Version;manifest.Launcher.ExeSha256=Patcher.FileHash(typeof(Window).Assembly.Location);Sign(mf,manifest,key);Run(window,false);
+    Check(play.Enabled && !Field<System.Windows.Forms.Timer>(window,"pulseTimer").Enabled,"Matching launcher restores Play and stops pulse");
+    Check(!launcherButton.Enabled,"Manual check disables current launcher update");
     string interfacePath=Path.Combine(client,"system/interface.u");DateTime modified=File.GetLastWriteTimeUtc(interfacePath);File.WriteAllBytes(interfacePath,new byte[second.Length]);File.SetLastWriteTimeUtc(interfacePath,modified);Run(window,true,true);Check(Patcher.FileHash(interfacePath)==Patcher.Hash(second),"Repair in the window performs a full scan even when metadata has not changed");
     string exe=Path.Combine(client,"system/L2.exe");File.Delete(exe);Run(window,false);Check(button.Text=="Update" && button.Enabled,"An installation with a missing executable remains an Update, not Install");Run(window,true);
     folder.Text=Path.Combine(root,"other-client");Check(button.Text=="Install" && !button.Enabled && !play.Enabled,"Changing folders invalidates the previous check immediately");Checked(window);Check(button.Text=="Install" && button.Enabled,"Folder changes automatically recheck the new folder");

@@ -46,28 +46,28 @@ class WorkflowTests(unittest.TestCase):
                 validate_release.validate(destination, REPOSITORY)
 
     def test_published_release_is_never_modified(self):
-        with patch.object(publish, 'validate', return_value=({'Version':'0.2.0','Notes':'fixture'}, [])), patch.object(publish, 'GitHub') as client:
+        with patch.object(publish, 'validate', return_value=({'Version':'alpha-0.0.9','Notes':'fixture'}, [])), patch.object(publish, 'GitHub') as client:
             client.return_value.request.side_effect = [
                 {'private':False, 'permissions':{'push':True}},
                 {'draft':False, 'body':'fixture'}]
             with self.assertRaisesRegex(ValueError, 'already exists'):
-                publish.publish(REPOSITORY, '0.2.0', True)
+                publish.publish(REPOSITORY, 'alpha-0.0.9', True)
             self.assertTrue(all(len(call.args) == 1 for call in client.return_value.request.call_args_list))
 
     def test_resumed_draft_requires_matching_asset_digest(self):
-        asset = release.ROOT / 'outputs/releases/0.2.0/Launcher.zip'
+        asset = release.ROOT / 'outputs/releases/alpha-0.0.9/Launcher.zip'
         self.assertFalse(publish.uploaded_matches({'state':'uploaded','size':asset.stat().st_size,'digest':'sha256:'+'0'*64}, asset))
 
     def test_draft_without_public_tag_is_resumed(self):
-        draft = {'id':123,'tag_name':'0.2.0','draft':True,'body':'fixture',
+        draft = {'id':123,'tag_name':'alpha-0.0.9','draft':True,'body':'fixture',
                  'upload_url':'https://uploads.github.com/example/assets{?name}',
                  'html_url':'https://github.com/example/release'}
-        with tempfile.TemporaryDirectory(prefix='l2-publish-test-') as folder, patch.object(publish, 'STATE', Path(folder)), patch.object(publish, 'validate', return_value=({'Version':'0.2.0','Notes':'fixture'}, [])), patch.object(publish, 'sync_history') as history, patch.object(publish, 'GitHub') as client:
+        with tempfile.TemporaryDirectory(prefix='l2-publish-test-') as folder, patch.object(publish, 'STATE', Path(folder)), patch.object(publish, 'validate', return_value=({'Version':'alpha-0.0.9','Notes':'fixture'}, [])), patch.object(publish, 'sync_history') as history, patch.object(publish, 'GitHub') as client:
             client.return_value.request.side_effect = [
                 {'private':False, 'permissions':{'push':True}},
                 urllib.error.HTTPError('https://api.github.com/example',404,'Not Found',{},None),
                 [draft], [], dict(draft, draft=False)]
-            publish.publish(REPOSITORY, '0.2.0', True)
+            publish.publish(REPOSITORY, 'alpha-0.0.9', True)
             methods = [call.args[1] for call in client.return_value.request.call_args_list if len(call.args)>1]
             self.assertEqual(methods, ['PATCH'])
             history.assert_called_once_with(REPOSITORY, push=True, published_release=dict(draft, draft=False))

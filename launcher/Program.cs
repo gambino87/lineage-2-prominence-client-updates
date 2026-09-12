@@ -11,8 +11,8 @@ namespace InterludeLauncher {
 class PrimaryActionButton : Button {
  protected override void OnPaint(PaintEventArgs e) {
   if(Enabled){base.OnPaint(e);return;}
-  e.Graphics.Clear(BackColor);
-  using(var border=new Pen(FlatAppearance.BorderColor))e.Graphics.DrawRectangle(border,0,0,Width-1,Height-1);
+  e.Graphics.Clear(Color.FromArgb(55,55,55));
+  using(var border=new Pen(Color.FromArgb(75,75,75)))e.Graphics.DrawRectangle(border,0,0,Width-1,Height-1);
   TextRenderer.DrawText(e.Graphics,Text,Font,ClientRectangle,Color.FromArgb(125,135,149),TextFormatFlags.HorizontalCenter|TextFormatFlags.VerticalCenter|TextFormatFlags.SingleLine);
  }
 }
@@ -35,6 +35,10 @@ class ReleaseNotesBox : RichTextBox {
  }
 }
 class Window : Form {
+ internal const string ShareDownloadUrl="https://github.com/gambino87/lineage-2-prominence-client-updates/releases/latest/download/Launcher.zip";
+ readonly Button share=new PrimaryActionButton();
+ readonly Timer shareTimer=new Timer {Interval=100};
+ readonly System.Diagnostics.Stopwatch shareClock=new System.Diagnostics.Stopwatch();
  readonly Settings settings;
  readonly string settingsPath;
  readonly Patcher patcher;
@@ -44,10 +48,13 @@ class Window : Form {
  string notesReleaseVersion;
  readonly Label status=new Label(),server=new Label(),version=new Label();
  readonly ProgressBar progress=new ProgressBar();
- readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),check=new Button(),launcherUpdate=new Button();
+ readonly Button update=new PrimaryActionButton(),repair=new PrimaryActionButton(),play=new PrimaryActionButton(),browse=new PrimaryActionButton(),check=new PrimaryActionButton(),launcherUpdate=new PrimaryActionButton();
  readonly Timer refreshTimer=new Timer {Interval=600};
+ readonly Timer pulseTimer=new Timer {Interval=40};
+ readonly System.Diagnostics.Stopwatch pulseClock=System.Diagnostics.Stopwatch.StartNew();
  readonly bool automaticChecks;
  int? filesNeeded;
+ bool? launcherNeeded;
  string operationText="Checking…";
  bool busy;
  public Window(Settings config,string path,bool preview=false) {
@@ -56,16 +63,20 @@ class Window : Form {
   StartPosition=FormStartPosition.CenterScreen;BackColor=Color.FromArgb(23,27,34);ForeColor=Color.FromArgb(229,234,240);Font=new Font("Segoe UI",10);
   var title=new Label {Text=config.Title,Location=new Point(28,22),Size=new Size(700,35),Font=new Font("Segoe UI Semibold",21)};Controls.Add(title);
   version.Text="Private playtest • Interlude";version.SetBounds(30,66,560,24);Controls.Add(version);
-  var keybinds=new Button();MakeButton(keybinds,"Keybinds",610,62,140);
+  var keybinds=new PrimaryActionButton();MakeButton(keybinds,"Keybinds",610,62,140);
   keybinds.Click+=delegate {if(busy)return;try {string tool=BundledTools.Ensure(AppDomain.CurrentDomain.BaseDirectory);System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tool,"--client-dir \""+Path.GetFullPath(folder.Text.Trim()).TrimEnd('\\')+"\""){UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,e.Message,Text);}};
   AddLabel("CLIENT FOLDER",30,109);folder.SetBounds(30,134,600,28);folder.Text=string.IsNullOrWhiteSpace(config.ClientDirectory)?AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar):config.ClientDirectory;Style(folder);Controls.Add(folder);
   MakeButton(browse,"Browse…",642,132,108);browse.Click+=delegate {using(var d=new FolderBrowserDialog()){d.Description="Select a compatible client, or an empty folder for a new installation.";d.SelectedPath=folder.Text;if(d.ShowDialog()==DialogResult.OK){folder.Text=d.SelectedPath;play.Enabled=false;}}};
   AddLabel("SERVER ADDRESS",30,178);host.SetBounds(30,203,210,28);host.Text=config.ServerAddress;Style(host);Controls.Add(host);
   server.SetBounds(255,205,490,24);server.Text="Server status unchecked";Controls.Add(server);
   MakeButton(check,"Check updates",30,244,200);check.Click+=async delegate {await Run(false,false);};
-  var clientLink=new LinkLabel {Text="Download base client (browser)",LinkColor=Color.FromArgb(133,193,239),ActiveLinkColor=Color.White,VisitedLinkColor=Color.FromArgb(133,193,239),AutoSize=true,Location=new Point(254,253),AccessibleName="Download base client in your browser"};
-  clientLink.LinkClicked+=delegate {try {System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://interlude.l2mobius.net/downloads/Lineage%20II%20Mobius%20Interlude.zip") {UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,"Could not open your browser: "+e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}};
-  Controls.Add(clientLink);
+  MakeButton(share,"Share with a friend!",244,244,220);
+  share.AccessibleDescription="Copy the public launcher download link to the clipboard.";
+  share.Click+=delegate {
+   try {Clipboard.SetText(ShareDownloadUrl);share.Text="Copied Link";shareClock.Restart();shareTimer.Start();PaintShareFeedback();}
+   catch(System.Runtime.InteropServices.ExternalException){status.Text="Could not copy the link. Please try again.";}
+  };
+  shareTimer.Tick+=delegate{PaintShareFeedback();};
   Controls.Add(new Label{Text="PATCH NOTES",Location=new Point(30,291),Size=new Size(120,20),ForeColor=Color.FromArgb(151,167,185),Font=new Font("Segoe UI",9,FontStyle.Bold)});notesVersions.SetBounds(165,287,585,28);notesVersions.DropDownStyle=ComboBoxStyle.DropDownList;notesVersions.DrawMode=DrawMode.OwnerDrawFixed;notesVersions.ItemHeight=22;notesVersions.FlatStyle=FlatStyle.Flat;
   notesVersions.DrawItem+=delegate(object sender,DrawItemEventArgs e){if(e.Index<0)return;using(var fill=new SolidBrush((e.State&DrawItemState.Selected)!=0?Color.FromArgb(55,75,98):Color.FromArgb(35,41,51)))e.Graphics.FillRectangle(fill,e.Bounds);TextRenderer.DrawText(e.Graphics,notesVersions.Items[e.Index].ToString(),Font,e.Bounds,ForeColor,TextFormatFlags.Left|TextFormatFlags.VerticalCenter);e.DrawFocusRectangle();};notesVersions.BackColor=Color.FromArgb(35,41,51);notesVersions.ForeColor=ForeColor;notesVersions.AccessibleName="Patch notes version";notesVersions.Enabled=false;Controls.Add(notesVersions);
   notesVersions.SelectedIndexChanged+=delegate {var selected=notesVersions.SelectedItem as ReleaseNote;if(selected!=null)notes.ShowNotes((string.IsNullOrEmpty(selected.SourceBenchVersion)?"":"Promoted from test bench "+selected.SourceBenchVersion+"\n\n")+selected.Notes);};
@@ -74,7 +85,9 @@ class Window : Form {
   progress.SetBounds(30,586,720,9);Controls.Add(progress);
   MakeButton(update,"Install",30,618,200);update.Click+=async delegate {await Run(true,false);};
   MakeButton(repair,"Repair",244,618,150);repair.Click+=async delegate {await Run(true,false,true);};
-  MakeButton(play,"Play",550,616,200);play.BackColor=Color.FromArgb(56,130,108);play.Enabled=false;play.Click+=async delegate {await Run(false,true);};
+  MakeButton(play,"Play",550,616,200);
+  play.EnabledChanged+=delegate{play.BackColor=play.Enabled?Color.FromArgb(56,130,108):Color.FromArgb(55,55,55);play.FlatAppearance.BorderColor=play.Enabled?Color.FromArgb(77,90,109):Color.FromArgb(75,75,75);};
+  play.Enabled=false;play.Click+=async delegate {await Run(false,true);};
   folder.TextChanged+=delegate{InvalidateCheck();};host.TextChanged+=delegate{InvalidateCheck();};
   refreshTimer.Tick+=async delegate {
    if(busy)return;refreshTimer.Stop();if(string.IsNullOrWhiteSpace(folder.Text))return;
@@ -82,14 +95,15 @@ class Window : Form {
    catch(Exception e){status.Text=e.Message;return;}
    await Run(false,false);
   };
-  Disposed+=delegate{refreshTimer.Dispose();};
+  pulseTimer.Tick+=delegate{PaintUpdatePulse();};
+  Disposed+=delegate{refreshTimer.Dispose();pulseTimer.Dispose();shareTimer.Dispose();};
   patcher.Progress=(text,value)=>{if(!IsDisposed && IsHandleCreated)BeginInvoke((Action)(()=>{status.Text=text;progress.Value=Math.Max(0,Math.Min(100,value));}));};
   FormClosing+=delegate(object sender,FormClosingEventArgs e){if(busy){e.Cancel=true;MessageBox.Show(this,"Please wait for the current operation to finish. Updates are recovered automatically if interrupted.",Text);}};
   MakeButton(launcherUpdate,"Update launcher",405,618,135);launcherUpdate.Click+=async delegate {
-   if(busy)return;busy=true;launcherUpdate.Enabled=false;
-   try {string staged=await Task.Run(()=>LauncherUpdate.Prepare(settings,AppDomain.CurrentDomain.BaseDirectory));if(staged==null){status.Text="Launcher "+LauncherUpdate.Version+" is up to date";return;}LauncherUpdate.StartReplacement(staged,AppDomain.CurrentDomain.BaseDirectory);busy=false;Close();}
+   if(busy)return;busy=true;operationText="Updating launcher…";foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
+   try {string staged=await Task.Run(()=>LauncherUpdate.Prepare(settings,AppDomain.CurrentDomain.BaseDirectory));if(staged==null){launcherNeeded=false;status.Text="Launcher "+LauncherUpdate.Version+" is up to date";return;}LauncherUpdate.StartReplacement(staged,AppDomain.CurrentDomain.BaseDirectory);busy=false;Close();}
    catch(Exception e){MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
-   finally{busy=false;launcherUpdate.Enabled=true;}
+   finally{busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;RefreshUpdateButton();}
   };
   version.Text="Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
   RefreshUpdateButton();
@@ -127,9 +141,26 @@ class Window : Form {
   else update.Text="Up to date";
   update.BackColor=update.Enabled?Color.FromArgb(44,53,67):Color.FromArgb(31,36,44);
   update.FlatAppearance.BorderColor=update.Enabled?Color.FromArgb(77,90,109):Color.FromArgb(49,56,65);
+  launcherUpdate.Enabled=!busy && launcherNeeded!=false;
+  play.Enabled=!busy && filesNeeded==0 && launcherNeeded==false;
+  pulseTimer.Enabled=!busy && (filesNeeded>0 || launcherNeeded==true);
+  PaintUpdatePulse();
+ }
+ void PaintShareFeedback() {
+  if(shareClock.ElapsedMilliseconds>=3000){shareTimer.Stop();shareClock.Stop();share.Text="Share with a friend!";share.BackColor=Color.FromArgb(44,53,67);return;}
+  share.BackColor=(shareClock.ElapsedMilliseconds/300)%2==0?Color.FromArgb(56,130,108):Color.FromArgb(44,53,67);
+ }
+ void PaintUpdatePulse() {
+  double glow=pulseTimer.Enabled?(1-Math.Cos(pulseClock.Elapsed.TotalSeconds*Math.PI/1.2))/2:0;
+  foreach(var button in new[]{update,launcherUpdate}){
+   bool pending=!busy && button.Enabled && (button==update?filesNeeded>0:launcherNeeded==true);
+   double amount=pending?glow:0;
+   button.BackColor=button==update && !button.Enabled?Color.FromArgb(31,36,44):Color.FromArgb(44+(int)(12*amount),53+(int)(17*amount),67+(int)(21*amount));
+   button.FlatAppearance.BorderColor=button==update && !button.Enabled?Color.FromArgb(49,56,65):Color.FromArgb(77+(int)(20*amount),90+(int)(26*amount),109+(int)(30*amount));
+  }
  }
  void InvalidateCheck() {
-  filesNeeded=null;play.Enabled=false;RefreshUpdateButton();
+  filesNeeded=null;launcherNeeded=null;play.Enabled=false;RefreshUpdateButton();
   status.Text="Ready to check updates";
   refreshTimer.Stop();if(automaticChecks)refreshTimer.Start();
  }
@@ -138,13 +169,16 @@ class Window : Form {
  void MakeButton(Button b,string text,int x,int y,int width){b.Text=text;b.SetBounds(x,y,width,36);b.FlatStyle=FlatStyle.Flat;b.FlatAppearance.BorderColor=Color.FromArgb(77,90,109);b.BackColor=Color.FromArgb(44,53,67);b.ForeColor=ForeColor;Controls.Add(b);}
  async Task Run(bool apply,bool launch,bool fullVerification=false) {
   if(busy)return;refreshTimer.Stop();operationText=apply?(HasInstallation()?"Updating…":"Installing…"):"Checking…";
-  busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
+  busy=true;filesNeeded=null;launcherNeeded=null;foreach(var b in new[]{update,repair,play,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
-   int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}if(launch){patcher.Play();return 0;}return patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);});
+   bool pendingLauncher=false;
+   int needed=await Task.Run(()=>{patcher.LoadRelease();pendingLauncher=LauncherUpdate.IsRequired(patcher.Release.Launcher);if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}int remaining=patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);if(launch && !pendingLauncher && remaining==0)patcher.Play();return remaining;});
+   launcherNeeded=pendingLauncher;
    filesNeeded=needed;SetReleaseNotes(patcher.Release);version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
-   if(launch)status.Text="Lineage II launched";
+   if(pendingLauncher)status.Text=needed>0?"Launcher and client updates required before playing":"Launcher update required before playing";
+   if(launch && !pendingLauncher && needed==0)status.Text="Lineage II launched";
    await ServerStatus();
   } catch(Exception e) {status.Text=e.Message;MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
   finally {busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}

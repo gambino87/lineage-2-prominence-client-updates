@@ -7,6 +7,21 @@ the live server. Only the explicitly approved installation starts downtime.
 
 ## Your private launcher
 
+Launcher 1.1.14 determines launcher-update availability from the signed launcher
+version, independently of the client version. Rebuilding the same launcher version
+can change its binary hash and does not require an update. Downloaded launcher
+packages and executables still require their signed checksums to match. Increment
+the launcher version in LauncherUpdate.cs and release.py for actual launcher changes.
+Same-version or older feeds do not light the launcher-update button or block Play;
+pending client updates still block Play and pulse the client Update button.
+
+Launcher 1.1.9 (bench 0.2.57) keeps Play disabled until both the signed feed's
+launcher executable and client files are current. Play checks the feed again
+before launching. Pending Install/Update and Update launcher buttons gently
+pulse on a 2.4-second cycle; busy and current buttons do not pulse. Apply the
+launcher update first, then the client update if offered. This change is prepared
+on the private feed and awaits owner testing before live promotion.
+
 Launcher 1.1.8 adds a **Patch notes** dropdown. The current feed release is
 selected on startup; browsing previous notes never changes the install target.
 Refreshing the same release preserves the selected notes. A new feed release

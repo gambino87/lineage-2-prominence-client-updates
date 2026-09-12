@@ -25,7 +25,9 @@ public class ClientFile {
  public string Asset; public string AssetSha256; public long AssetSize;
  public bool Preserve;
 }
+public class LauncherPayload { public string Version; public string Channel; public string Sha256; public long Size; public string ExeSha256; }
 public class Manifest {
+ public LauncherPayload Launcher;
  public List<ReleaseNote> NotesHistory; public string SourceBenchVersion;
  public int Schema; public string Version; public string Notes; public string Published; public string AssetBaseUrl;
  public BaseArchive Base; public List<ClientFile> Files;
@@ -102,7 +104,11 @@ public class Patcher {
  }
  byte[] GetSmall(Uri u, int max) {
   if(u.IsFile) { if(new FileInfo(u.LocalPath).Length>max)throw new IOException("Update metadata is too large.");return File.ReadAllBytes(u.LocalPath); }
-  var req=(HttpWebRequest)WebRequest.Create(u); req.UserAgent="InterludeLauncher/1"; req.Timeout=30000;
+  // Metadata changes under /latest; bypass intermediary caches on every check.
+  var fresh=new UriBuilder(u);fresh.Query=(string.IsNullOrEmpty(fresh.Query)?"":fresh.Query.TrimStart('?')+"&")+"launcher_check="+Guid.NewGuid().ToString("N");
+  var req=(HttpWebRequest)WebRequest.Create(fresh.Uri); req.UserAgent="InterludeLauncher/1"; req.Timeout=30000;
+  req.CachePolicy=new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+  req.Headers[HttpRequestHeader.CacheControl]="no-cache, no-store";
   using(var res=(HttpWebResponse)req.GetResponse()) {
    if(res.ResponseUri.Scheme!="https")throw new IOException("Insecure update redirect.");
    using(var input=res.GetResponseStream()) using(var output=new MemoryStream()) {var b=new byte[65536];int n;while((n=input.Read(b,0,b.Length))>0){if(output.Length+n>max)throw new IOException("Update metadata is too large.");output.Write(b,0,n);}return output.ToArray();}

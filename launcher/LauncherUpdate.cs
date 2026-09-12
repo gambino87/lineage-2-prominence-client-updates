@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace InterludeLauncher {
-public class LauncherPayload { public string Version; public string Channel; public string Sha256; public long Size; public string ExeSha256; }
 class LauncherFeed { public string AssetBaseUrl; public LauncherPayload Launcher; }
 public static class BundledTools {
  static System.Reflection.Assembly embedded;
@@ -40,12 +39,22 @@ public static class BundledTools {
  }
 }
 public static class LauncherUpdate {
- public const string Version="1.1.8";
+ public const string Version="1.1.14";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else
  public const string Channel="live";
 #endif
+ public static bool IsRequired(LauncherPayload item) {
+  if(item==null)return false; // Legacy signed feeds have no launcher payload.
+  if(item.Channel!=Channel)throw new IOException("Launcher update belongs to a different environment.");
+  if(string.IsNullOrEmpty(item.ExeSha256) || item.ExeSha256.Length!=64)throw new IOException("Invalid launcher checksum.");
+  System.Version offered;
+  if(!System.Version.TryParse(item.Version,out offered))throw new IOException("Invalid launcher version.");
+  // Rebuilding identical source changes PE metadata and the embedded tool's hash.
+  // Release versions determine availability; hashes verify downloaded artifacts.
+  return offered.CompareTo(new System.Version(Version))>0;
+ }
  static byte[] Fetch(Settings settings,Uri uri,int limit) {
   if(uri.Scheme!="https" && !(settings.AllowLocalFeed && uri.IsFile))throw new IOException("Launcher updates require HTTPS or the private local feed.");
   using(var output=new MemoryStream()) {
@@ -62,8 +71,7 @@ public static class LauncherUpdate {
   var manifest=Patcher.Json.Deserialize<LauncherFeed>(Encoding.UTF8.GetString(bytes));
   var item=manifest.Launcher;
   if(item==null)throw new IOException("This feed predates launcher updates. Use the new launcher package once; later updates use this button.");
-  if(item.Channel!=Channel)throw new IOException("Launcher update belongs to a different environment.");
-  if(Patcher.FileHash(Path.Combine(home,"Interlude Launcher.exe"))==item.ExeSha256)return null;
+  if(!IsRequired(item) || Patcher.FileHash(Path.Combine(home,"Interlude Launcher.exe"))==item.ExeSha256)return null;
   var archive=Fetch(settings,new Uri(new Uri(manifest.AssetBaseUrl),"Launcher.zip"),32*1024*1024);
   if(archive.LongLength!=item.Size || Patcher.Hash(archive)!=item.Sha256)throw new IOException("Launcher package checksum failed.");
   byte[] executable;
