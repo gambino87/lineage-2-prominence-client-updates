@@ -45,7 +45,7 @@ def baseline():
 
 def sign_launcher(folder, executable, channel):
     manifest=json.loads((folder/'manifest.json').read_text(encoding='utf-8'))
-    manifest['Launcher']=dict(Version='1.1.7',Channel=channel,Sha256=sha(folder/'Launcher.zip'),
+    manifest['Launcher']=dict(Version='1.1.8',Channel=channel,Sha256=sha(folder/'Launcher.zip'),
                               Size=(folder/'Launcher.zip').stat().st_size,ExeSha256=sha(executable))
     json_write(folder/'manifest.json',manifest)
     subprocess.run([str(executable),'--sign',str(STATE/'signing-private.xml'),str(folder/'manifest.json')],check=True)
@@ -96,9 +96,13 @@ def build(args):
             assets.append(dict(path=rel, bytes=size, download_bytes=row['AssetSize']))
         rows.append(row)
     from datetime import datetime, timezone
+    from notes_history import collect
+    from workspace import SOURCE_ROOT
     manifest = dict(Schema=1, Version=args.version, Published=datetime.now(timezone.utc).isoformat(),
                     AssetBaseUrl=f'https://github.com/{args.repo}/releases/download/{args.version}/' if args.repo else out.as_uri()+'/',
                     Notes=args.notes, Base=dict(Url=provenance['url'], Sha256=provenance['sha256'], Size=provenance['size']), Files=rows)
+    manifest['NotesHistory'] = collect(ROOT, SOURCE_ROOT, 'live' if args.repo else 'test-bench', args.version)
+    manifest['SourceBenchVersion'] = getattr(args, 'source_bench_version', None)
     json_write(out/'manifest.json', manifest)
     subprocess.run([str(EXE), '--sign', str(private), str(out/'manifest.json')], check=True)
     assert len(assets)+3 < 1000, 'Too many GitHub release assets'

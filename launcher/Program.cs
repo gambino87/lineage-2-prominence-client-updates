@@ -40,6 +40,8 @@ class Window : Form {
  readonly Patcher patcher;
  readonly TextBox folder=new TextBox(),host=new TextBox();
  readonly ReleaseNotesBox notes=new ReleaseNotesBox();
+ readonly ComboBox notesVersions=new ComboBox();
+ string notesReleaseVersion;
  readonly Label status=new Label(),server=new Label(),version=new Label();
  readonly ProgressBar progress=new ProgressBar();
  readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),check=new Button(),launcherUpdate=new Button();
@@ -64,7 +66,10 @@ class Window : Form {
   var clientLink=new LinkLabel {Text="Download base client (browser)",LinkColor=Color.FromArgb(133,193,239),ActiveLinkColor=Color.White,VisitedLinkColor=Color.FromArgb(133,193,239),AutoSize=true,Location=new Point(254,253),AccessibleName="Download base client in your browser"};
   clientLink.LinkClicked+=delegate {try {System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://interlude.l2mobius.net/downloads/Lineage%20II%20Mobius%20Interlude.zip") {UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,"Could not open your browser: "+e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}};
   Controls.Add(clientLink);
-  notes.SetBounds(30,291,720,248);notes.BackColor=Color.FromArgb(35,41,51);notes.ForeColor=ForeColor;notes.ShowNotes("Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.");Controls.Add(notes);
+  Controls.Add(new Label{Text="PATCH NOTES",Location=new Point(30,291),Size=new Size(120,20),ForeColor=Color.FromArgb(151,167,185),Font=new Font("Segoe UI",9,FontStyle.Bold)});notesVersions.SetBounds(165,287,585,28);notesVersions.DropDownStyle=ComboBoxStyle.DropDownList;notesVersions.DrawMode=DrawMode.OwnerDrawFixed;notesVersions.ItemHeight=22;notesVersions.FlatStyle=FlatStyle.Flat;
+  notesVersions.DrawItem+=delegate(object sender,DrawItemEventArgs e){if(e.Index<0)return;using(var fill=new SolidBrush((e.State&DrawItemState.Selected)!=0?Color.FromArgb(55,75,98):Color.FromArgb(35,41,51)))e.Graphics.FillRectangle(fill,e.Bounds);TextRenderer.DrawText(e.Graphics,notesVersions.Items[e.Index].ToString(),Font,e.Bounds,ForeColor,TextFormatFlags.Left|TextFormatFlags.VerticalCenter);e.DrawFocusRectangle();};notesVersions.BackColor=Color.FromArgb(35,41,51);notesVersions.ForeColor=ForeColor;notesVersions.AccessibleName="Patch notes version";notesVersions.Enabled=false;Controls.Add(notesVersions);
+  notesVersions.SelectedIndexChanged+=delegate {var selected=notesVersions.SelectedItem as ReleaseNote;if(selected!=null)notes.ShowNotes((string.IsNullOrEmpty(selected.SourceBenchVersion)?"":"Promoted from test bench "+selected.SourceBenchVersion+"\n\n")+selected.Notes);};
+  notes.SetBounds(30,323,720,216);notes.BackColor=Color.FromArgb(35,41,51);notes.ForeColor=ForeColor;notes.ShowNotes("Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.");Controls.Add(notes);
   status.SetBounds(30,553,720,25);status.Text="Ready to check updates";Controls.Add(status);
   progress.SetBounds(30,586,720,9);Controls.Add(progress);
   MakeButton(update,"Install",30,618,200);update.Click+=async delegate {await Run(true,false);};
@@ -96,6 +101,16 @@ class Window : Form {
   if(automaticChecks)Shown+=async delegate {if(!string.IsNullOrWhiteSpace(settings.Feed))await Run(false,false);};
  }
  internal void SetPreviewNotes(string text){notes.ShowNotes(text);}
+ internal void SetReleaseNotes(Manifest release){
+  if(notesReleaseVersion==release.Version)return;
+  notesReleaseVersion=release.Version;notesVersions.Items.Clear();
+  notesVersions.Items.Add(new ReleaseNote{Version=release.Version,Channel=LauncherUpdate.Channel,Notes=release.Notes,Published=release.Published,SourceBenchVersion=release.SourceBenchVersion});
+  var seen=new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase){release.Version};
+  if(release.NotesHistory!=null)foreach(var entry in release.NotesHistory){
+   if(entry!=null && entry.Channel==LauncherUpdate.Channel && !string.IsNullOrWhiteSpace(entry.Version) && seen.Add(entry.Version))notesVersions.Items.Add(entry);
+  }
+  notesVersions.Enabled=true;notesVersions.SelectedIndex=0;
+ }
  bool HasInstallation() {
   try {
    string directory=folder.Text.Trim();
@@ -127,7 +142,7 @@ class Window : Form {
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
    int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}if(launch){patcher.Play();return 0;}return patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);});
-   filesNeeded=needed;notes.ShowNotes(patcher.Release.Notes);version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
+   filesNeeded=needed;SetReleaseNotes(patcher.Release);version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
    if(launch)status.Text="Lineage II launched";
    await ServerStatus();

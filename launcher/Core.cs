@@ -26,8 +26,13 @@ public class ClientFile {
  public bool Preserve;
 }
 public class Manifest {
+ public List<ReleaseNote> NotesHistory; public string SourceBenchVersion;
  public int Schema; public string Version; public string Notes; public string Published; public string AssetBaseUrl;
  public BaseArchive Base; public List<ClientFile> Files;
+}
+public class ReleaseNote {
+ public string Version; public string Channel; public string Published; public string Notes; public string SourceBenchVersion;
+ public override string ToString(){return (Channel=="test-bench"?"Test bench ":"Live ")+Version;}
 }
 public class Change { public string Path; public bool Existed; }
 public class Journal { public string Phase; public List<Change> Changes = new List<Change>(); }

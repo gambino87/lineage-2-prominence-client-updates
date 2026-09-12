@@ -7,6 +7,21 @@ the live server. Only the explicitly approved installation starts downtime.
 
 ## Your private launcher
 
+Launcher 1.1.8 adds a **Patch notes** dropdown. The current feed release is
+selected on startup; browsing previous notes never changes the install target.
+Refreshing the same release preserves the selected notes. A new feed release
+selects its newest notes automatically.
+
+Each signed manifest embeds `NotesHistory`. Private history comes from signed
+local numeric releases with file feeds; live history comes only from the public
+`client-history` records. Public builds never include private notes. Older
+manifests without a history still display their current notes.
+
+Promotions record `SourceBenchVersion` in the signed public manifest. This links
+independent version sequences (for example, live alpha-0.0.9 from test bench
+0.2.52) without treating their version numbers as interchangeable. Older releases
+without this field remain unlinked; no relationship is guessed.
+
 From the development workspace, double-click `Test Bench.cmd`. It starts the
 local database/login/game servers and opens **Prominence — TEST BENCH**.
 The launcher is compiled to use `127.0.0.1` and its own `client` subfolder;

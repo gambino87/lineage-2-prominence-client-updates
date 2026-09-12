@@ -79,7 +79,7 @@ def prepare(args):
                     str(Path(__file__).with_name('build.ps1')), '-OutputDirectory', str(folder)], check=True)
     release.EXE=folder/'Interlude Launcher.exe'
     release.build(SimpleNamespace(version=args.version,repo=REPO,client_dir=str(staged),host='40.160.140.227',
-                                 title='Lineage 2 Prominence',notes=args.notes))
+                                 title='Lineage 2 Prominence',notes=args.notes,source_bench_version=bench['Version']))
     public,_=validate(ROOT/'outputs/releases'/args.version,REPO)
     signature=lambda manifest:sorted((r['Path'],r['Sha256'],r['Size'],r.get('Preserve',False)) for r in manifest['Files'])
     if signature(bench)!=signature(public):
