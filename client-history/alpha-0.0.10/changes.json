@@ -1,0 +1,73 @@
+{
+  "Version": "alpha-0.0.10",
+  "PreviousVersion": "alpha-0.0.9",
+  "Published": "2026-09-12T16:43:48Z",
+  "Notes": "Lineage 2 Prominence - alpha-0.0.10\n\nSoul Cry\n- Soul Cry now adds Fire magic damage to successful auto-attacks instead of increasing P. Atk.\n- Each successful hit attempts a power-1 Fire proc based on your M. Atk. The target can resist; accuracy uses Enhancement.\n- Works with physical and magical weapons. Costs 2 MP per auto-attack cycle, including misses and resists, with no MP drain while idle. Dual strikes and additional polearm targets do not multiply the MP cost.\n- When you cannot pay the cost, Soul Cry turns off and your normal attack continues. An attack that spends your last 2 MP can still trigger its paid proc.\n- Successful procs play Fire Bolt's target impact and hit sound.\n\nPoison and spell descriptions\n- Poison Effect 1 now deals 5 damage every second for 30 seconds, replacing 15 damage every 3 seconds. Total damage remains 150 before resistance.\n- Poison's target visual now repeats every second.\n- Updated Flame of Entropy and Curse Poison descriptions to explain their effects, timing, schools and elements.\n\nFloating combat text\n- Soul Cry procs, parry retaliation and damage-over-time ticks now display damage numbers on the correct target.\n- Damage colors: Physical - warm white; Magical - light purple; Holy - white; Dark - magenta; Fire - orange-red; Wind - blue-green; Water - light blue; Earth - light green; Direct/unaspected - grey.\n- Procs, damage over time and parry retaliation use italics while retaining their damage color. Parry retaliation is Direct damage.\n- Critical hits use bold emphasis instead of a separate critical color. Non-critical numbers are now half-size, with tighter digit spacing.\n- Large critical digits have been redrawn at higher resolution for sharper edges.\n- Numbers use six positions and do not repeat the previous position for the same target. Each number retains its selected offset throughout its animation.\n- Incoming damage follows the same color and emphasis rules while keeping its usual location.\n- Fixed a combat-text client crash affecting attacks, including magical-weapon attacks on town NPCs.\n\nCasting UI\n- The skill cast bar now uses the server's cast duration instead of a separate client estimate, aligning its timing with the overhead bar.\n- Removed the UI bar's independent minimum duration and end delay.\n- Instant hit effects and other characters' casts no longer reset your active cast bar.\n\nLauncher 1.1.14\n- Play is disabled while a launcher or client update is required. The launcher checks again before starting the game.\n- Required update buttons gently pulse. All disabled buttons use matching grey styling.\n- Update launcher stays disabled when the launcher is current. Client-only releases no longer trigger a false launcher update.\n- Replaced the base-client download link with Share with a friend! The button copies the public launcher download link and displays Copied Link for 3 seconds.\n\nKnown issue\n- Auto-attacks do not consistently resume after physical skills such as Iron Punch and Power Strike. This remains under investigation.\n\nTo apply: close Lineage II, click Update launcher, then click Update before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.10",
+  "FilesChanged": [
+    {
+      "Path": "animations/Skill.usk",
+      "Change": "Updated",
+      "BeforeSha256": "b5c72fd62df69dbdf7d984f7304acf6c53fa88694c3b9feb3ba60bf0de81dfc2",
+      "AfterSha256": "3e72c59a8531b778fb44079a2c16125b6094ee715eb56310e2b2a02f683525b2",
+      "Size": 232404,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/2e9021cacc93fe0f055fc339f3011020c444c7cf466a78a0045d509cbcabd18c.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "35413c73c14de37e78baf826df958f5d0411d48fae172f0c7fc362aaf8885ec8",
+      "AfterSha256": "deb6ac342ada2d593a60eb8a7862ab23ab43d937f956df5587503218243b5659",
+      "Size": 30717440,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/579cd9822f57cf1ec760720ee77fa5e61531bc8a6baa97d7995cba627660faea.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "ccd407ffae434afc6ccab1efc43a6bf910cb17deae8c0da17a66f08d5f34e535",
+      "AfterSha256": "11ad57b2600eaa2c8d9895860dcefa9081fa791ffca28b7e9d75e1604f11b56e",
+      "Size": 1258829,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/185e7d289bde1fd3312867ab26ab86d3c885d753253073905b6728d890110568.zip"
+    },
+    {
+      "Path": "system/nwindow.dll",
+      "Change": "Updated",
+      "BeforeSha256": "98f9873e9b76da7205991b3eb5bcd87365f9b0ba4529995d9e7b1562f0e96774",
+      "AfterSha256": "e2c8e6158f43c3ab35f8c110f405191bf5c4624fb95bacbca22ef7af4299478d",
+      "Size": 3866624,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/dec1630c7fb4d9bdb35fe7d5c8326ee7dde65587f73645daa919252c9d398eca.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "9e3c8fa445e764ff1e411c0cd8de038efa961673d313b08bc417087c9772df74",
+      "AfterSha256": "2cf49300d312c12383cbc2ff0f14c78945ec04bb52fdef728839839a47904d37",
+      "Size": 161072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/f00f6c894b5229bea168b408c33824eecc5d3680b0828262677c695a1d198177.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "a71908770c4f904414f092775430280e943da521bdd7d018fbd4ff18de6a24ff",
+      "AfterSha256": "3610358bfe3ae6d6bf5278ee46d4bab586ade8c41b43fe2a14ca7d951c28f4eb",
+      "Size": 306352,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/d60d657b3d32ec63f20d2c4debafb61642974c27b5251e2d9a12f4c93538413a.zip"
+    },
+    {
+      "Path": "system/skillsoundgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "de65795e51ec3af5c490ec2140a9c90caf927f4e0d9e3fcdc34412a6f616935c",
+      "AfterSha256": "64ed7475a3660fe1a3dee9f59a211cc3bce8984cf180581af38f2999a120d018",
+      "Size": 29104,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/7cbc4e09686aed8760309cee9819f86558c92797affe8ad1008c2111375f630d.zip"
+    },
+    {
+      "Path": "systextures/L2UI_CH3.utx",
+      "Change": "Updated",
+      "BeforeSha256": "8709568d0cfff1cd054b40741705781f765fbe852b8af822f156063966129f17",
+      "AfterSha256": "2ebdce2c80a1a05a1a731c43b3c25fb424e2879f21202156859aeec851215665",
+      "Size": 226741258,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.10/a3848cb71b6fcb0ba09da3c947822914b35fc3a0c48e4bc1983a19b7c00bb9d8.zip"
+    }
+  ]
+}
