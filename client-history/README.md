@@ -4,6 +4,7 @@ Generated from verified, signed GitHub Releases. Game binaries remain attached t
 
 | Version | Published (UTC) | Client files changed |
 | --- | --- | --- |
+| [alpha-0.0.7](alpha-0.0.7/README.md) | 2026-09-12T03:36:58Z | 1 |
 | [alpha-0.0.6](alpha-0.0.6/README.md) | 2026-09-12T01:54:49Z | 0 |
 | [alpha-0.0.5](alpha-0.0.5/README.md) | 2026-09-12T00:12:20Z | 0 |
 | [alpha-0.0.4](alpha-0.0.4/README.md) | 2026-09-12T00:07:25Z | 0 |
