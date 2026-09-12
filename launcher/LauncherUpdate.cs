@@ -40,7 +40,7 @@ public static class BundledTools {
  }
 }
 public static class LauncherUpdate {
- public const string Version="1.1.6";
+ public const string Version="1.1.7";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else

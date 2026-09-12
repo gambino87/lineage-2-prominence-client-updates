@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
@@ -16,11 +16,30 @@ class PrimaryActionButton : Button {
   TextRenderer.DrawText(e.Graphics,Text,Font,ClientRectangle,Color.FromArgb(125,135,149),TextFormatFlags.HorizontalCenter|TextFormatFlags.VerticalCenter|TextFormatFlags.SingleLine);
  }
 }
+class ReleaseNotesBox : RichTextBox {
+ public ReleaseNotesBox(){ReadOnly=true;DetectUrls=false;WordWrap=true;ScrollBars=RichTextBoxScrollBars.Vertical;BorderStyle=BorderStyle.FixedSingle;AccessibleName="Release notes";}
+ public void ShowNotes(string value){
+  Clear();string[] lines=(value??"").Replace("\r\n","\n").Replace('\r','\n').Split('\n');
+  using(var regular=new Font(Font,FontStyle.Regular))using(var bold=new Font(Font,FontStyle.Bold)){
+   for(int i=0;i<lines.Length;i++){
+    string line=lines[i].TrimEnd();bool bullet=line.StartsWith("- ")||line.StartsWith("* ");
+    int next=i+1;while(next<lines.Length && string.IsNullOrWhiteSpace(lines[next]))next++;
+    bool heading=line.StartsWith("#") || (!bullet && line.Length>0 && (i==0 || (next<lines.Length && (lines[next].StartsWith("- ")||lines[next].StartsWith("* ")))));
+    SelectionStart=TextLength;SelectionLength=0;SelectionFont=heading?bold:regular;
+    SelectionIndent=bullet?16:0;SelectionHangingIndent=bullet?12:0;
+    if(line.StartsWith("#"))line=line.TrimStart('#',' ');
+    AppendText((bullet?"• "+line.Substring(2):line)+(i<lines.Length-1?"\n":""));
+   }
+  }
+  Select(0,0);ScrollToCaret();
+ }
+}
 class Window : Form {
  readonly Settings settings;
  readonly string settingsPath;
  readonly Patcher patcher;
- readonly TextBox folder=new TextBox(),host=new TextBox(),notes=new TextBox();
+ readonly TextBox folder=new TextBox(),host=new TextBox();
+ readonly ReleaseNotesBox notes=new ReleaseNotesBox();
  readonly Label status=new Label(),server=new Label(),version=new Label();
  readonly ProgressBar progress=new ProgressBar();
  readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),check=new Button(),launcherUpdate=new Button();
@@ -31,7 +50,7 @@ class Window : Form {
  bool busy;
  public Window(Settings config,string path,bool preview=false) {
   settings=config;settingsPath=path;patcher=new Patcher(settings);automaticChecks=!preview;
-  Text=config.Title;ClientSize=new Size(780,540);MinimumSize=new Size(796,579);MaximumSize=MinimumSize;
+  Text=config.Title;ClientSize=new Size(780,680);MinimumSize=new Size(796,719);MaximumSize=MinimumSize;
   StartPosition=FormStartPosition.CenterScreen;BackColor=Color.FromArgb(23,27,34);ForeColor=Color.FromArgb(229,234,240);Font=new Font("Segoe UI",10);
   var title=new Label {Text=config.Title,Location=new Point(28,22),Size=new Size(700,35),Font=new Font("Segoe UI Semibold",21)};Controls.Add(title);
   version.Text="Private playtest • Interlude";version.SetBounds(30,66,560,24);Controls.Add(version);
@@ -45,12 +64,12 @@ class Window : Form {
   var clientLink=new LinkLabel {Text="Download base client (browser)",LinkColor=Color.FromArgb(133,193,239),ActiveLinkColor=Color.White,VisitedLinkColor=Color.FromArgb(133,193,239),AutoSize=true,Location=new Point(254,253),AccessibleName="Download base client in your browser"};
   clientLink.LinkClicked+=delegate {try {System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://interlude.l2mobius.net/downloads/Lineage%20II%20Mobius%20Interlude.zip") {UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,"Could not open your browser: "+e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}};
   Controls.Add(clientLink);
-  notes.SetBounds(30,291,720,108);notes.Multiline=true;notes.ReadOnly=true;notes.ScrollBars=ScrollBars.Vertical;Style(notes);notes.Text="Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.";Controls.Add(notes);
-  status.SetBounds(30,413,720,25);status.Text="Ready to check updates";Controls.Add(status);
-  progress.SetBounds(30,446,720,9);Controls.Add(progress);
-  MakeButton(update,"Install",30,478,200);update.Click+=async delegate {await Run(true,false);};
-  MakeButton(repair,"Repair",244,478,150);repair.Click+=async delegate {await Run(true,false,true);};
-  MakeButton(play,"Play",550,476,200);play.BackColor=Color.FromArgb(56,130,108);play.Enabled=false;play.Click+=async delegate {await Run(false,true);};
+  notes.SetBounds(30,291,720,248);notes.BackColor=Color.FromArgb(35,41,51);notes.ForeColor=ForeColor;notes.ShowNotes("Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.");Controls.Add(notes);
+  status.SetBounds(30,553,720,25);status.Text="Ready to check updates";Controls.Add(status);
+  progress.SetBounds(30,586,720,9);Controls.Add(progress);
+  MakeButton(update,"Install",30,618,200);update.Click+=async delegate {await Run(true,false);};
+  MakeButton(repair,"Repair",244,618,150);repair.Click+=async delegate {await Run(true,false,true);};
+  MakeButton(play,"Play",550,616,200);play.BackColor=Color.FromArgb(56,130,108);play.Enabled=false;play.Click+=async delegate {await Run(false,true);};
   folder.TextChanged+=delegate{InvalidateCheck();};host.TextChanged+=delegate{InvalidateCheck();};
   refreshTimer.Tick+=async delegate {
    if(busy)return;refreshTimer.Stop();if(string.IsNullOrWhiteSpace(folder.Text))return;
@@ -61,7 +80,7 @@ class Window : Form {
   Disposed+=delegate{refreshTimer.Dispose();};
   patcher.Progress=(text,value)=>{if(!IsDisposed && IsHandleCreated)BeginInvoke((Action)(()=>{status.Text=text;progress.Value=Math.Max(0,Math.Min(100,value));}));};
   FormClosing+=delegate(object sender,FormClosingEventArgs e){if(busy){e.Cancel=true;MessageBox.Show(this,"Please wait for the current operation to finish. Updates are recovered automatically if interrupted.",Text);}};
-  MakeButton(launcherUpdate,"Update launcher",405,478,135);launcherUpdate.Click+=async delegate {
+  MakeButton(launcherUpdate,"Update launcher",405,618,135);launcherUpdate.Click+=async delegate {
    if(busy)return;busy=true;launcherUpdate.Enabled=false;
    try {string staged=await Task.Run(()=>LauncherUpdate.Prepare(settings,AppDomain.CurrentDomain.BaseDirectory));if(staged==null){status.Text="Launcher "+LauncherUpdate.Version+" is up to date";return;}LauncherUpdate.StartReplacement(staged,AppDomain.CurrentDomain.BaseDirectory);busy=false;Close();}
    catch(Exception e){MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
@@ -72,10 +91,11 @@ class Window : Form {
 #if TEST_BENCH
   folder.ReadOnly=true;host.ReadOnly=true;browse.Visible=false;
   version.Text="OWNER TEST BENCH • Local server only";
-  notes.Text="Your private test client connects only to the local test server. Click Install to create its separate client folder.\r\n\r\nChanges here are tested privately before promotion to the hosted server.";
+  notes.ShowNotes("Your private test client connects only to the local test server. Click Install to create its separate client folder.\r\n\r\nChanges here are tested privately before promotion to the hosted server.");
 #endif
   if(automaticChecks)Shown+=async delegate {if(!string.IsNullOrWhiteSpace(settings.Feed))await Run(false,false);};
  }
+ internal void SetPreviewNotes(string text){notes.ShowNotes(text);}
  bool HasInstallation() {
   try {
    string directory=folder.Text.Trim();
@@ -107,7 +127,7 @@ class Window : Form {
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
    int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}if(launch){patcher.Play();return 0;}return patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);});
-   filesNeeded=needed;notes.Text=patcher.Release.Notes;version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
+   filesNeeded=needed;notes.ShowNotes(patcher.Release.Notes);version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
    if(launch)status.Text="Lineage II launched";
    await ServerStatus();
@@ -117,6 +137,7 @@ class Window : Form {
  async Task ServerStatus(){bool ok=await Task.Run(()=>{try{using(var c=new TcpClient()){var r=c.BeginConnect(settings.ServerAddress,2106,null,null);if(!r.AsyncWaitHandle.WaitOne(1500))return false;c.EndConnect(r);return true;}}catch{return false;}});server.Text=ok?"Login server reachable":"Login server unavailable • Check server / Tailscale";}
 }
 static class Program {
+ [System.Runtime.InteropServices.DllImport("user32.dll")] static extern bool PrintWindow(IntPtr hwnd,IntPtr hdc,uint flags);
  [STAThread] static int Main(string[] args) {
   ServicePointManager.SecurityProtocol=SecurityProtocolType.Tls12;
   try {
@@ -147,7 +168,7 @@ static class Program {
    Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
    bool preview=args.Length>0 && args[0]=="--preview";
    using(var w=new Window(settings,path,preview)) {
-    if(preview){w.ShowInTaskbar=false;w.StartPosition=FormStartPosition.Manual;w.Location=new Point(-30000,-30000);w.Show();Application.DoEvents();using(var b=new Bitmap(w.Width,w.Height)){w.DrawToBitmap(b,new Rectangle(0,0,w.Width,w.Height));b.Save(args[1]);}w.Hide();return 0;}
+    if(preview){if(args.Length>2)w.SetPreviewNotes(File.ReadAllText(args[2]));w.ShowInTaskbar=false;w.StartPosition=FormStartPosition.Manual;w.Location=new Point(-30000,-30000);w.Show();Application.DoEvents();using(var b=new Bitmap(w.Width,w.Height)){using(var g=Graphics.FromImage(b)){IntPtr dc=g.GetHdc();try{PrintWindow(w.Handle,dc,0);}finally{g.ReleaseHdc(dc);}}b.Save(args[1]);}w.Hide();return 0;}
     Application.Run(w);
    }
    return 0;

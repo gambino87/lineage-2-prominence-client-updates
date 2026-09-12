@@ -33,6 +33,12 @@ Close Lineage II before applying it. Original INI bytes are backed up under
 
 ## Tester flow
 
+Launcher 1.1.7 displays release notes in a larger, scrollable rich-text panel.
+LF and CRLF line breaks are supported; titles and section headings are bold,
+and dash/star bullets use hanging indents for wrapped lines. Markdown heading
+markers are supported as well. Notes are rendered as text, not executable HTML.
+Click **Update launcher** to receive this display change in either environment.
+
 The launcher displays separate **Client** and **Launcher** versions after checking
 the feed. **Install/Update** applies game-client files; **Update launcher** checks
 the same channel for a signed launcher package, replaces the executable after
