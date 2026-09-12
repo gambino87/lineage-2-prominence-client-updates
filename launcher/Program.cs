@@ -107,7 +107,7 @@ class Window : Form {
   busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,archive,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
-   int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply)patcher.Apply(fullVerification);if(launch){patcher.Play();return 0;}return patcher.Check().Count;});
+   int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.CameraDefaults(settings.ClientDirectory,true);}if(launch){patcher.Play();return 0;}return patcher.Check().Count+(!patcher.TestMode && BundledTools.CameraDefaults(settings.ClientDirectory,false)?1:0);});
    filesNeeded=needed;notes.Text=patcher.Release.Notes;version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
    if(launch)status.Text="Lineage II launched";

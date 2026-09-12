@@ -22,6 +22,15 @@ updates or Repair may replace edited interface files; keep those backups.
 The portable codec uses the same 413 encryption format as the existing editor;
 its MIT notice is embedded in the editor and retained in `keybinds/LICENSE-L2crypt.txt`.
 
+## Camera default
+
+Launcher 1.1.3 detects the stock right-click camera-reset action in encrypted
+`system/user.ini`. **Install/Update** removes only that action, retaining camera
+rotation and unrelated settings. A client that otherwise passes verification
+still offers **Update** when this fix is needed. Checking does not modify files.
+Close Lineage II before applying it. Original INI bytes are backed up under
+`.launcher/backups/camera-<id>.ini` in the selected client folder.
+
 ## Tester flow
 
 The launcher displays separate **Client** and **Launcher** versions after checking
