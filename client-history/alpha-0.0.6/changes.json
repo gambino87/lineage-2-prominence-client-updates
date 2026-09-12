@@ -1,0 +1,8 @@
+{
+  "Version": "alpha-0.0.6",
+  "PreviousVersion": "alpha-0.0.5",
+  "Published": "2026-09-12T01:54:49Z",
+  "Notes": "Launcher 1.1.5 removes the Use downloaded client ZIP button and tidies the update controls. Game-client payload unchanged.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.6",
+  "FilesChanged": []
+}
