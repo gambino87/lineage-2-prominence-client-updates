@@ -1,0 +1,41 @@
+{
+  "Version": "alpha-0.0.9",
+  "PreviousVersion": "alpha-0.0.8",
+  "Published": "2026-09-12T07:00:26Z",
+  "Notes": "Lineage 2 Prominence - alpha-0.0.9\n\nOrc Mystic: Flame of Entropy\n- Added Flame of Entropy, learned at Orc Mystic level 3.\n- Deals Fire damage with power 8. Uses the Enfeeblement school for training and spell accuracy.\n- Base cast time: 1 second. Base cooldown: 6 seconds. Costs 3 MP; range 600.\n- Applies Weaken 1, reducing P. Atk. by 10% for 30 seconds. Damage and Weakness share the Enfeeblement landing roll and existing debuff rules.\n- Uses Flash of Splendor's fire pillar directly on the target, without a projectile or surrounding ring.\n- Uses Fear's casting gesture and caster graphics, with Inferno's skill icon.\n- Orc Mystic no longer receives Curse Weakness. Human Mystic retains it.\n\nSpoil\n- Increased Spoil's cast range from 40 to 400, matching Hate's starting range.\n- Updated the range display for every Spoil rank.\n- Existing MP cost, timing, success rules, and monster-level limits remain unchanged: targets must be from 5 levels below to 9 levels above your character.\n\nLauncher 1.1.8\n- Added a Patch notes dropdown, defaulting to the newest release.\n- Browse older notes without changing the release that will be installed.\n- Live and test-bench histories are kept separate.\n- Live promotions now record their originating test-bench version. This release comes from test bench 0.2.56.\n\nKnown issue\n- Auto-attacks do not consistently resume after physical skills such as Iron Punch and Power Strike. This remains under investigation.\n\nTo apply: close Lineage II, click Update launcher, then click Update in the launcher before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.9",
+  "FilesChanged": [
+    {
+      "Path": "animations/Skill.usk",
+      "Change": "Updated",
+      "BeforeSha256": "5387e627f05f184f896236785f2fcd81a1531ff343efcb756ec75e498f68d702",
+      "AfterSha256": "b5c72fd62df69dbdf7d984f7304acf6c53fa88694c3b9feb3ba60bf0de81dfc2",
+      "Size": 232389,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.9/82a90a4a64cd0b9dc2caed14740dc8440587d3ac8b24148eefb0aba088970020.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "f59c1d52892c0717f0d6782e653b09e8700fd12e3ae81f76cf249bfc48f93fd1",
+      "AfterSha256": "9e3c8fa445e764ff1e411c0cd8de038efa961673d313b08bc417087c9772df74",
+      "Size": 160944,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.9/92d8c16f73d8cab3be4895b8782775f2d57e6e53ee1d20dbf358a577a4ddf7cb.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "55c19143c534af3b7a440f9f5b83916890cbdc094e538149f4e4037ddf544016",
+      "AfterSha256": "a71908770c4f904414f092775430280e943da521bdd7d018fbd4ff18de6a24ff",
+      "Size": 306224,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.9/a94ec0e94981443a7feeb39cbd4e5f5afbe94ea70340464dd504f515ebd3683b.zip"
+    },
+    {
+      "Path": "system/skillsoundgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "15d1eac37fc193377458512b0242ba4c444bda0ddb3c4adaa9da41c5b2b61b52",
+      "AfterSha256": "de65795e51ec3af5c490ec2140a9c90caf927f4e0d9e3fcdc34412a6f616935c",
+      "Size": 29104,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.9/a51dadcbe47359e1f8f772f29dccccab487b4f2805fc5cd936866fc12f3053bc.zip"
+    }
+  ]
+}
