@@ -13,9 +13,7 @@ The launcher is compiled to use `127.0.0.1` and its own `client` subfolder;
 the folder/address controls are locked and its feed must be a local file.
 It does not connect to OVH or use the public client folder.
 
-On first use, click **Use downloaded client ZIP…** and select
-`downloads/Lineage II Mobius Interlude.zip` to reuse the existing archive.
-Click **Install**, then **Play**. For later candidates, close Lineage II and
+On first use, click **Install**, then **Play**. For later candidates, close Lineage II and
 click **Update** when available. The owner performs these installation steps.
 Use **Update launcher** for the launcher executable itself. Launcher version
 1.1.0 is independent of the numeric bench or alpha live client release. The
@@ -50,8 +48,9 @@ private feed, signing keys, or deployment credentials.
    python launcher/testbench.py --version 0.2.46 --client-dir state/launcher-staging/0.2.46 --notes "Describe the changes to test."
    ```
 
-   Close the private launcher before rebuilding its executable. The command
-   validates and signs the candidate, then switches only the private feed.
+   The command builds in staging, validates and signs the candidate, then
+   switches only the private feed. Use **Update launcher** to apply executable
+   changes; preparing a release does not replace the installed private launcher.
    New numeric test-bench versions remain local. Use a new version for every candidate.
 4. The owner closes the game, installs/updates through the private launcher,
    and tests login, affected features, rewards/items if relevant, and relog

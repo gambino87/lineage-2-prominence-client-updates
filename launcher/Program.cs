@@ -23,7 +23,7 @@ class Window : Form {
  readonly TextBox folder=new TextBox(),host=new TextBox(),notes=new TextBox();
  readonly Label status=new Label(),server=new Label(),version=new Label();
  readonly ProgressBar progress=new ProgressBar();
- readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),archive=new Button(),check=new Button(),launcherUpdate=new Button();
+ readonly Button update=new PrimaryActionButton(),repair=new Button(),play=new Button(),browse=new Button(),check=new Button(),launcherUpdate=new Button();
  readonly Timer refreshTimer=new Timer {Interval=600};
  readonly bool automaticChecks;
  int? filesNeeded;
@@ -41,9 +41,8 @@ class Window : Form {
   MakeButton(browse,"Browse…",642,132,108);browse.Click+=delegate {using(var d=new FolderBrowserDialog()){d.Description="Select a compatible client, or an empty folder for a new installation.";d.SelectedPath=folder.Text;if(d.ShowDialog()==DialogResult.OK){folder.Text=d.SelectedPath;play.Enabled=false;}}};
   AddLabel("SERVER ADDRESS",30,178);host.SetBounds(30,203,210,28);host.Text=config.ServerAddress;Style(host);Controls.Add(host);
   server.SetBounds(255,205,490,24);server.Text="Server status unchecked";Controls.Add(server);
-  MakeButton(archive,"Use downloaded client ZIP…",30,244,260);archive.Click+=delegate {using(var d=new OpenFileDialog {Filter="Client archive (*.zip)|*.zip"})if(d.ShowDialog()==DialogResult.OK){patcher.ArchiveOverride=d.FileName;status.Text="Client archive selected; it will be verified before installation.";}};
-  MakeButton(check,"Check updates",305,244,145);check.Click+=async delegate {await Run(false,false);};
-  var clientLink=new LinkLabel {Text="Download base client (browser)",LinkColor=Color.FromArgb(133,193,239),ActiveLinkColor=Color.White,VisitedLinkColor=Color.FromArgb(133,193,239),AutoSize=true,Location=new Point(468,253),AccessibleName="Download base client in your browser"};
+  MakeButton(check,"Check updates",30,244,200);check.Click+=async delegate {await Run(false,false);};
+  var clientLink=new LinkLabel {Text="Download base client (browser)",LinkColor=Color.FromArgb(133,193,239),ActiveLinkColor=Color.White,VisitedLinkColor=Color.FromArgb(133,193,239),AutoSize=true,Location=new Point(254,253),AccessibleName="Download base client in your browser"};
   clientLink.LinkClicked+=delegate {try {System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://interlude.l2mobius.net/downloads/Lineage%20II%20Mobius%20Interlude.zip") {UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,"Could not open your browser: "+e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}};
   Controls.Add(clientLink);
   notes.SetBounds(30,291,720,108);notes.Multiline=true;notes.ReadOnly=true;notes.ScrollBars=ScrollBars.Vertical;Style(notes);notes.Text="Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.";Controls.Add(notes);
@@ -104,7 +103,7 @@ class Window : Form {
  void MakeButton(Button b,string text,int x,int y,int width){b.Text=text;b.SetBounds(x,y,width,36);b.FlatStyle=FlatStyle.Flat;b.FlatAppearance.BorderColor=Color.FromArgb(77,90,109);b.BackColor=Color.FromArgb(44,53,67);b.ForeColor=ForeColor;Controls.Add(b);}
  async Task Run(bool apply,bool launch,bool fullVerification=false) {
   if(busy)return;refreshTimer.Stop();operationText=apply?(HasInstallation()?"Updating…":"Installing…"):"Checking…";
-  busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,archive,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
+  busy=true;filesNeeded=null;foreach(var b in new[]{update,repair,play,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
    int needed=await Task.Run(()=>{patcher.LoadRelease();if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.CameraDefaults(settings.ClientDirectory,true);}if(launch){patcher.Play();return 0;}return patcher.Check().Count+(!patcher.TestMode && BundledTools.CameraDefaults(settings.ClientDirectory,false)?1:0);});
@@ -113,7 +112,7 @@ class Window : Form {
    if(launch)status.Text="Lineage II launched";
    await ServerStatus();
   } catch(Exception e) {status.Text=e.Message;MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
-  finally {busy=false;foreach(var b in new[]{repair,browse,archive,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}
+  finally {busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}
  }
  async Task ServerStatus(){bool ok=await Task.Run(()=>{try{using(var c=new TcpClient()){var r=c.BeginConnect(settings.ServerAddress,2106,null,null);if(!r.AsyncWaitHandle.WaitOne(1500))return false;c.EndConnect(r);return true;}}catch{return false;}});server.Text=ok?"Login server reachable":"Login server unavailable • Check server / Tailscale";}
 }

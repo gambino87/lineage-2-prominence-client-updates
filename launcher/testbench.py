@@ -2,6 +2,7 @@
 import argparse
 import json
 import re
+import shutil
 from pathlib import Path
 import subprocess
 import zipfile
@@ -20,13 +21,14 @@ def prepare(version, source, client_dir=None, notes='Private test-bench candidat
         raise ValueError('Private release already exists; choose a new version')
     output = ROOT/'outputs/test-bench'
     output.mkdir(parents=True, exist_ok=True)
+    build_output=ROOT/'state/launcher-builds'/version
     subprocess.run(['powershell','-NoProfile','-ExecutionPolicy','Bypass','-File',
-                    str(Path(__file__).with_name('build.ps1')),'-OutputDirectory',str(output),'-TestBench'],check=True)
+                    str(Path(__file__).with_name('build.ps1')),'-OutputDirectory',str(build_output),'-TestBench'],check=True)
     if client_dir is None:
         client_dir=ROOT/'state/launcher-staging'/version
         stage(source, client_dir)
     # Building a candidate never installs its client files.
-    release.EXE=output/'Interlude Launcher.exe'
+    release.EXE=build_output/'Interlude Launcher.exe'
     release.build(SimpleNamespace(version=version,repo='',client_dir=str(client_dir),
                                  host='127.0.0.1',title='Prominence — TEST BENCH',notes=notes))
     folder=ROOT/'outputs/releases'/version
@@ -40,6 +42,8 @@ def prepare(version, source, client_dir=None, notes='Private test-bench candidat
         z.writestr('START HERE.txt','Private test bench. Start Test Bench.cmd; apply updates yourself. Never distribute this package.\r\n')
     release.sign_launcher(folder,release.EXE,'test-bench')
     validate(folder)
+    if not (output/'Interlude Launcher.exe').exists():
+        shutil.copy2(release.EXE,output/'Interlude Launcher.exe')
     config['Feed']=(output/'manifest.json').as_uri()
     # Signed manifest references immutable per-version assets; pointer moves only after validation.
     for name in ['manifest.json','manifest.json.sig']:
