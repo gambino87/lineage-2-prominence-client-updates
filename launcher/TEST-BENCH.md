@@ -72,9 +72,9 @@ python launcher/promotion.py prepare --version alpha-0.0.1 --bench-release outpu
 This reads the live file inventory over SSH, freezes the local runtime into
 `state/promotions/alpha-0.0.1/server.tar.gz`, builds a signed public client candidate
 with the exact bench client payload, and writes `REVIEW.txt` and `candidate.json`.
-The public launcher executable comes from the latest validated public release,
-so the private launcher can never be included by this path. Launcher UI updates
-need their own tested public executable release before promotion.
+The public launcher is freshly compiled from the current launcher source without
+the private TestBench flag. Validate its public channel and version alongside
+the client payload before installation; launcher changes accompany the promotion.
 
 Review every changed/deleted server file, completed test notes, and client
 changes before approving. Only JARs, game/login data, and shared game config

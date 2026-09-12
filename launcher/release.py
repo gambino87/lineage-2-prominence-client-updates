@@ -45,7 +45,7 @@ def baseline():
 
 def sign_launcher(folder, executable, channel):
     manifest=json.loads((folder/'manifest.json').read_text(encoding='utf-8'))
-    manifest['Launcher']=dict(Version='1.1.5',Channel=channel,Sha256=sha(folder/'Launcher.zip'),
+    manifest['Launcher']=dict(Version='1.1.6',Channel=channel,Sha256=sha(folder/'Launcher.zip'),
                               Size=(folder/'Launcher.zip').stat().st_size,ExeSha256=sha(executable))
     json_write(folder/'manifest.json',manifest)
     subprocess.run([str(executable),'--sign',str(STATE/'signing-private.xml'),str(folder/'manifest.json')],check=True)

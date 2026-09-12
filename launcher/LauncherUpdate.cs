@@ -11,13 +11,18 @@ public class LauncherPayload { public string Version; public string Channel; pub
 class LauncherFeed { public string AssetBaseUrl; public LauncherPayload Launcher; }
 public static class BundledTools {
  static System.Reflection.Assembly embedded;
- public static bool CameraDefaults(string home,bool apply){
+ public static bool ClientDefaults(string home,bool apply){
   if(embedded==null)using(var input=typeof(BundledTools).Assembly.GetManifestResourceStream("KeybindEditor"))using(var output=new MemoryStream()){input.CopyTo(output);embedded=System.Reflection.Assembly.Load(output.ToArray());}
-  string path=Patcher.SafePath(home,"system/user.ini");var type=embedded.GetType("LocalL2Keys.CameraDefaults");
-  try {
-   if(apply){type.GetMethod("Apply").Invoke(null,new object[]{path,Patcher.SafePath(home,".launcher/backups/camera-"+Guid.NewGuid().ToString("N")+".ini")});return false;}
-   return (bool)type.GetMethod("Needs").Invoke(null,new object[]{path});
-  }catch(System.Reflection.TargetInvocationException e){throw new IOException(e.InnerException.Message,e.InnerException);}
+  bool needed=false;
+  foreach(string name in new[]{"CameraDefaults","EnterChatDefaults"}){
+   string file=name=="CameraDefaults"?"user.ini":"Option.ini";
+   string path=Patcher.SafePath(home,"system/"+file);var type=embedded.GetType("LocalL2Keys."+name);
+   try {
+    if(apply)type.GetMethod("Apply").Invoke(null,new object[]{path,Patcher.SafePath(home,".launcher/backups/"+name+"-"+Guid.NewGuid().ToString("N")+".ini")});
+    else needed|=(bool)type.GetMethod("Needs").Invoke(null,new object[]{path});
+   }catch(System.Reflection.TargetInvocationException e){throw new IOException(e.InnerException.Message,e.InnerException);}
+  }
+  return needed;
  }
 
  public static string Ensure(string home){
@@ -35,7 +40,7 @@ public static class BundledTools {
  }
 }
 public static class LauncherUpdate {
- public const string Version="1.1.5";
+ public const string Version="1.1.6";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else

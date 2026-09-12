@@ -74,8 +74,9 @@ def prepare(args):
         raise ValueError('Bench changed while packaging; use a new candidate')
     staged=folder/'client-staging'
     stage(args.bench_release,staged)
-    with zipfile.ZipFile(public_source/'Launcher.zip') as archive:
-        (folder/'Interlude Launcher.exe').write_bytes(archive.read('Interlude Launcher.exe'))
+    # Compile the public channel so launcher changes accompany the tested client.
+    subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
+                    str(Path(__file__).with_name('build.ps1')), '-OutputDirectory', str(folder)], check=True)
     release.EXE=folder/'Interlude Launcher.exe'
     release.build(SimpleNamespace(version=args.version,repo=REPO,client_dir=str(staged),host='40.160.140.227',
                                  title='Lineage 2 Prominence',notes=args.notes))
