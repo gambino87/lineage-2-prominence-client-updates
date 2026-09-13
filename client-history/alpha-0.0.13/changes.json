@@ -1,0 +1,105 @@
+{
+  "Version": "alpha-0.0.13",
+  "PreviousVersion": "alpha-0.0.12",
+  "Published": "2026-09-13T08:17:26Z",
+  "Notes": "Lineage 2 Prominence - alpha-0.0.13\n\nCombat and threat\n- Monsters keep their current valid target until another attacker reaches at least 130% of that target's threat. Explicit taunts and scripted targeting still apply.\n- Your selected monster shows a threat circle beside its overhead name: green below 70%, yellow from 70-100%, orange above 100% but below 130%, and red at 130% or while attacking you.\n- Damaging an immobilized monster from within 100 range raises your threat to at least 131% of its current target's threat. Applies to physical attacks, magical weapon attacks, damaging spells and damage over time. Misses, resisted hits and non-damaging spells do not trigger this rule.\n- Melee parries now reduce incoming damage by 30%, down from 50%.\n- Dual swords and dual daggers grant +4.75 parry rating while equipped. Dual daggers use a x1.5 critical-rate multiplier.\n- Reflected parry damage now reads: Your parry reflected n damage.\n- Other players' parry sounds now originate from their character with distance-based volume.\n\nDisarm\n- All Fighter jobs, including class transfers, automatically learn Disarm at level 10.\n- Power 20, cost 20 MP, range 50, base cast 1.8 seconds and base reuse 30 seconds. Cast and reuse scale with attack speed.\n- Supports Hand-to-Hand, Sword, Dagger, Blunt, Polearm, Dual Swords and Dual Daggers. Uses normal physical accuracy and damage rules, with weapon practice on successful damaging monster hits.\n- Disarm Effect 1 lasts 10 seconds before diminishing returns. Repeated applications shorten to roughly 6.7, 5 and 3.3 seconds, then immunity; the chain resets 30 seconds after removal or expiration.\n- Armed monsters have their base P.Atk. reduced to its square root. Unarmed monsters cannot be disarmed.\n- Players temporarily unequip their weapon and cannot change weapon-hand equipment until the effect ends, when the same weapon is restored. Successful weapon removal interrupts casting.\n- Blocking or parrying always prevents Disarm Effect 1; the damaging hit still follows normal defense rules.\n- Uses Power Strike's animations and sounds, with the Seal of Binding icon.\n\nSpells\n- Curse Poison now belongs to Enfeeblement and uses Enfeeblement for accuracy and school practice.\n- Orc Mystics automatically learn Venom at level 8 in place of Curse Poison. It retains Poison Effect 1: 5 damage each second for 30 seconds, 15 MP, 600 range and 10-second reuse. Venom has a 2-second base cast, its original animations and effects, Enfeeblement school and Dark aspect.\n- Orc Mystics automatically learn Soul Cry rank 2 at level 13. Fire proc power increases to 2, with 2 MP consumed per auto-attack. Rank 1 remains power 1 and 2 MP per attack.\n- Orc Mystics automatically learn the new Dreaming Spirit at level 14: 5-second base cast, 30-second reuse, 30 MP, Enfeeblement school and Fire aspect. Sleep Effect 1 lasts 15 seconds with diminishing returns; damage can wake the target. Preserves the original Dreaming Spirit animations and effects.\n- Ice Bolt ranks 1-3 now all apply Slow Effect 1, reducing movement speed by 10%. Ranks 4-5 retain Effect 2.\n- Reduced Earth magical weapons' Entangle casting sound volume by 50%.\n\nInterface\n- Floating damage numbers are opaque with dark edging. Parry text also has dark edging like Block and Evade.\n- Incoming damage and healing/resource notifications are 50% larger. XP and SP remain at their original sizes. Damage colors, italic proc text and bold critical emphasis are preserved.\n- Weapon tooltips replace Soulshot and Spiritshot lines with Crit., Acc. and Parry below Atk. Spd. Critical-rate multipliers use x notation; zero rating adjustments show +0. Magical weapons omit Acc.\n- Character-window HP and MP now show 100% regeneration per 3-second tick: current / maximum (+n/tic). Values include regeneration stat bonuses before posture multipliers and Mend/Meditate conversion, rounded to one decimal place.\n\nQuests and NPCs\n- Renamed Decrepit Giant's Servitor to Giant's Servitor and changed its appearance to the Nonexistent Man model. Updated the related dialogue and journal references.\n- Corrected The Wolf Needs No Blade hunting marker to an Evil Eye area near Orc Village. Completion still directs you back to Karukia.\n\nTo apply: close Lineage II and click Update in the launcher before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.13",
+  "FilesChanged": [
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "6a1b0d188525918bfded77243724afedc9a067057f8a528203c52b6483e03f2e",
+      "AfterSha256": "fba5df49452be3eba6118eebc7a18d80aedd9d7a52fdf26e4d7350f53541eb57",
+      "Size": 30720000,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/997cef0c14780ce9c4aeee7811c6488f7eaa778aa2da4f269309747da669a796.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "11ad57b2600eaa2c8d9895860dcefa9081fa791ffca28b7e9d75e1604f11b56e",
+      "AfterSha256": "641e74612dce7ac63592f7d76d945ade6409a807d93d4ab6edb9076097ca7e32",
+      "Size": 3054198,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/4ebfbdf5bd71803229a34b7bd0ed528bd6909d101947e24e96f946cdc6737524.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "4d1676bece9a685af51c95ecf999ab5b8dba2530c404c9cf9a16b07ed16b2171",
+      "AfterSha256": "9b81d8b5502e90c20020e19e3addd86e267bfd16161fbd40c6f667d6beb13a97",
+      "Size": 758410,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/5c378ee414871a62c8385d5d2c6c0867c52fe17ae7a32dd73766a89083350ff0.zip"
+    },
+    {
+      "Path": "system/npcgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "9be7b2cb95b8f335f7f68890b0d351ea1082544eab1b77110ddb3bdde4a5f2fc",
+      "AfterSha256": "296b23d7a8503786be9a8992a4ef91eab8e468d8c7e8437d3f2224558c2ebef6",
+      "Size": 235440,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/1a20a2ae8deadae17da4d9236d7b11faba9163ffa2d9d3feea65278ae161508b.zip"
+    },
+    {
+      "Path": "system/npcname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "0a5509d62a0d8488ddf1a7a9e0516fb5063cda933f7c40099e52bae20897c9ba",
+      "AfterSha256": "c83c9af935b411e467f29218718c1f54ce532f1e16868bf4f0a359c75fcf4d33",
+      "Size": 51504,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/b6b981d3e42414fce19461e116168758a9d201b8743da8b963fb529ddb098c58.zip"
+    },
+    {
+      "Path": "system/nwindow.dll",
+      "Change": "Updated",
+      "BeforeSha256": "e2c8e6158f43c3ab35f8c110f405191bf5c4624fb95bacbca22ef7af4299478d",
+      "AfterSha256": "07359b178bc2088756f0058e25a9813d60299ca10603873f691ca6b6ab919584",
+      "Size": 3866624,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/1ecdadedcdf6b5345e32378935bece5e21d2239a8535f13188a03535e7069e64.zip"
+    },
+    {
+      "Path": "system/questname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "1eda0abdd423636636b313babd35f2154002c068f83ae29fdff3b6a379af65d7",
+      "AfterSha256": "3bdd3991c03effefcec8974eab2ed3abd8459df9c807759f84dc491015905d2f",
+      "Size": 90800,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/47801bf4edca8cdc8de2609d0cbdcdb1a11b542e65efd5aec63751a0e7b1c204.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "616b0fc293a5308032236aa6a764963bc55d34bbbba21803a3a6e62053b98526",
+      "AfterSha256": "498e44f45b0d24a0bf29ee69bf9021a4f225d8f305e16460ca10aa1b6f56d122",
+      "Size": 161072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/4d7b759c6e83397b0cab5a09b87be830ecbe1dd81fc23afd08facb3744a65b28.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "61f43f6267367392ef3474b2420dedc0ea9dc06915252338f259e846d27f9383",
+      "AfterSha256": "13024add9682f458b32924abe00a5233ae70ecd6cab6328ac7ef8519e99f940b",
+      "Size": 306736,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/7020316144e134f51ad096c4456bb93b9ce7d687aa01556c018c6bc12ef25077.zip"
+    },
+    {
+      "Path": "system/skillsoundgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "a7cfe3f96837cdc00fcb7cc2756fa8fdec2bbf69d007ab29aa770d776ae665a7",
+      "AfterSha256": "a654745a2e8b90dac45dc2d907fe5a3028d999ac8cbe974e80939841f4d32c2d",
+      "Size": 29232,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/f16dc27da5e0188247d02e62e42a91d73cc2a1fc0bfdbd44fff72132b3052d21.zip"
+    },
+    {
+      "Path": "system/systemmsg-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "d2b1f074dfd1898af83008c1850cc82be7adf0561508c3a7bf29f2afde53a164",
+      "AfterSha256": "cd6cae96c117a26d13daea638d729d31fca3bc2becc9c45e4f025fb323b89b81",
+      "Size": 49840,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/31a3f56598a94b938677d0cedb5778fa55820d1113ab7f20e75f27973dcdde65.zip"
+    },
+    {
+      "Path": "systextures/L2UI_CH3.utx",
+      "Change": "Updated",
+      "BeforeSha256": "2ebdce2c80a1a05a1a731c43b3c25fb424e2879f21202156859aeec851215665",
+      "AfterSha256": "cd4b98c728894a1d21b5f76e9701376a9ec89cc05744bb72eaa1bc53739f431b",
+      "Size": 227064538,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.13/88ee8f1068d851925417c6597d5bd76e863a4c42c171d4e8dbc4be5a9b165811.zip"
+    }
+  ]
+}
