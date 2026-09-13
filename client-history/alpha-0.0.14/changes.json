@@ -1,0 +1,73 @@
+{
+  "Version": "alpha-0.0.14",
+  "PreviousVersion": "alpha-0.0.13",
+  "Published": "2026-09-13T18:26:58Z",
+  "Notes": "Lineage 2 Prominence - alpha-0.0.14\n\nBorrowed Power\n- New one-time quest for characters level 15+: speak with Researcher Weissman near the Elven Ruins on Talking Island.\n- Investigate forgotten soul-binding research with Karina and the Shilen Temple's residents.\n- Use the reusable Minor Soul Stone on a living level 15+ monster below half health. Each monster allows one binding attempt: 50% chance to bind, then 25% chance to capture the soul when it dies. Stay alive and nearby.\n- Failed attempts leave the stone reusable. Return a captured soul to Weissman to receive Soulshot: Feeble.\n\nSoulshot: Feeble\n- New equippable tutorial soulshot, with no level restriction. Grants Activate Soulshot while equipped.\n- Activation boosts shot-empowered attack and spell damage by 20% for 300 seconds and costs 500 SP.\n- All soul-accessory activation buffs now have a five-minute reuse time.\n- Soulshot: Feeble cannot be sold, dropped, or destroyed.\n- Item and activation skill use the original No Grade Soulshot icon. Updated tooltips explain activation, cost, and reuse.\n- Physical soulshot hit explosions now use a lighter yellow-white tint, including critical and spell impacts. Forgotten Soldier shares this visual.\n\nSP progression\n- SP is capped at 1,000 for every job at every level. Existing balances above the cap are reduced when loaded.\n- Monster SP rewards now depend on monster level minus your active job's level, instead of the monster's listed SP reward.\n- Level difference / SP: +9: 80, +8: 70, +7: 60, +6: 55, +5: 40, +4: 35, +3: 33, +2: 30, +1: 27, 0: 25, -1: 25, -2: 20, -3: 15, -4: 10, -5: 5. Differences of +10 or more and -6 or less award no SP.\n- Each eligible party member receives their own full SP amount. These monster SP awards are unaffected by SP rate bonuses or party splitting. XP behavior is unchanged.\n\nGrocery stores\n- Removed CP elixirs, recovery scrolls, Soulshots and Spiritshots (including compressed packages), Haste Potions, Alacrity Potions, Magic Haste Potions, and Energy Stones from grocery stores.\n\nTo apply: close Lineage II, open the launcher, and click Update. Fully close and reopen the game after maintenance.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.14",
+  "FilesChanged": [
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "09d1215d14d35c5daacd11d60e96fde4a951f404cf9a34479d23e6da8d827eb4",
+      "AfterSha256": "dace61a87bc0dd15bb420683c4581bccd1f8ed2a4da425c6b95cfb5bd0eb7eac",
+      "Size": 101680,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/a1e656df812eb22078f83af522b026bd10f54b40eac7466288c2de2b70621981.zip"
+    },
+    {
+      "Path": "system/etcitemgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "bdcb76a3f4d6709a886e609a8c5fe9e0a894304578ce353b501de3debdb67020",
+      "AfterSha256": "3c0e83a512e01835b994fcc6e4d14473c6e8b873042d273c3cf2837c23cfd9b5",
+      "Size": 81712,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/93809c2238d3a8768bf2304d72f14d2362d1ce500057a43a93eb61ef4ff6cd7d.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c8c10dee295b5c78405d0f4e852de0b69e261995fdf580df5ab1872449cdcbca",
+      "AfterSha256": "8cdd9ce04dd019776f8a46a38f9d13e686c8524b226f2de4570c5c246e297724",
+      "Size": 234416,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/c20933c36e3bf1654fe27f2b4bb98e2e50be76f01d314881b4dd55a6ed29e942.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "4315fdc25bdbd27007682fb2caff879731e13ede00837e5a5335f8dcf2134b6c",
+      "AfterSha256": "ff6a81547ec53901d80a38f96948154651a5a934304458478e8258ae19892623",
+      "Size": 2264473,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/e5d56c152f1eb789b690fb88d3ece0af5ca7dd7a119ffd97b6af3dc657eaac9f.zip"
+    },
+    {
+      "Path": "system/npcname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c83c9af935b411e467f29218718c1f54ce532f1e16868bf4f0a359c75fcf4d33",
+      "AfterSha256": "cd8c0c8cf4693f4b6e1e637dcbf15410df271310f81c60b9efb9ba626963efe4",
+      "Size": 51504,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/787799443f701d7844cc949701bcb8d0fbf40da159ec7d605b25583a057fb6e3.zip"
+    },
+    {
+      "Path": "system/questname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "3bdd3991c03effefcec8974eab2ed3abd8459df9c807759f84dc491015905d2f",
+      "AfterSha256": "9f293455e26d3cacb5e691075ed81f8aca5f1a842c6acb988f16491c9f1d5eaa",
+      "Size": 91568,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/71790d34ef27fd89ae7eef7a03299683c8401860390c81bbcb35f91476ddc5c8.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "498e44f45b0d24a0bf29ee69bf9021a4f225d8f305e16460ca10aa1b6f56d122",
+      "AfterSha256": "bf609a16ddb2c14035ee26c7bfe5f54e9451928c278efc4c7095be2a697939ab",
+      "Size": 161200,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/e6d0d18118bfa6f43beee96035b87c639ff16754a4fec7f1b1a103c9fe875506.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "13024add9682f458b32924abe00a5233ae70ecd6cab6328ac7ef8519e99f940b",
+      "AfterSha256": "51164966a31018a6e2c847d521ed0cbdd4ce19c3b5174df5802d0ff78616a456",
+      "Size": 306992,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.14/6699ee7bb3385faf7aab5c0fa659cf95cf84c4697ee7315f1e02b4b4be1163cb.zip"
+    }
+  ]
+}
