@@ -1,0 +1,49 @@
+{
+  "Version": "alpha-0.0.12",
+  "PreviousVersion": "alpha-0.0.11",
+  "Published": "2026-09-13T02:17:55Z",
+  "Notes": "Lineage 2 Prominence - alpha-0.0.12\n\nSpells\n- Human Mystics now start with Lightning Bolt instead of Fire Bolt. Lightning Bolt uses the Arcane school and deals unaspected magic damage; its existing power, MP cost, cast time and cooldown are preserved.\n- Lightning Bolt uses the Arcane rod casting animation and a lightning impact. Existing skill slots and hotbars are preserved.\n- Curse Poison cooldown reduced from 30 seconds to 10 seconds. Its tooltip now includes the cooldown.\n\nMaps\n- Corrected map-marker alignment for Dark Elf Village and 14 other towns: Aden, Dion, Dwarven Village, Elven Village, Floran, Gludin, Gludio, Goddard, Hunters Village, Orc Village, Oren, Rune, Schuttgart and Talking Island.\n\nNPCs and shops\n- Moved the Dark Elf Village Manor Manager and Gatekeeper Jasmine to their new positions. Teleports into Dark Elf Village now arrive at Jasmine's former location.\n- Removed all Grand Olympiad Managers and Monuments of Heroes from the world.\n- Moved Wooden Breastplate and Wooden Gaiters crafting keys from Talking Island to Orc Village's key-material vendors, including armor merchant Kunai. Prices are unchanged.\n- Removed Noblesse Teleport, Gatekeeper Charm/Token Teleport and Dimension Diamond exchange options from gatekeepers.\n\nKnown issue\n- Switching to exclusive fullscreen can still cause a display-device error. Borderless fullscreen is not implemented.\n\nTo apply: close Lineage II, check for updates and click Update in the launcher.",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.12",
+  "FilesChanged": [
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "11f3ac8fe039279ecf6aee1c411d4b40de34098a9ab05a096393e23ebb7aaa56",
+      "AfterSha256": "6a1b0d188525918bfded77243724afedc9a067057f8a528203c52b6483e03f2e",
+      "Size": 30717952,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.12/2e63f18eb96eda29912b18039d4be60574871c63ed1e1cfb400b92ffa8327f38.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "4d80d1c74fa92f1dcfbee1916f1452f17ea449b5739231617e86632fa57fe112",
+      "AfterSha256": "616b0fc293a5308032236aa6a764963bc55d34bbbba21803a3a6e62053b98526",
+      "Size": 161072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.12/8f18cf746ade82b904caebe0358a55bf478ea77ab7f6064727b40db1edeb8163.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "dfa553c911fb799ddc4bd7209762ba207c492c5143689384f5b4657cd116d7e2",
+      "AfterSha256": "61f43f6267367392ef3474b2420dedc0ea9dc06915252338f259e846d27f9383",
+      "Size": 306352,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.12/b5318e8b07cb9e488ab6384a185dde63b80b5de22bf4e005ca2078fc8de88f03.zip"
+    },
+    {
+      "Path": "system/skillsoundgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "65e70217d12b5f1e174d509566c764e01e670b25fe5ce360a6f1e1c42f0edecf",
+      "AfterSha256": "a7cfe3f96837cdc00fcb7cc2756fa8fdec2bbf69d007ab29aa770d776ae665a7",
+      "Size": 29104,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.12/32b6b0f3f36459dfc7932f636992f6f09bd157d04b006f06c5ad4faaf9869b14.zip"
+    },
+    {
+      "Path": "system/zonename-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "fa879035dfb15483f0dc073c460089e03a3d8a864caccc3c72afa14569586659",
+      "AfterSha256": "611596c435dbfdaa57762fc3f310fc5e01a3e3c01b9e75b9a0d5a3eb76e040e8",
+      "Size": 6960,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.12/7006d453aaddb32201899fbd8bbcba8f589e7d8626e098289694b25a2353f8b0.zip"
+    }
+  ]
+}
