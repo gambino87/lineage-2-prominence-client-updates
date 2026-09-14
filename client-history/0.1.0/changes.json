@@ -1,0 +1,73 @@
+{
+  "Version": "0.1.0",
+  "PreviousVersion": "alpha-0.0.15",
+  "Published": "2026-09-14T06:05:40Z",
+  "Notes": "# Version 0.1.0 \u00e2\u20ac\u201d Elven Ruins and Blacksmith Progression\n\nElven Ruins\n- Reworked the dungeon with 35 encounters, each containing a roaming leader and four following minions. The raid boss remains in place.\n- Leaders are larger and direct their pack's aggression. An opening hit on any member engages the pack; later attacks on the leader generate shared threat.\n- Packs respawn together 30 seconds after their final member dies.\n- Added 29 independent spawn points that randomly choose a Drill Bat, Monster Eye, or Skeleton. Each replacement arrives 60 seconds after death with a fresh, equal chance of each monster.\n- These three monsters attack nearby players, use level 11\u00e2\u20ac\u201c15 material rules, and count toward Gaining Momentum. Monster Eye is now level 11.\n- Pack material drops follow the T3 crafting distribution. Each pack monster type can be spoiled for two different categories of T3 key materials.\n- Sylph Elder and Lesser Sylph use wind-themed models.\n\nBlacksmith quests\n- Combined the regional Humble Beginnings quests into one shared quest, and the regional Gaining Momentum quests into another.\n- Both quests can be started at Altran, Aios, Karrod, Sumari, or Silvera. Each blacksmith keeps their regional recipe and supply exchanges.\n- Existing regional tokens convert one-for-one into Scraps for Blacksmith or Material for Blacksmith. Existing active quest progress is preserved.\n- Added Restored Relics at level 15. Collect Relics for Blacksmith from Elven Ruins packs and exchange them for T3 recipes or additional crafting materials.\n- All three quests distribute each token independently at random among nearby, living party members with the relevant quest active. Total token rewards are unchanged.\n\nCrafting and trading\n- Added or updated 21 T3 No Grade equipment recipes, with revised raw-material requirements and five matching key materials per craft.\n- T3 recipes require Dwarven Craft level 1, cost 60 MP, and have a 100% success rate. Recipe base values are 10% of the finished item's base value.\n- Fixed the broker returning to a dialogue listing screen after a sale listing. It now reopens the Broker Sale window.\n\nClose Lineage II and update through the launcher before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.0",
+  "FilesChanged": [
+    {
+      "Path": "system/etcitemgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "28b0a492ca531c632e8133b5319828e9f311c8bccb441538ed135e4c95232504",
+      "AfterSha256": "ac03f879ec92162a7c5e95818aa2a7761f753e07bbf5892877721ac3608abea0",
+      "Size": 81968,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/268581bcc496be6484743e06440eeb123ce838ffd8604e6355ededb771c6dc1b.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "bf758f0400f61ecdc3a8385170df0c374ff2c173f241c58cab84fe6d7018dcb4",
+      "AfterSha256": "44298cf6e7f8ac81c99f9d93091f0bb4fd9fa0aaca8b34350b275874fdb90da9",
+      "Size": 235824,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/ca1976affd8d851d6e7b3f68be7154b495afb0c85eda210647ebd9170f3c6293.zip"
+    },
+    {
+      "Path": "system/LineageMonster.int",
+      "Change": "Updated",
+      "BeforeSha256": "dab3cfbb2ea5c5b4550a91ec8acf38d4120601b0a4ea6bf44ed420f6fe9a1e21",
+      "AfterSha256": "51eede64466c00ce904618b40166f9b352e9d03996c865dffc76fc22383d2bc4",
+      "Size": 541709,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/8982ae4c19551655d4c16ac641d48712ab355a4a580b4eca821628683a8d6292.zip"
+    },
+    {
+      "Path": "system/LineageMonster.u",
+      "Change": "Updated",
+      "BeforeSha256": "7d3048864a169e65f7a843b92bc95b6b77b3656bc69a455bdc23710fc6aa063d",
+      "AfterSha256": "e50d13bc3f270f56cd8e2a5148dd58bb27c09dadccfc3c2ef33750034ebb7f8f",
+      "Size": 353383,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/5f089850c64e90f8810817a8c3bb4a0c9747458dcbe5d93050a6a7dbbf1d54b9.zip"
+    },
+    {
+      "Path": "system/npcgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "084a02776bd745a884d40bcf4c16a2dd98ddac1727ec4455cd50d3e1c23c8bba",
+      "AfterSha256": "80ed4786ecfa8672d157610681a5bd6ec2634558ebaf7d3f5f9e67ad97b4eb0f",
+      "Size": 236720,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/0e63b76a21897b37677402e6ffeb3e6310b3c92e9c915ee8d444bb4527e22a07.zip"
+    },
+    {
+      "Path": "system/npcname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "6efe64655aa051a3329d84e1c7cacd015f2aa2015b4f51917bf6f8dcaf36513b",
+      "AfterSha256": "67f4f413d45feadd20cd882a7adba963218cfa99698b2254319d6660bdc79516",
+      "Size": 51888,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/6496118c795a76ec4c4b6c5225a59961f48e35885f6445c72ff8028c71a1e8f9.zip"
+    },
+    {
+      "Path": "system/questname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "9f293455e26d3cacb5e691075ed81f8aca5f1a842c6acb988f16491c9f1d5eaa",
+      "AfterSha256": "158eed8244f027179de01577487da5419a162ebb257f0ce0a13ecb2b064b7fec",
+      "Size": 90800,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/ce98a27866b72b85c1c421d448d69ff3e133aa213f9f4a38de49aefbb8eb3b52.zip"
+    },
+    {
+      "Path": "system/recipe-c.dat",
+      "Change": "Updated",
+      "BeforeSha256": "f3976fdebd705f0d3d8301b599672e86b259ed9785f3a8b5fdb1c00be472860f",
+      "AfterSha256": "1c94804707a0f62bb2c8426c8806c416c310ef1a8b35da1a9ba1b984b3c111c9",
+      "Size": 1584,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.0/f6ab88c3c5f4eaa57fd523475b0eba63b29d0d5f272fd62d9950068aea9c8b88.zip"
+    }
+  ]
+}
