@@ -1,0 +1,73 @@
+{
+  "Version": "alpha-0.0.15",
+  "PreviousVersion": "alpha-0.0.14",
+  "Published": "2026-09-14T00:16:40Z",
+  "Notes": "Lineage 2 Prominence - alpha-0.0.15\n\nWANTED monsters\n- Five new level 13 rare monsters roam the level 11-15 hunting areas of Talking Island and the Elven, Dark Elf, Orc, and Dwarven territories.\n- Each territory has one WANTED monster, with a random 15-30 minute respawn and a new eligible spawn location.\n- Hunt Elyndra Thorn-Crowned, Gorak Bloodbanner, Veshra Broodmother, Rauk Ironfang, and Skittermaw.\n- WANTED monsters are twice their original size, with 10x standard level 13 HP, 2x physical attack and physical/magical defense, and 200 run speed.\n- XP, Adena and regular loot use 50x standard level 13 rewards, with base materials following the existing distribution rules.\n- Spoil contains only the seven weapon keys used by Gaining Momentum. Each successful key roll gives three of that key; individual roll chances are unchanged.\n- Get a free Wanted Flyer from an Adventurer Guildsman. View living/deceased targets and recorded death times, then click a living target to mark its current position on the map.\n\nMystic skills and healing\n- Elven Mystic and Dark Mystic now have C Arcane and B Magical Weapon ratings.\n- Human, Elven and Dark Mystics receive Heal at level 12. Human Mystic also receives Self Heal; Orc Mystic cannot receive or use Self Heal.\n- Orc Mystic automatically receives Life Drain rank 1 at level 7, rank 2 at level 14, and Chant of Life at level 12. Life Drain and Chant of Life are restricted to Orc Mystic.\n- Divine increases Heal and Chant of Life healing by Divine / 5 percent: 30 Divine gives 6% additional healing.\n- Chant of Life is now a single-target heal over time, healing once per second for 15 seconds while preserving its total base healing. It uses Heal's 5-second base cast, 10-second reuse and 22 MP cost.\n- Stronger Chant of Life effects replace weaker effects; weaker effects cannot overwrite stronger healing.\n- Healing-over-time ticks and HP restored by Life Drain/Vampiric Touch now support floating healing text. Enable HP recovery combat text to see it.\n- Updated Chant of Life and Life Drain tooltips, including Chant's displayed MP cost.\n\nFixes\n- Corrected WANTED monster scaling and missing monster animations.\n- Corrected the Blighted Tree Guardian's underground spawn height.\n\nClose Lineage II and click Update in the launcher before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/alpha-0.0.15",
+  "FilesChanged": [
+    {
+      "Path": "system/etcitemgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "3c0e83a512e01835b994fcc6e4d14473c6e8b873042d273c3cf2837c23cfd9b5",
+      "AfterSha256": "28b0a492ca531c632e8133b5319828e9f311c8bccb441538ed135e4c95232504",
+      "Size": 81712,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/db256c6137851a1691f5d24e0c84f3bdbb73f4121a03f28bd2174bc6254b17f2.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "8cdd9ce04dd019776f8a46a38f9d13e686c8524b226f2de4570c5c246e297724",
+      "AfterSha256": "bf758f0400f61ecdc3a8385170df0c374ff2c173f241c58cab84fe6d7018dcb4",
+      "Size": 234544,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/8861fbb0d9c2320bccb365bc0b7dd0ff1cd44f3d92ef01f41ac909c34e1be1ce.zip"
+    },
+    {
+      "Path": "system/LineageMonster.int",
+      "Change": "Updated",
+      "BeforeSha256": "2f026530e5b7f3d6ba43bbc208252cc665c965cec4d16a1a84d11e48192eb432",
+      "AfterSha256": "dab3cfbb2ea5c5b4550a91ec8acf38d4120601b0a4ea6bf44ed420f6fe9a1e21",
+      "Size": 532260,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/bd3d3ae57d3e821a1193e9dd9f4be89ea6a5691f25d0f5ff1249d0b5a13e0387.zip"
+    },
+    {
+      "Path": "system/LineageMonster.u",
+      "Change": "Updated",
+      "BeforeSha256": "f06ac53f7df24bd13d6e7a0d25d9e3ca4e4502af2437518e49d96a053987d7b6",
+      "AfterSha256": "7d3048864a169e65f7a843b92bc95b6b77b3656bc69a455bdc23710fc6aa063d",
+      "Size": 352104,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/adc6148b6370edbb4086baec6425fd34e01ef2290de448661679befd39cfa814.zip"
+    },
+    {
+      "Path": "system/npcgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "296b23d7a8503786be9a8992a4ef91eab8e468d8c7e8437d3f2224558c2ebef6",
+      "AfterSha256": "084a02776bd745a884d40bcf4c16a2dd98ddac1727ec4455cd50d3e1c23c8bba",
+      "Size": 235696,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/bf323b439789585a2c6a65c4191fa4021094d31ae07c208a0b8a325c2e84e243.zip"
+    },
+    {
+      "Path": "system/npcname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "cd8c0c8cf4693f4b6e1e637dcbf15410df271310f81c60b9efb9ba626963efe4",
+      "AfterSha256": "6efe64655aa051a3329d84e1c7cacd015f2aa2015b4f51917bf6f8dcaf36513b",
+      "Size": 51632,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/d1555a915fcf9ed441c6902047c6ecf6b6c8d1d8760bcba8386daa820fda35f5.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "bf609a16ddb2c14035ee26c7bfe5f54e9451928c278efc4c7095be2a697939ab",
+      "AfterSha256": "8f254736706ae4ed666e8d24b5a31e5c500d068c00e5b91f82df6e71cef1316b",
+      "Size": 161072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/ecca3cdad8a637a8400ae34d2ce534ef67ed34a13e7bb4ef7425cac95cc26a12.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "51164966a31018a6e2c847d521ed0cbdd4ce19c3b5174df5802d0ff78616a456",
+      "AfterSha256": "446473c69d2907e061ba92faeabd7a2d0d79a54cde7283e8930c3c2ecb957fdb",
+      "Size": 307248,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/alpha-0.0.15/6fdb0bf757fc420a18fc6bf52119996733ab90942cdc6500e3cad3a3133199f0.zip"
+    }
+  ]
+}
