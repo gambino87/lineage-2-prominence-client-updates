@@ -54,11 +54,13 @@ def uploaded_matches(remote, local):
 
 
 def publish(repository, version, make_public=False):
-    if not re.fullmatch(r'alpha-[0-9]+\.[0-9]+\.[0-9]+',version):
-        raise ValueError('New live releases must use alpha versions, starting at alpha-0.0.1; numeric versions are private test-bench releases.')
+    if not re.fullmatch(r'(?:alpha-)?[0-9]+\.[0-9]+\.[0-9]+',version):
+        raise ValueError('Use a live version such as 0.1.0 or alpha-0.0.1.')
     if not re.fullmatch(r'[\w.-]+/[\w.-]+', repository) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,60}', version):
         raise ValueError('Invalid repository or version')
     manifest, assets = validate(ROOT / 'outputs/releases' / version, repository)
+    if not version.startswith('alpha-') and not manifest.get('SourceBenchVersion'):
+        raise ValueError('Numeric live releases must be promoted from a validated test bench.')
     if manifest['Version'] != version:
         raise ValueError('Release directory and manifest version differ')
     print(f'Validated {len(assets)} signed release assets.', flush=True)

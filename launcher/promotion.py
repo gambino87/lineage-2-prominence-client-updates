@@ -159,8 +159,8 @@ if __name__=='__main__':
     parser.add_argument('--notes',default='Promote the tested test-bench candidate to the hosted server.')
     parser.add_argument('--approved',action='store_true')
     args=parser.parse_args()
-    if not re.fullmatch(r'alpha-[0-9]+\.[0-9]+\.[0-9]+',args.version):
-        parser.error('Use a live version such as alpha-0.0.1')
+    if not re.fullmatch(r'(?:alpha-)?[0-9]+\.[0-9]+\.[0-9]+',args.version):
+        parser.error('Use a live version such as 0.1.0 or alpha-0.0.1')
     if args.action=='prepare' and (not args.bench_release or not args.test_notes):
         parser.error('Preparation requires --bench-release and --test-notes describing completed testing')
     (prepare if args.action=='prepare' else perform)(args)

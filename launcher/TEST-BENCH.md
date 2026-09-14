@@ -91,9 +91,11 @@ private feed, signing keys, or deployment credentials.
 
 ## 2. Freeze and review a candidate without downtime
 
-Live versions start at `alpha-0.0.1`, then `alpha-0.0.2`, independently of the
-bench sequence (`0.2.45`, `0.2.46`, etc.). Existing published numeric releases
-are historical and remain unchanged. These commands are examples:
+Live versions now use `0.1.0` and subsequent semantic versions, independently
+of the bench sequence (`0.2.45`, `0.2.46`, etc.). Historical `alpha-*` and numeric
+releases remain unchanged. Numeric public releases require signed bench provenance
+and a validated public launcher/feed; private file feeds cannot be published.
+The earlier alpha commands below remain valid examples:
 
 ```powershell
 python launcher/promotion.py prepare --version alpha-0.0.1 --bench-release outputs/releases/0.2.46 --test-notes "Owner passed login, affected quest, reward, and relog checks." --notes "Describe this public update."

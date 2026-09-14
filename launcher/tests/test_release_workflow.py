@@ -17,6 +17,22 @@ REPOSITORY = 'gambino87/lineage-2-prominence-client-updates'
 
 
 class WorkflowTests(unittest.TestCase):
+    def test_numeric_live_requires_bench_provenance(self):
+        with patch.object(publish, 'validate', return_value=({'Version':'0.1.0'}, [])), patch.object(publish, 'GitHub') as client:
+            with self.assertRaisesRegex(ValueError, 'promoted from'):
+                publish.publish(REPOSITORY, '0.1.0', True)
+            client.assert_not_called()
+
+    def test_numeric_live_keeps_immutable_release_guard(self):
+        manifest = {'Version':'0.1.0','SourceBenchVersion':'0.2.141','Notes':'fixture'}
+        with patch.object(publish, 'validate', return_value=(manifest, [])), patch.object(publish, 'GitHub') as client:
+            client.return_value.request.side_effect = [
+                {'private':False, 'permissions':{'push':True}},
+                {'draft':False, 'body':'fixture'}]
+            with self.assertRaisesRegex(ValueError, 'already exists'):
+                publish.publish(REPOSITORY, '0.1.0', True)
+            self.assertTrue(all(len(call.args) == 1 for call in client.return_value.request.call_args_list))
+
     def test_live_client_cannot_be_release_input(self):
         args = SimpleNamespace(version='test-stage-guard', repo=REPOSITORY,
                                client_dir=str(release.ROOT / 'client'))
