@@ -1,0 +1,49 @@
+{
+  "Version": "0.1.1",
+  "PreviousVersion": "0.1.0",
+  "Published": "2026-09-14T18:05:25Z",
+  "Notes": "# Fighter Stances and Mystic Spell Updates\n\n## Fighter stances and threat\n- Added Aggressive Stance, trading defensive strength for increased physical attack power.\n- Added Threatening Stance, increasing threat generated while active.\n- Fighter stances are free toggles and automatically learned through fighter progression. Activating a stance replaces the current stance.\n- Increased and standardized Spoil threat across all ranks to match the introductory Aggression skill.\n- Fixed ranged parries displaying a hit effect on the attacker when no damage was returned.\n\n## Mystic spells\n- Corrected early Mystic spell progression so Vampiric Touch is learned before Curse Weakness where available.\n- Expanded Curse Weakness availability to Elven Mystics and corrected Wind Shackle's class availability.\n- Added Cure Poison to early Elven Mystic progression. It now restores health alongside cleansing poison, benefits from Divine skill, and has revised casting, reuse and mana requirements.\n- Reworked Solar Flare into a close-range spell that blinds its target, with revised casting and reuse timing.\n- Changed Dark Flare's control effect from a slow to a root.\n\n## Spell visuals and tooltips\n- Dark Flare now uses Reflect Damage's casting presentation and a purple Aura Flash hit effect.\n- Wind Shackle now displays persistent wind-tinted sparks while its attack-speed reduction is active. These can appear alongside Curse Weakness's red sparks.\n- Updated affected spell tooltips with consistent descriptions, effect details and class availability.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.1",
+  "FilesChanged": [
+    {
+      "Path": "animations/Skill.usk",
+      "Change": "Updated",
+      "BeforeSha256": "b55665d0eae95896b870b9c4abf30eaeaf3c3a3548d5336e6fda2d6890e3d190",
+      "AfterSha256": "91324dc030da43fc77bd7a24969be778cb7c3d389828aa39286050cacf978c1a",
+      "Size": 232524,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.1/3ac872be37cd3a59b1638ff08db33d95729a814299e8e6b9411a16fb36de9ffc.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "fba5df49452be3eba6118eebc7a18d80aedd9d7a52fdf26e4d7350f53541eb57",
+      "AfterSha256": "58a5e20d79933b9ae2b391ecc20f342c8814205c5e400c06ffc04dc21db575cc",
+      "Size": 30721536,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.1/cc98d3dc51cfc4e199dfe68ffc8a6ceb94f0be02109c77a709395716e302ef6c.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "ff6a81547ec53901d80a38f96948154651a5a934304458478e8258ae19892623",
+      "AfterSha256": "e0e9737d547d6be44d665ebcd8c12d702980b4ff0c186d36853912c2f38314f7",
+      "Size": 2267866,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.1/273bdb86ac26922e690aa63057bca05117bd07e93f8d357602833ecea38b87eb.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "8f254736706ae4ed666e8d24b5a31e5c500d068c00e5b91f82df6e71cef1316b",
+      "AfterSha256": "6ebb17bb80013f6123fe731dc65565504adb71a82a7a9175f323159a63c97406",
+      "Size": 161072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.1/8fa801d5e14df89fed1ebd9163656a1aba2130ee3cd1c81f2ecb5de036bef362.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "446473c69d2907e061ba92faeabd7a2d0d79a54cde7283e8930c3c2ecb957fdb",
+      "AfterSha256": "d57fadf583ac16904502b21e8f0c3653448ab50faa3685107ab38749c3f655fe",
+      "Size": 307760,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.1/caaec9ec4546b73b2608cff40b36b76ac750d81898986221fba0f8baeaa3d206.zip"
+    }
+  ]
+}
