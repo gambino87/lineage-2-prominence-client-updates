@@ -1,0 +1,161 @@
+{
+  "Version": "0.1.2",
+  "PreviousVersion": "0.1.1",
+  "Published": "2026-09-16T01:49:27Z",
+  "Notes": "Dark Flare Visual Update\n\n- Dark Flare now erupts in purple-to-white dark fire, with revised impact bursts, a shockwave ring, and arcing flames.\n- The effect retains its existing animation, shape, and timing. Spell behavior is unchanged.\n\nClose Lineage II and update through the launcher before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.2",
+  "FilesChanged": [
+    {
+      "Path": "staticmeshes/LineageEffectsStaticmeshes.usx",
+      "Change": "Updated",
+      "BeforeSha256": "c3e790b26f2d77a25d2486a47f1af88787fa9898c1668f08e0c572ef01a3a578",
+      "AfterSha256": "3c3b842bb4bef7435e3213a26e971557db1c27598f1459c4466b3454339b0aea",
+      "Size": 6012389,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/44c5db191f76e76edb8894386110798e79f446a5e851d5a3433dddb880438229.zip"
+    },
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "dace61a87bc0dd15bb420683c4581bccd1f8ed2a4da425c6b95cfb5bd0eb7eac",
+      "AfterSha256": "108a36e25e24ea0762a8efe8755763b530b1a947acd79cd840e2076bd467ce2d",
+      "Size": 102448,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/c4b1fa716f8909f88cb318d824905b3f2a20736b75787bec8503864220223ec3.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "44298cf6e7f8ac81c99f9d93091f0bb4fd9fa0aaca8b34350b275874fdb90da9",
+      "AfterSha256": "c7a70492072733aff2c9d242e78cb9b071ea63a4850b46be096c46dd484c90a9",
+      "Size": 236080,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/245f496ba1cdc0c6cd46fe4cbddcc75451fb57b3084a067f98bef9dfeb0ce227.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "e0e9737d547d6be44d665ebcd8c12d702980b4ff0c186d36853912c2f38314f7",
+      "AfterSha256": "7a0c2051654891065be6daf9e4c06e4630acf2bc0af28e3100cbcefc1b756faa",
+      "Size": 2270205,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/17884e08db9ba22c1166f6be3d3c972f107df00d0685d4814f97c2d4e9f765f1.zip"
+    },
+    {
+      "Path": "systextures/fdarkelf.utx",
+      "Change": "Updated",
+      "BeforeSha256": "54905a7f0700c51ee25a166e3eafa9ceac5dbb87011edffd9a40f6e9268f062a",
+      "AfterSha256": "c206fa8641d78fca67dc55ccb340151a4d9d4006727e7f3c7c84f18e89844ec2",
+      "Size": 64281671,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/6b3ecfc5577736b17dcb081d49d04cb8337d5ab0f39f342ef3a5656aa5999715.zip"
+    },
+    {
+      "Path": "systextures/fdwarf.utx",
+      "Change": "Updated",
+      "BeforeSha256": "5fb797d70ef79640f7690b4c4b67b1ea8468236ab4dd4615ed75aa7ab315797c",
+      "AfterSha256": "9e3f29bb2aa4669fff98548bb51e37562c33df5c1f3e7228f436f1c43e63ab08",
+      "Size": 62521318,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/fb10b5ad9129c8a3a0923ebe55d9ad7e4e344f203b57e991ef07e9966ba8f884.zip"
+    },
+    {
+      "Path": "systextures/felf.utx",
+      "Change": "Updated",
+      "BeforeSha256": "899d776c820cb90e9bae9a9e10bb24faaacbc30bc564f657570a97451eba5225",
+      "AfterSha256": "7625c4584994f54e427961f6c4e72a37b76bd5baf9da5ab52cb68135b8784a26",
+      "Size": 65836955,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/4ea5ea8fab8fa608cc0029c2e400dfd139d0a7822707d6cbf7730034c04ebf76.zip"
+    },
+    {
+      "Path": "systextures/FFighter.utx",
+      "Change": "Updated",
+      "BeforeSha256": "f5500fb38b4ea649de6da5fa0dcecc6d148eb7a5dcc57e62c3c46f4e3a6aaaa3",
+      "AfterSha256": "7b93d5d47ad0c1042daeb1cf83346c9ebe1f37e0f5d29fa93e58ccfaf7ce6777",
+      "Size": 58232552,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/ddd6aafd188361b1a85a695a417cd7572a8536230c111fbe321c810b658cf110.zip"
+    },
+    {
+      "Path": "systextures/FMagic.utx",
+      "Change": "Updated",
+      "BeforeSha256": "dc2560d92a103067dfa9a8f71252b1beda84a68dfbb95dc193b5900c9673b2a3",
+      "AfterSha256": "2221006112b490aeb283917c348f11a535f4db81281324dd742974e25765b1c7",
+      "Size": 51958576,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/17fc90161a17a6d5549eeb092d74e19b39312fc680dff4bcc0413c176208ea4d.zip"
+    },
+    {
+      "Path": "systextures/FOrc.utx",
+      "Change": "Updated",
+      "BeforeSha256": "8a72033b5d119f4452386cffde6847310574c0ebfdd5ab0f2030972bd61edc36",
+      "AfterSha256": "3078bb80b4b769fc6eb69823270b3d59659bf677f548957c58c6612b8bb1ab52",
+      "Size": 56179116,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/8b0579c2ef1c335eeda9fdb68f130e61cb0b9ebcb61a8797260a4c48b9b01084.zip"
+    },
+    {
+      "Path": "systextures/FShaman.utx",
+      "Change": "Updated",
+      "BeforeSha256": "b6f7055c86350206dda6047d20391df41ad9dff42441c7a1101af673f08fa1b3",
+      "AfterSha256": "5a8a62872bb5adbc1fb755f5aadd8fa7b478fd0c80627d67ecea2225b61f5446",
+      "Size": 43314943,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/274d31062e905b55e2ea0ca7f44a9d64187f934729d956ed6484da8844aaa392.zip"
+    },
+    {
+      "Path": "systextures/LineageEffectsTextures.utx",
+      "Change": "Updated",
+      "BeforeSha256": "a261094ed224c0e46bbdb6ff88883b0a531740759d1345f1e2fd5407b28fe314",
+      "AfterSha256": "09596bc330fe82d15ad0c090ef265810faf3b4a3a22770c0e6a69a6ef545fbed",
+      "Size": 32849319,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/c6a447a712261ba11cd1e309df8ec2e2830007c1aa5f0d5ba2386b0f9a7a8893.zip"
+    },
+    {
+      "Path": "systextures/mdarkelf.utx",
+      "Change": "Updated",
+      "BeforeSha256": "1b7d6e58c3a57965b1c15f8371d27e9b1e54a33537a80626fe906ee745c0a004",
+      "AfterSha256": "fd2ae7028db67ac9f237bf3b07ad51b39a9d7c8f52a37579771d14a185f6576f",
+      "Size": 63487926,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/cb39a3c29a6aa6c8abebf101a7b0b96fc1aca43e252d9733d7142d619c39f60b.zip"
+    },
+    {
+      "Path": "systextures/mdwarf.utx",
+      "Change": "Updated",
+      "BeforeSha256": "8a8124a82bd09d368af44f6282d48cb4ac77052c4c72f5ca62e5749803e322ab",
+      "AfterSha256": "686c744746bd19814ea942a0cbd2479faf5f6b909fb9faa593a748c426e4a627",
+      "Size": 58842266,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/e548b08cbd5216b019857bd4d17ff3940caafeef010fae8bf0d1c2c289a45281.zip"
+    },
+    {
+      "Path": "systextures/melf.utx",
+      "Change": "Updated",
+      "BeforeSha256": "ebeb34a3dde5b05ad4b19ff5918d9568b5ed670a0039d029225ab751fc32d5c9",
+      "AfterSha256": "cba581382bba1895be9819f84d5fb4df80979127d3df72d88e045c1fddc6d25c",
+      "Size": 59063861,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/625c945f5a07d36fba90a9d3fa42f6cd31dea3c0f77060fa1f12757a430232b5.zip"
+    },
+    {
+      "Path": "systextures/MFighter.utx",
+      "Change": "Updated",
+      "BeforeSha256": "3703fce6acde1a7541f6b722743cb66444750fe8a09cb9448e22447f7650ec06",
+      "AfterSha256": "1a4179c28f2e92abb457dbba2033fe2034ad8258fb0675019db7d996132e3714",
+      "Size": 60120196,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/e50ad86fa67046399dc2e04c2297be92a213871ef475c4393aee80f3a44ab762.zip"
+    },
+    {
+      "Path": "systextures/MMagic.utx",
+      "Change": "Updated",
+      "BeforeSha256": "759853dee9344555fb3569ffae4ef11694eb5850a790b7245c986710ce1036e8",
+      "AfterSha256": "42c5ce96dbb7cdb3a9e946501e71c3e7c4b9444bb4785920d0883ba1010d2215",
+      "Size": 49398775,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/ddb229d857e96f01ce117b6c1c9fe405b69a9e5a37bef38e96571f8c3a5cabf6.zip"
+    },
+    {
+      "Path": "systextures/MOrc.utx",
+      "Change": "Updated",
+      "BeforeSha256": "6e4328e17f8b9184e6197d52f264d7b6f96cb4e248b44cba02b0415c8bfd5fcb",
+      "AfterSha256": "de4cb9c75e65af17095e8556ca27341886e1b2a7a7132a95741654ff2ee6603f",
+      "Size": 54349814,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/e69af7f6cd3d4e84e7997470105fe53e55d2ccf9cc370bde0f085327f776f243.zip"
+    },
+    {
+      "Path": "systextures/MShaman.utx",
+      "Change": "Updated",
+      "BeforeSha256": "bc38cf10895bdafeb88584154c50443dcf49e283cc8aeb5e71b4a24ebd5cccdb",
+      "AfterSha256": "6e34c244601462156a43ed08c03a5a5dfe6095b77ac3e705448fc9fc69fd9644",
+      "Size": 42773204,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.2/345dfd5550e06518b6e16dde9892c11b55df0dc4a4e2a9463f03d1b0be7346b8.zip"
+    }
+  ]
+}
