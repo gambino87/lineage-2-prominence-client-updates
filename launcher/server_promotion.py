@@ -2,6 +2,8 @@
 import argparse
 import gzip
 import hashlib
+import io
+import zipfile
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -36,6 +38,16 @@ def digest(path):
         return hashlib.file_digest(f,'sha256').hexdigest()
 
 
+def reject_bench_tools(data, name):
+    """Fail closed if local-only tooling is accidentally copied into a release."""
+    if name.lower().endswith('.jar') and zipfile.is_zipfile(io.BytesIO(data)):
+        with zipfile.ZipFile(io.BytesIO(data)) as jar:
+            if any(n.lower().startswith('org/prominence/testbench/') for n in jar.namelist()):
+                raise ValueError('Local test-bench tooling cannot be promoted: '+name)
+    elif name.lower().endswith('.java') and b'org.prominence.testbench' in data:
+        raise ValueError('Local test-bench source cannot be promoted: '+name)
+
+
 def inventory(root):
     result={}
     for base, dirs, files in os.walk(root,followlinks=False):
@@ -44,6 +56,8 @@ def inventory(root):
             path=Path(base)/name
             relative=path.relative_to(root).as_posix()
             if managed(relative) and not path.is_symlink():
+                if path.suffix.lower() in {'.jar','.java'}:
+                    reject_bench_tools(path.read_bytes(),relative)
                 result[relative]=digest(path)
     return dict(sorted(result.items()))
 
@@ -111,7 +125,9 @@ def check_bundle(bundle, expected):
                 raise ValueError('Unsafe or environment-specific package path: '+item.name)
             if item.name!='promotion.json':
                 with archive.extractfile(item) as f:
-                    if hashlib.file_digest(f,'sha256').hexdigest()!=metadata['files'][item.name]:
+                    data=f.read()
+                    reject_bench_tools(data,item.name)
+                    if hashlib.sha256(data).hexdigest()!=metadata['files'][item.name]:
                         raise ValueError('Corrupt payload: '+item.name)
     return metadata
 

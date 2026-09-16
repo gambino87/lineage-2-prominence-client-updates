@@ -49,6 +49,22 @@ class PromotionTests(unittest.TestCase):
                 archive.addfile(info,io.BytesIO(data))
         return target,worker.digest(target)
 
+    def test_local_tools_rejected_from_inventory_and_payload(self):
+        import zipfile
+        data=io.BytesIO()
+        with zipfile.ZipFile(data,'w') as jar:
+            jar.writestr('org/prominence/testbench/RaceAgent.class',b'local-only')
+        self.write('libs/bench-race.jar',data.getvalue())
+        with self.assertRaisesRegex(ValueError,'test-bench'):
+            worker.inventory(self.server)
+        (self.server/'libs/bench-race.jar').unlink()
+        target,sha=self.bundle({'libs/GameServer.jar':data.getvalue()})
+        with self.assertRaisesRegex(ValueError,'test-bench'):
+            worker.check_bundle(target,sha)
+        self.write('game/data/scripts/RacePreview.java',b'package org.prominence.testbench;')
+        with self.assertRaisesRegex(ValueError,'test-bench'):
+            worker.inventory(self.server)
+
     def test_environment_and_database_excluded(self):
         for name in ['game/config/Database.ini','game/config/Server.ini','login/config/LoginServer.ini',
                      'game/config/hexid.txt','game/data/a.sql','../libs/a.jar','game/data/../../password',
