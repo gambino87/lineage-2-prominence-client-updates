@@ -1,0 +1,49 @@
+{
+  "Version": "0.1.4",
+  "PreviousVersion": "0.1.3",
+  "Published": "2026-09-21T01:48:10Z",
+  "Notes": "Lineage 2 Prominence \u2014 0.1.4\n\nMovement and targeting\n- Camera-relative WASD movement, including strafing and diagonals. Holding both mouse buttons moves forward; middle mouse toggles camera-following autorun.\n- Smoother acceleration, sharper-turn slowdown, and braking when stopping or approaching monsters and NPCs.\n- Tab selects eligible targets within 1500 units and inside the camera view. Targets can also be clicked while moving.\n- Improved monster position synchronization, obstacle navigation, and spreading during combat. Stuck monsters can recover toward their target.\n- Reduced terrain clipping when descending steep slopes.\n\nWorld and client\n- Added generated geodata for 125 playable map regions to improve terrain, collision, and pathfinding. Some regions still lack coverage; navigation issues may remain.\n- Personal keybinds now survive launcher updates and repairs.\n- Updated Ice Bolt's casting and projectile visuals.\n\nClose Lineage II, update the launcher if offered, then click Update before reconnecting.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.4",
+  "FilesChanged": [
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "58a5e20d79933b9ae2b391ecc20f342c8814205c5e400c06ffc04dc21db575cc",
+      "AfterSha256": "a9777a2cf8630a35a5cd8b9e30f946e7f9b4851b09affb447f8ef0ffd0767f05",
+      "Size": 30765568,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.4/b510a909575dfeca3db2e18914df30bcbf64245bf03af2d65f12f5eadea88b7b.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "641e74612dce7ac63592f7d76d945ade6409a807d93d4ab6edb9076097ca7e32",
+      "AfterSha256": "8c54dde998f0387bb50c55401ccd8bd24b949f0c21dc43e10f2f5ad8cca86a09",
+      "Size": 3223928,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.4/32a500a37741cdb9c4f61ea6d8e9b5b0bbcb8e968296a22a26d74c61a6634e23.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "9b81d8b5502e90c20020e19e3addd86e267bfd16161fbd40c6f667d6beb13a97",
+      "AfterSha256": "eda387261bb5aa290b64b23cbe455db871e8f19028c73b3c1235dd450f27c5bc",
+      "Size": 757606,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.4/adfc3e3223515621c0dac42be543b1e03925cbd7c550e4db9eca09fbaf415904.zip"
+    },
+    {
+      "Path": "system/nwindow.dll",
+      "Change": "Updated",
+      "BeforeSha256": "07359b178bc2088756f0058e25a9813d60299ca10603873f691ca6b6ab919584",
+      "AfterSha256": "0a9249d3cc382fa0defafb11b954dd6819231b63405624ec017ebe73037aa97b",
+      "Size": 3866624,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.4/3d5967b7c1a38d89ee0a3ae415fea7a2fbc4894d5f8fca50e8178d6f20a64d6c.zip"
+    },
+    {
+      "Path": "system/prominence-controls.json",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "1d42adbaaaca880fbbce885110b284f798e7e9cf13f0c4cf6491eb42436b77e8",
+      "Size": 31,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.4/24b933d9af9626f1734c9cda4e8003d9ff5d2a79a8f0a78cdc33090be79eb940.zip"
+    }
+  ]
+}
