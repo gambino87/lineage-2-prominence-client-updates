@@ -7,6 +7,22 @@ the live server. Only the explicitly approved installation starts downtime.
 
 ## Your private launcher
 
+Launcher 1.1.17 supports the direct Tab Next Target shortcut in private client
+0.2.181. It reserves plain Tab and prevents old saved hotbar assignments from
+overriding it. Other personal bindings are preserved.
+
+Launcher 1.1.16 labels the former Turn left/right keybinds as Move left/right
+(camera), matching private client 0.2.177 camera-relative lateral movement.
+Existing assignments and command identifiers are preserved.
+
+Launcher 1.1.15 preserves keybind-editor assignments across Check updates, Update,
+and Repair. The editor saves `system/personal-keybinds.json`; the launcher applies
+those assignments to verified release UI files and regenerates their key labels.
+UI updates still install, and unrelated corruption remains detectable. Apply
+**Update launcher** before editing bindings. Intact older-editor saves can migrate
+from their backup receipts; already-overwritten settings are not guessed.
+
+
 Launcher 1.1.14 determines launcher-update availability from the signed launcher
 version, independently of the client version. Rebuilding the same launcher version
 can change its binary hash and does not require an update. Downloaded launcher

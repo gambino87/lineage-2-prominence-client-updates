@@ -130,9 +130,30 @@ public class Patcher {
   if(canonical.Length!=90624 || Hash(canonical)!="f2793b9097b33b3e3f3aa0956e72f75ce70b0c2b24446a89e23e40ea0b0bf893")throw new IOException("Unrecognized connection DLL. Connection settings were not changed.");
   byte[] bytes=(byte[])canonical.Clone();Array.Clear(bytes,0x12f7c,16);Encoding.ASCII.GetBytes(host).CopyTo(bytes,0x12f7c);return bytes;
  }
+ public Func<string,byte[],byte[],byte[]> Personalize;
+ byte[] PersonalFile(ClientFile f) {
+  if(Personalize==null || !(f.Path.Equals("system/interface.xdat",StringComparison.OrdinalIgnoreCase)||f.Path.Equals("system/sysstring-e.dat",StringComparison.OrdinalIgnoreCase)) || string.IsNullOrEmpty(f.Asset))return null;
+  string cache=SafePath(root,".launcher/cache/"+f.Asset);
+  if(!File.Exists(cache)||new FileInfo(cache).Length!=f.AssetSize||FileHash(cache)!=f.AssetSha256)return null;
+  using(var z=ZipFile.OpenRead(cache)) {
+   var entry=z.GetEntry(f.Path);if(entry==null||entry.Length!=f.Size)return null;
+   using(var input=entry.Open())using(var output=new MemoryStream()) {
+    input.CopyTo(output);byte[] canonical=output.ToArray();if(Hash(canonical)!=f.Sha256)return null;
+    byte[] layout=null;
+    if(f.Path.Equals("system/sysstring-e.dat",StringComparison.OrdinalIgnoreCase)) {
+     var ui=Release.Files.FirstOrDefault(x=>x.Path.Equals("system/interface.xdat",StringComparison.OrdinalIgnoreCase));
+     if(ui!=null)layout=PersonalFile(ui);
+     if(layout==null)return null;
+    }
+    return Personalize(f.Path,canonical,layout);
+   }
+  }
+ }
  bool Matches(ClientFile f, string directory, bool useCache=false) {
   string path=SafePath(directory,f.Path);var info=new FileInfo(path);if(!info.Exists){if(verification!=null)verification.Files.Remove(f.Path);return false;}
   if(f.Preserve)return true;
+  byte[] personal=PersonalFile(f);
+  if(personal!=null) { FilesHashed++;BytesHashed+=info.Length;return info.Length==personal.Length && FileHash(path)==Hash(personal); }
   if(info.Length!=f.Size){if(verification!=null)verification.Files.Remove(f.Path);return false;}
   bool connection=f.Path.Equals("system/psetup.dll",StringComparison.OrdinalIgnoreCase);
   long modified=info.LastWriteTimeUtc.Ticks,created=info.CreationTimeUtc.Ticks;
@@ -253,6 +274,10 @@ public class Patcher {
     using(var z=ZipFile.OpenRead(cache)) {if(z.Entries.Count!=1 || z.Entries[0].FullName!=f.Path)throw new IOException("Unexpected patch archive content.");ExtractEntry(z.Entries[0],SafePath(stage,f.Path),f);}
    }
    foreach(var f in needed)if(f.Path.Equals("system/psetup.dll",StringComparison.OrdinalIgnoreCase)) {string path=SafePath(stage,f.Path);File.WriteAllBytes(path,ConnectionBytes(File.ReadAllBytes(path),Config.ServerAddress));}
+   foreach(var f in needed) {
+    byte[] personal=PersonalFile(f);
+    if(personal!=null)File.WriteAllBytes(SafePath(stage,f.Path),personal);
+   }
    AssertClosed();var j=new Journal {Phase="applying"};string jp=SafePath(root,".launcher/transaction.json");
    try {
     int done=0;

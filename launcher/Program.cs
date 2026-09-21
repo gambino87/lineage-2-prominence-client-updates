@@ -58,7 +58,7 @@ class Window : Form {
  string operationText="Checking…";
  bool busy;
  public Window(Settings config,string path,bool preview=false) {
-  settings=config;settingsPath=path;patcher=new Patcher(settings);automaticChecks=!preview;
+  settings=config;settingsPath=path;patcher=BundledTools.WithKeybinds(new Patcher(settings),settings);automaticChecks=!preview;
   Text=config.Title;ClientSize=new Size(780,680);MinimumSize=new Size(796,719);MaximumSize=MinimumSize;
   StartPosition=FormStartPosition.CenterScreen;BackColor=Color.FromArgb(23,27,34);ForeColor=Color.FromArgb(229,234,240);Font=new Font("Segoe UI",10);
   var title=new Label {Text=config.Title,Location=new Point(28,22),Size=new Size(700,35),Font=new Font("Segoe UI Semibold",21)};Controls.Add(title);
@@ -211,7 +211,7 @@ static class Program {
 #if !TEST_BENCH
     if(args.Length>1)settings.ClientDirectory=args[1];
 #endif
-    var p=new Patcher(settings);p.LoadRelease();var missing=p.Check();Console.WriteLine("Release "+p.Release.Version+": "+missing.Count+" files need updating.");return missing.Count==0?0:2;
+    var p=BundledTools.WithKeybinds(new Patcher(settings),settings);p.LoadRelease();var missing=p.Check();Console.WriteLine("Release "+p.Release.Version+": "+missing.Count+" files need updating.");return missing.Count==0?0:2;
    }
    if(args.Length==0)BundledTools.Ensure(home);
    Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);

@@ -62,7 +62,12 @@ namespace LocalL2Keys
                     }
                     var chord = new Chord(key, mods);
                     var control = new GameControl { Id = "ui:" + command + ":" + chord, Command = command, KeyOffset = keyOffset, KeyIndex = i, Category = "Interface", Label = ActionLabel(command), Key = key == 0 ? "" : chord.ToString(), Editable = key != 13 && key != 27, Hint = "Saved in interface.xdat. The client handles shortcut and chat focus." };
-                    if (command.StartsWith("UseShortcutNum="))
+                    if ((command == TargetDefaults.Command || command == TargetDefaults.LegacyCommand))
+                    {
+                        control.Category = "Chat and targeting"; control.Label = "Next target"; control.Editable = false;
+                        control.Hint = "Tab selects the next target within 1500 units. No hotbar slot is required.";
+                    }
+                    else if (command.StartsWith("UseShortcutNum="))
                     {
                         int slot = int.Parse(command.Substring(15));
                         control.Category = mods == 0 ? "Hotbars" : "Hotbar modifiers";
@@ -114,8 +119,9 @@ namespace LocalL2Keys
                 string key; if (!names.TryGetValue(pair.Key, out key)) key = pair.Key;
                 string command = pair.Value;
                 var control = new GameControl { Id = "input:" + pair.Key, Command = command, InputName = pair.Key, Category = "Camera and extras", Label = pair.Key, Key = key, Hint = command, Editable = true, Hold = command.Contains("OnRelease") };
-                if (command.StartsWith("LeftTurning")) { control.Category = "Movement"; control.Label = "Turn left"; }
-                else if (command.StartsWith("RightTurning")) { control.Category = "Movement"; control.Label = "Turn right"; }
+                if (pair.Key.Equals("Tab",StringComparison.OrdinalIgnoreCase) && command==TargetDefaults.LegacyCommand) { control.Category="Chat and targeting"; control.Label="Next target (Tab)"; control.Editable=false; }
+                else if (command.StartsWith("LeftTurning")) { control.Category = "Movement"; control.Label = "Move left (camera)"; }
+                else if (command.StartsWith("RightTurning")) { control.Category = "Movement"; control.Label = "Move right (camera)"; }
                 else if (command.StartsWith("KeyboardMoveStart Dir=1 |")) { control.Category = "Movement"; control.Label = "Move forward"; }
                 else if (command.StartsWith("KeyboardMoveStart Dir=4 |")) { control.Category = "Movement"; control.Label = "Move backward"; }
                 else if (command == "KeyboardPermanentMove") { control.Category = "Movement"; control.Label = "Auto-run"; }
@@ -132,8 +138,8 @@ namespace LocalL2Keys
                 else if (pair.Key == "GreyPlus") control.Label = "Increase camera / replay speed";
                 else if (pair.Key == "GreyMinus") control.Label = "Decrease camera / replay speed";
                 else if (pair.Key == "Escape") control.Label = "Cancel camera selection";
-                else if (pair.Key == "LeftMouse") control.Label = "Click to move / interact";
-                else if (pair.Key == "RightMouse") control.Label = command.Contains("FixedDefaultCamera") ? "Rotate / reset camera" : "Rotate camera";
+                else if (pair.Key == "LeftMouse") { control.Label = "Click to move / interact"; if(command.Contains("KeyboardMoveStart Dir=32")) control.Hint = "Hold left and right mouse together to move forward; release either to stop. Other forward keys remain independent."; }
+                else if (pair.Key == "RightMouse") { control.Label = command.Contains("FixedDefaultCamera") ? "Rotate / reset camera" : "Rotate camera"; if(command.Contains("KeyboardMoveStart Dir=64")) control.Hint = "Rotate the camera; hold both mouse buttons to move forward in its direction."; }
                 else if (pair.Key == "MiddleMouse") control.Label = "Turn camera back";
                 else if (pair.Key == "MouseX") control.Label = "Camera yaw";
                 else if (pair.Key == "MouseY") control.Label = "Camera pitch";
@@ -143,7 +149,7 @@ namespace LocalL2Keys
                 else if (pair.Key.Contains("Mouse")) { control.Category = "Mouse"; control.Editable = false; }
                 try { Chord chord = Chord.Parse(key); control.Key = chord.ToString(); if (chord.Key == 13 || chord.Key == 27) control.Editable = false; }
                 catch (ArgumentException) { control.Editable = false; }
-                if (!control.Editable) control.Hint = "Shown for reference; this helper reassigns regular keyboard keys only. " + command;
+                if (!control.Editable) control.Hint = "Shown for reference; this helper reassigns regular keyboard keys only. " + control.Hint;
                 controls.Add(control);
             }
             return controls;

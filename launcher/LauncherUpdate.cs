@@ -10,11 +10,19 @@ namespace InterludeLauncher {
 class LauncherFeed { public string AssetBaseUrl; public LauncherPayload Launcher; }
 public static class BundledTools {
  static System.Reflection.Assembly embedded;
+ public static Patcher WithKeybinds(Patcher patcher,Settings settings) {
+  patcher.Personalize=delegate(string relative,byte[] canonical,byte[] layout) {
+  if(embedded==null)using(var input=typeof(BundledTools).Assembly.GetManifestResourceStream("KeybindEditor"))using(var output=new MemoryStream()){input.CopyTo(output);embedded=System.Reflection.Assembly.Load(output.ToArray());}
+
+   try {return (byte[])embedded.GetType("LocalL2Keys.KeybindPreferences").GetMethod("Render").Invoke(null,new object[]{Patcher.SafePath(settings.ClientDirectory,"system"),relative,canonical,layout});}
+   catch(System.Reflection.TargetInvocationException e){throw new IOException(e.InnerException.Message,e.InnerException);}
+  };return patcher;
+ }
  public static bool ClientDefaults(string home,bool apply){
   if(embedded==null)using(var input=typeof(BundledTools).Assembly.GetManifestResourceStream("KeybindEditor"))using(var output=new MemoryStream()){input.CopyTo(output);embedded=System.Reflection.Assembly.Load(output.ToArray());}
   bool needed=false;
-  foreach(string name in new[]{"CameraDefaults","EnterChatDefaults"}){
-   string file=name=="CameraDefaults"?"user.ini":"Option.ini";
+  foreach(string name in new[]{"CameraDefaults","EnterChatDefaults","TargetDefaults","MouseForwardDefaults"}){
+   string file=name=="EnterChatDefaults"?"Option.ini":"user.ini";
    string path=Patcher.SafePath(home,"system/"+file);var type=embedded.GetType("LocalL2Keys."+name);
    try {
     if(apply)type.GetMethod("Apply").Invoke(null,new object[]{path,Patcher.SafePath(home,".launcher/backups/"+name+"-"+Guid.NewGuid().ToString("N")+".ini")});
@@ -39,7 +47,7 @@ public static class BundledTools {
  }
 }
 public static class LauncherUpdate {
- public const string Version="1.1.14";
+ public const string Version="1.1.21";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else

@@ -127,6 +127,7 @@ namespace LocalL2Keys
                 GameControl control = assignment.Control;
                 if (!Controls.Contains(control) || !control.Editable) throw new ArgumentException("Select an editable keyboard control from the current list.");
                 Chord key = Chord.Parse(assignment.Key); ValidateKey(key);
+                if (key.Key == 9 && key.Mods == 0 && Controls.Any(c => (c.Command == TargetDefaults.Command || c.Command == TargetDefaults.LegacyCommand))) throw new ArgumentException("Tab is reserved for Next target.");
                 if (control.KeyOffset >= 0)
                 {
                     var family = new List<GameControl> { control };
@@ -167,15 +168,17 @@ namespace LocalL2Keys
             File.WriteAllBytes(Path.Combine(backup,"sysstring-e.dat"),encryptedStrings);
             var manifest = new { changes = descriptions, uiLabels = true, beforeXdat = Hash(xdat), afterXdat = Hash(updatedXdat), beforeIni = Hash(encryptedIni), afterIni = Hash(updatedIni), beforeStrings = Hash(encryptedStrings), afterStrings = Hash(updatedStrings) };
             File.WriteAllText(Path.Combine(backup, "changes.json"), new JavaScriptSerializer().Serialize(manifest));
-            bool wroteXdat = false, wroteIni = false;
+            bool wroteXdat = false, wroteIni = false, wroteStrings = false;
             try
             {
                 if (!updatedXdat.SequenceEqual(xdat)) { Replace(xdatPath, updatedXdat); wroteXdat = true; }
                 if (!updatedIni.SequenceEqual(encryptedIni)) { Replace(iniPath, updatedIni); wroteIni = true; }
-                if (!updatedStrings.SequenceEqual(encryptedStrings)) Replace(stringsPath,updatedStrings);
+                if (!updatedStrings.SequenceEqual(encryptedStrings)) { Replace(stringsPath,updatedStrings); wroteStrings = true; }
+                KeybindPreferences.Record(Path.GetDirectoryName(xdatPath), xdat, updatedXdat);
             }
             catch
             {
+                if (wroteStrings) Replace(stringsPath,encryptedStrings);
                 if (wroteIni) Replace(iniPath,encryptedIni);
                 if (wroteXdat) Replace(xdatPath, xdat);
                 throw;
