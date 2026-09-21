@@ -10,8 +10,16 @@ public class KeybindUpdateTests {
  static ClientFile Patch(string feed,string name,byte[] data,string tag){string asset=tag+".zip",path=Path.Combine(feed,asset);using(var z=ZipFile.Open(path,ZipArchiveMode.Create)){using(var o=z.CreateEntry(name).Open())o.Write(data,0,data.Length);}return new ClientFile{Path=name,Sha256=Patcher.Hash(data),Size=data.Length,Asset=asset,AssetSha256=Patcher.FileHash(path),AssetSize=new FileInfo(path).Length};}
  public static void Main(string[] args){
   string root=Path.GetFullPath(args[0]),fixture=Path.Combine(root,"state/keybind-update-tests/"+Guid.NewGuid().ToString("N")),system=Path.Combine(fixture,"system"),feed=Path.Combine(fixture,"feed");Directory.CreateDirectory(system);Directory.CreateDirectory(feed);Directory.CreateDirectory(Path.Combine(fixture,".launcher/cache"));File.WriteAllText(Path.Combine(fixture,".launcher/installed.json"),"{}");
-  string source=Path.Combine(root,"state/launcher-staging/0.2.172/system");foreach(string f in new[]{"interface.xdat","sysstring-e.dat"})File.Copy(Path.Combine(source,f),Path.Combine(system,f));File.Copy(Path.Combine(root,"outputs/test-bench/client/system/user.ini"),Path.Combine(system,"user.ini"));File.Copy(Path.Combine(root,"outputs/test-bench/client/system/Option.ini"),Path.Combine(system,"Option.ini"));
+  string source=Path.Combine(root,"state/launcher-staging/0.2.225/system");foreach(string f in new[]{"interface.xdat","sysstring-e.dat"})File.Copy(Path.Combine(source,f),Path.Combine(system,f));File.Copy(Path.Combine(root,"outputs/test-bench/client/system/user.ini"),Path.Combine(system,"user.ini"));File.Copy(Path.Combine(root,"outputs/test-bench/client/system/Option.ini"),Path.Combine(system,"Option.ini"));
   byte[] ui=File.ReadAllBytes(Path.Combine(system,"interface.xdat")),strings=File.ReadAllBytes(Path.Combine(system,"sysstring-e.dat"));
+  string fresh=Path.Combine(fixture,"fresh/system");Directory.CreateDirectory(fresh);
+  byte[] defaults=KeybindPreferences.Render(fresh,"system/interface.xdat",ui,null);
+  var freshDoc=new XdatDocument(defaults);
+  Check(freshDoc.Actions.Where(x=>x.S("action")=="UseShortcutNum=24").Any(x=>x.I("key_1")==112&&x.I("key_2")==0),"Fresh install gets bench F1 on third bar");
+  Check(KeybindPreferences.Exists(fresh),"Fresh defaults persist for later updates");
+  Directory.CreateDirectory(Path.Combine(fresh,"../.launcher"));File.WriteAllText(Path.Combine(fresh,"../.launcher/installed.json"),"{}");
+  Check(defaults.SequenceEqual(KeybindPreferences.Render(fresh,"system/interface.xdat",ui,null)),"Defaults survive installation receipt");
+  Check(KeybindPreferences.Render(system,"system/interface.xdat",ui,null).SequenceEqual(ui),"Existing install without preferences retains canonical bindings");
   var a=Patch(feed,"system/interface.xdat",ui,"ui1");var b=Patch(feed,"system/sysstring-e.dat",strings,"strings1");foreach(var f in new[]{a,b})File.Copy(Path.Combine(feed,f.Asset),Path.Combine(fixture,".launcher/cache",f.Asset));
   var p=new Patcher(new Settings{ClientDirectory=fixture,AllowLocalFeed=true,ServerAddress="127.0.0.1"}){TestMode=true,Release=new Manifest{Schema=1,Version="test1",AssetBaseUrl=new Uri(feed+Path.DirectorySeparatorChar).AbsoluteUri,Files=new List<ClientFile>{a,b}}};p.Personalize=(rel,data,layout)=>KeybindPreferences.Render(system,rel,data,layout);
   Check(p.Check().Count==0,"Unmodified release ready");

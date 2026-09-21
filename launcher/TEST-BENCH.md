@@ -7,6 +7,13 @@ the live server. Only the explicitly approved installation starts downtime.
 
 ## Your private launcher
 
+Launcher 1.1.22 seeds first-time installs with the owner's approved test-bench
+shortcut snapshot (164 semantic assignments, captured 2026-09-21). The preset
+is in `keybinds/FirstInstallKeys.cs`. It is saved as personal bindings on the
+first installation and survives updates and repairs. Existing installation
+receipts and existing personal settings prevent reseeding; legacy editor
+migration takes precedence. No account or character data is included.
+
 Launcher 1.1.17 supports the direct Tab Next Target shortcut in private client
 0.2.181. It reserves plain Tab and prevents old saved hotbar assignments from
 overriding it. Other personal bindings are preserved.

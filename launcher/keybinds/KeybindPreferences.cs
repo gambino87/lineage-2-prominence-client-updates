@@ -75,10 +75,11 @@ namespace LocalL2Keys {
       }
      }
     }
+    FirstInstallKeys.Seed(system);
     if(!Exists(system))return canonical;
    }
    if(relative.Equals("system/interface.xdat",StringComparison.OrdinalIgnoreCase))
-    return ClientUiLabels.Layout(Keys(system,canonical),File.ReadAllText(Path.Combine(system,"Option.ini")));
+    return ClientUiLabels.Layout(Keys(system,canonical),(File.Exists(Path.Combine(system,"Option.ini"))?File.ReadAllText(Path.Combine(system,"Option.ini")):"[Game]\r\nEnterChatting=True\r\n"));
    if(relative.Equals("system/sysstring-e.dat",StringComparison.OrdinalIgnoreCase)) {
     var xdat=layout ?? Keys(system,File.ReadAllBytes(Path.Combine(system,"interface.xdat")));
     return PortableCrypt.Encode(ClientUiLabels.Tooltips(PortableCrypt.Decode(canonical),xdat));
