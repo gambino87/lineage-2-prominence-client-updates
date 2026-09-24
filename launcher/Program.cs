@@ -139,6 +139,8 @@ class Window : Form {
   else if(!filesNeeded.HasValue)update.Text="Check updates";
   else if(filesNeeded.Value>0){update.Text="Update";update.Enabled=true;}
   else update.Text="Up to date";
+  update.Enabled=update.Enabled && launcherNeeded==false;
+  repair.Enabled=!busy && launcherNeeded==false;
   update.BackColor=update.Enabled?Color.FromArgb(44,53,67):Color.FromArgb(31,36,44);
   update.FlatAppearance.BorderColor=update.Enabled?Color.FromArgb(77,90,109):Color.FromArgb(49,56,65);
   launcherUpdate.Enabled=!busy && launcherNeeded!=false;
@@ -173,11 +175,11 @@ class Window : Form {
   try {
    settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
    bool pendingLauncher=false;
-   int needed=await Task.Run(()=>{patcher.LoadRelease();pendingLauncher=LauncherUpdate.IsRequired(patcher.Release.Launcher);if(apply){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}int remaining=patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);if(launch && !pendingLauncher && remaining==0)patcher.Play();return remaining;});
+   int needed=await Task.Run(()=>{patcher.LoadRelease();pendingLauncher=LauncherUpdate.IsRequired(patcher.Release.Launcher);if(apply && !pendingLauncher){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}int remaining=patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);if(launch && !pendingLauncher && remaining==0)patcher.Play();return remaining;});
    launcherNeeded=pendingLauncher;
    filesNeeded=needed;SetReleaseNotes(patcher.Release);version.Text="Client "+patcher.Release.Version+" | Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
    status.Text=!HasInstallation()?"Ready to install":needed==0?"Ready to play":"Update available — "+needed+" files";
-   if(pendingLauncher)status.Text=needed>0?"Launcher and client updates required before playing":"Launcher update required before playing";
+   if(pendingLauncher)status.Text=needed>0?"Update launcher first, then update the client":"Launcher update required before playing";
    if(launch && !pendingLauncher && needed==0)status.Text="Lineage II launched";
    await ServerStatus();
   } catch(Exception e) {status.Text=e.Message;MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}

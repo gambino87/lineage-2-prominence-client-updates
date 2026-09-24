@@ -57,10 +57,15 @@ class WindowState {
     Check(Field<Button>(window,"launcherUpdate").Enabled,"Pending launcher update enables its button");
     Check(Field<System.Windows.Forms.Timer>(window,"pulseTimer").Enabled,"Launcher-only update pulses");
     var launcherButton=Field<Button>(window,"launcherUpdate");Color initial=launcherButton.BackColor;Wait(()=>launcherButton.BackColor!=initial);Check(launcherButton.BackColor!=initial,"Pending launcher button animates");
+    File.Delete(Path.Combine(client,"system/interface.u"));Run(window,false);
+    Check(!button.Enabled && !play.Enabled && launcherButton.Enabled,"Both updates pending: launcher alone is actionable");
+    Check(!Field<Button>(window,"repair").Enabled,"Repair cannot bypass launcher priority");
+    Run(window,true);Check(!File.Exists(Path.Combine(client,"system/interface.u")),"Fresh feed guard prevents client writes while launcher update is pending");
     Run(window,true);Check(!play.Enabled,"Client update cannot bypass launcher requirement");
     SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());var attempt=(Task)typeof(Window).GetMethod("Run",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(window,new object[]{false,true,false});Wait(()=>attempt.IsCompleted);attempt.GetAwaiter().GetResult();
     Check(!Field<Label>(window,"status").Text.Contains("launched") && !play.Enabled,"Play rechecks launcher requirement");
     manifest.Launcher.Version=LauncherUpdate.Version;manifest.Launcher.ExeSha256=Patcher.FileHash(typeof(Window).Assembly.Location);Sign(mf,manifest,key);Run(window,false);
+    Check(button.Enabled && !play.Enabled,"Current launcher unlocks remaining client update");Run(window,true);
     Check(play.Enabled && !Field<System.Windows.Forms.Timer>(window,"pulseTimer").Enabled,"Matching launcher restores Play and stops pulse");
     Check(!launcherButton.Enabled,"Manual check disables current launcher update");
     string interfacePath=Path.Combine(client,"system/interface.u");DateTime modified=File.GetLastWriteTimeUtc(interfacePath);File.WriteAllBytes(interfacePath,new byte[second.Length]);File.SetLastWriteTimeUtc(interfacePath,modified);Run(window,true,true);Check(Patcher.FileHash(interfacePath)==Patcher.Hash(second),"Repair in the window performs a full scan even when metadata has not changed");

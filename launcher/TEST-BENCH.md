@@ -7,6 +7,11 @@ the live server. Only the explicitly approved installation starts downtime.
 
 ## Your private launcher
 
+Launcher 1.1.23 requires launcher updates before client installation, updating
+or repair. Play requires both launcher and client to be current. The action
+handler reloads the signed feed and skips client writes when a newer launcher
+is required, so a release arriving after the initial check cannot bypass this.
+
 Launcher 1.1.22 seeds first-time installs with the owner's approved test-bench
 shortcut snapshot (164 semantic assignments, captured 2026-09-21). The preset
 is in `keybinds/FirstInstallKeys.cs`. It is saved as personal bindings on the
