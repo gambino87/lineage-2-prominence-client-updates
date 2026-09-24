@@ -1,0 +1,65 @@
+{
+  "Version": "0.1.9",
+  "PreviousVersion": "0.1.8",
+  "Published": "2026-09-24T00:26:41Z",
+  "Notes": "Lineage 2 Prominence - 0.1.9\n\nWeapons and crafting\n- Updated weapon progression, combat values, level requirements and tooltips.\n- Weapon shops now offer level-1 weapons through a single Buy Weapons menu.\n- Expanded T1 and T2 crafting coverage, with recipes in Humble Beginnings and Gaining Momentum exchanges and keys in the matching village shops.\n- T2 recipes use three keys worth 10% each, with the remaining material cost distributed by equipment type. Recipe scrolls are worth 10% of the finished item.\n- Rebuilt dual swords and dual daggers into 61 progressive pairings each. Obtain them by combining two weapons at a blacksmith; the base fee is the dual weapon value minus both component values. Names, appearances and splitting match the new pairs.\n- Removed obsolete dual weapons. Existing copies are removed during maintenance and their owners receive the weapons' base adena value automatically. No claim or token exchange is needed.\n\nMovement and skills\n- Improved momentum recovery after brief movement-key releases and corrected autorun chase turning and camera control.\n- Fixed stuck movement and mouse inputs after switching away from the game.\n- Heal and Chant of Life unlock at level 10; Meditate unlocks at level 12 for starting Mystics.\n\nLauncher\n- Launcher updates now take priority over client updates. Play remains unavailable until both are current.\n\nTo apply: close Lineage II, click Update launcher if offered, then Update.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.9",
+  "FilesChanged": [
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "06a06ce63e7b49df9f348559fca6ee6247d7b78adfccbc39d59c5f50cb650234",
+      "AfterSha256": "b2518409f3addffa4335abd9262e936476f676ccde3e628e014da56748920c95",
+      "Size": 30799872,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/7cd3a2a9180514cb827fd7c7f4d95aeaa69b66d34aa0c01e96970888292cb15c.zip"
+    },
+    {
+      "Path": "system/etcitemgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "ac03f879ec92162a7c5e95818aa2a7761f753e07bbf5892877721ac3608abea0",
+      "AfterSha256": "6ade822ce2c85ccff352a26eb7877795983dbab116692e8bd67c338a879c7a7e",
+      "Size": 82480,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/5cada586047542ea5ae3a97979224a4601c4ccd5de45d44151480749ba558f29.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "54987fcd11bbfd676daf05ae30274a954ad0a65d3399d29d5be57b708a9c1e28",
+      "AfterSha256": "5945bff080acb1d7bfb384bee1d73d9375c7ef15204ad00b2405ab914a6a1368",
+      "Size": 3396436,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/32ca62350e7bb388948c7fb67dcd7e8dbe6d6286d4551631eb9f51aabcae6194.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c7a70492072733aff2c9d242e78cb9b071ea63a4850b46be096c46dd484c90a9",
+      "AfterSha256": "f50435fbce0aec222924573a405a782eb78f32af952eeaa070b81fcd41a248d9",
+      "Size": 234928,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/6333ab2740b324c38c3eae67b05c8efb7a03cb8146972184433f92d36b59d759.zip"
+    },
+    {
+      "Path": "system/recipe-c.dat",
+      "Change": "Updated",
+      "BeforeSha256": "020e9e11fbaf45e718945ba9405ecfdf6e1c1bb216165d87cd1647150ee351c1",
+      "AfterSha256": "085b8d52912787baf6f9ebd50b5895e98d12e2403f60d700678069a5dae8d609",
+      "Size": 1968,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/b84e59063142f9bba9023f059e39cd2ddfcd6424486d722ea403c7c8b0beaf2a.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "d57fadf583ac16904502b21e8f0c3653448ab50faa3685107ab38749c3f655fe",
+      "AfterSha256": "86da21d442090e3a2bca3a737d19ac0e4499b5516f03c2d794856e9a8517147c",
+      "Size": 308016,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/b8a67b2d2de379dc66f27918f416d1e5e38e9e9c581535bcd6e47cdba08351c3.zip"
+    },
+    {
+      "Path": "system/weapongrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "7f16bdd25fffcbcc78a9734af7b4b74a3de970fa5f2339da8b9ea9ba265acb21",
+      "AfterSha256": "861f809606980e9d5e4ce688f5f7323e63962967794c57bb5c2946bfb1433fd8",
+      "Size": 77872,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.9/1477466621e18f9ff474d1479dc8ad55e8adead76563fee7936220fb5b3cee9e.zip"
+    }
+  ]
+}
