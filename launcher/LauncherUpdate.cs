@@ -47,7 +47,7 @@ public static class BundledTools {
  }
 }
 public static class LauncherUpdate {
- public const string Version="1.1.23";
+ public const string Version="1.1.24";
 #if TEST_BENCH
  public const string Channel="test-bench";
 #else

@@ -42,7 +42,7 @@ class Window : Form {
  readonly Settings settings;
  readonly string settingsPath;
  readonly Patcher patcher;
- readonly TextBox folder=new TextBox(),host=new TextBox();
+ readonly TextBox folder=new TextBox();
  readonly ReleaseNotesBox notes=new ReleaseNotesBox();
  readonly ComboBox notesVersions=new ComboBox();
  string notesReleaseVersion;
@@ -67,31 +67,30 @@ class Window : Form {
   keybinds.Click+=delegate {if(busy)return;try {string tool=BundledTools.Ensure(AppDomain.CurrentDomain.BaseDirectory);System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tool,"--client-dir \""+Path.GetFullPath(folder.Text.Trim()).TrimEnd('\\')+"\""){UseShellExecute=true});}catch(Exception e){MessageBox.Show(this,e.Message,Text);}};
   AddLabel("CLIENT FOLDER",30,109);folder.SetBounds(30,134,600,28);folder.Text=string.IsNullOrWhiteSpace(config.ClientDirectory)?AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar):config.ClientDirectory;Style(folder);Controls.Add(folder);
   MakeButton(browse,"Browse…",642,132,108);browse.Click+=delegate {using(var d=new FolderBrowserDialog()){d.Description="Select a compatible client, or an empty folder for a new installation.";d.SelectedPath=folder.Text;if(d.ShowDialog()==DialogResult.OK){folder.Text=d.SelectedPath;play.Enabled=false;}}};
-  AddLabel("SERVER ADDRESS",30,178);host.SetBounds(30,203,210,28);host.Text=config.ServerAddress;Style(host);Controls.Add(host);
-  server.SetBounds(255,205,490,24);server.Text="Server status unchecked";Controls.Add(server);
-  MakeButton(check,"Check updates",30,244,200);check.Click+=async delegate {await Run(false,false);};
-  MakeButton(share,"Share with a friend!",244,244,220);
+  server.SetBounds(400,553,350,25);server.TextAlign=ContentAlignment.TopRight;server.Text="Server status unchecked";Controls.Add(server);
+  MakeButton(check,"Check updates",30,178,200);check.Click+=async delegate {await Run(false,false);};
+  MakeButton(share,"Share with a friend!",244,178,220);
   share.AccessibleDescription="Copy the public launcher download link to the clipboard.";
   share.Click+=delegate {
    try {Clipboard.SetText(ShareDownloadUrl);share.Text="Copied Link";shareClock.Restart();shareTimer.Start();PaintShareFeedback();}
    catch(System.Runtime.InteropServices.ExternalException){status.Text="Could not copy the link. Please try again.";}
   };
   shareTimer.Tick+=delegate{PaintShareFeedback();};
-  Controls.Add(new Label{Text="PATCH NOTES",Location=new Point(30,291),Size=new Size(120,20),ForeColor=Color.FromArgb(151,167,185),Font=new Font("Segoe UI",9,FontStyle.Bold)});notesVersions.SetBounds(165,287,585,28);notesVersions.DropDownStyle=ComboBoxStyle.DropDownList;notesVersions.DrawMode=DrawMode.OwnerDrawFixed;notesVersions.ItemHeight=22;notesVersions.FlatStyle=FlatStyle.Flat;
+  Controls.Add(new Label{Text="PATCH NOTES",Location=new Point(30,225),Size=new Size(120,20),ForeColor=Color.FromArgb(151,167,185),Font=new Font("Segoe UI",9,FontStyle.Bold)});notesVersions.SetBounds(165,221,585,28);notesVersions.DropDownStyle=ComboBoxStyle.DropDownList;notesVersions.DrawMode=DrawMode.OwnerDrawFixed;notesVersions.ItemHeight=22;notesVersions.FlatStyle=FlatStyle.Flat;
   notesVersions.DrawItem+=delegate(object sender,DrawItemEventArgs e){if(e.Index<0)return;using(var fill=new SolidBrush((e.State&DrawItemState.Selected)!=0?Color.FromArgb(55,75,98):Color.FromArgb(35,41,51)))e.Graphics.FillRectangle(fill,e.Bounds);TextRenderer.DrawText(e.Graphics,notesVersions.Items[e.Index].ToString(),Font,e.Bounds,ForeColor,TextFormatFlags.Left|TextFormatFlags.VerticalCenter);e.DrawFocusRectangle();};notesVersions.BackColor=Color.FromArgb(35,41,51);notesVersions.ForeColor=ForeColor;notesVersions.AccessibleName="Patch notes version";notesVersions.Enabled=false;Controls.Add(notesVersions);
   notesVersions.SelectedIndexChanged+=delegate {var selected=notesVersions.SelectedItem as ReleaseNote;if(selected!=null)notes.ShowNotes((string.IsNullOrEmpty(selected.SourceBenchVersion)?"":"Promoted from test bench "+selected.SourceBenchVersion+"\n\n")+selected.Notes);};
-  notes.SetBounds(30,323,720,216);notes.BackColor=Color.FromArgb(35,41,51);notes.ForeColor=ForeColor;notes.ShowNotes("Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.");Controls.Add(notes);
-  status.SetBounds(30,553,720,25);status.Text="Ready to check updates";Controls.Add(status);
+  notes.SetBounds(30,257,720,282);notes.BackColor=Color.FromArgb(35,41,51);notes.ForeColor=ForeColor;notes.ShowNotes("Install the supported base client, apply project updates, and play. Existing INI settings are preserved.\r\n\r\nChoose an empty folder to install, or select your existing client folder.");Controls.Add(notes);
+  status.SetBounds(30,553,360,25);status.AutoEllipsis=true;status.Text="Ready to check updates";Controls.Add(status);
   progress.SetBounds(30,586,720,9);Controls.Add(progress);
   MakeButton(update,"Install",30,618,200);update.Click+=async delegate {await Run(true,false);};
   MakeButton(repair,"Repair",244,618,150);repair.Click+=async delegate {await Run(true,false,true);};
   MakeButton(play,"Play",550,616,200);
   play.EnabledChanged+=delegate{play.BackColor=play.Enabled?Color.FromArgb(56,130,108):Color.FromArgb(55,55,55);play.FlatAppearance.BorderColor=play.Enabled?Color.FromArgb(77,90,109):Color.FromArgb(75,75,75);};
   play.Enabled=false;play.Click+=async delegate {await Run(false,true);};
-  folder.TextChanged+=delegate{InvalidateCheck();};host.TextChanged+=delegate{InvalidateCheck();};
+  folder.TextChanged+=delegate{InvalidateCheck();};
   refreshTimer.Tick+=async delegate {
    if(busy)return;refreshTimer.Stop();if(string.IsNullOrWhiteSpace(folder.Text))return;
-   try {Patcher.ValidateServer(host.Text.Trim());Patcher.SafePath(Path.GetFullPath(folder.Text.Trim()),".launcher/probe");}
+   try {Patcher.ValidateServer(settings.ServerAddress);Patcher.SafePath(Path.GetFullPath(folder.Text.Trim()),".launcher/probe");}
    catch(Exception e){status.Text=e.Message;return;}
    await Run(false,false);
   };
@@ -100,15 +99,15 @@ class Window : Form {
   patcher.Progress=(text,value)=>{if(!IsDisposed && IsHandleCreated)BeginInvoke((Action)(()=>{status.Text=text;progress.Value=Math.Max(0,Math.Min(100,value));}));};
   FormClosing+=delegate(object sender,FormClosingEventArgs e){if(busy){e.Cancel=true;MessageBox.Show(this,"Please wait for the current operation to finish. Updates are recovered automatically if interrupted.",Text);}};
   MakeButton(launcherUpdate,"Update launcher",405,618,135);launcherUpdate.Click+=async delegate {
-   if(busy)return;busy=true;operationText="Updating launcher…";foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
+   if(busy)return;busy=true;operationText="Updating launcher…";foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=false;RefreshUpdateButton();
    try {string staged=await Task.Run(()=>LauncherUpdate.Prepare(settings,AppDomain.CurrentDomain.BaseDirectory));if(staged==null){launcherNeeded=false;status.Text="Launcher "+LauncherUpdate.Version+" is up to date";return;}LauncherUpdate.StartReplacement(staged,AppDomain.CurrentDomain.BaseDirectory);busy=false;Close();}
    catch(Exception e){MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
-   finally{busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;RefreshUpdateButton();}
+   finally{busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=true;RefreshUpdateButton();}
   };
   version.Text="Launcher "+LauncherUpdate.Version+" | "+LauncherUpdate.Channel;
   RefreshUpdateButton();
 #if TEST_BENCH
-  folder.ReadOnly=true;host.ReadOnly=true;browse.Visible=false;
+  folder.ReadOnly=true;browse.Visible=false;
   version.Text="OWNER TEST BENCH • Local server only";
   notes.ShowNotes("Your private test client connects only to the local test server. Click Install to create its separate client folder.\r\n\r\nChanges here are tested privately before promotion to the hosted server.");
 #endif
@@ -171,9 +170,9 @@ class Window : Form {
  void MakeButton(Button b,string text,int x,int y,int width){b.Text=text;b.SetBounds(x,y,width,36);b.FlatStyle=FlatStyle.Flat;b.FlatAppearance.BorderColor=Color.FromArgb(77,90,109);b.BackColor=Color.FromArgb(44,53,67);b.ForeColor=ForeColor;Controls.Add(b);}
  async Task Run(bool apply,bool launch,bool fullVerification=false) {
   if(busy)return;refreshTimer.Stop();operationText=apply?(HasInstallation()?"Updating…":"Installing…"):"Checking…";
-  busy=true;filesNeeded=null;launcherNeeded=null;foreach(var b in new[]{update,repair,play,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=host.Enabled=false;RefreshUpdateButton();
+  busy=true;filesNeeded=null;launcherNeeded=null;foreach(var b in new[]{update,repair,play,browse,check,launcherUpdate})b.Enabled=false;folder.Enabled=false;RefreshUpdateButton();
   try {
-   settings.ClientDirectory=folder.Text.Trim();settings.ServerAddress=host.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
+   settings.ClientDirectory=folder.Text.Trim();Patcher.ValidateServer(settings.ServerAddress);Patcher.WriteJson(settingsPath,settings);
    bool pendingLauncher=false;
    int needed=await Task.Run(()=>{patcher.LoadRelease();pendingLauncher=LauncherUpdate.IsRequired(patcher.Release.Launcher);if(apply && !pendingLauncher){patcher.Apply(fullVerification);if(!patcher.TestMode)BundledTools.ClientDefaults(settings.ClientDirectory,true);}int remaining=patcher.Check().Count+(!patcher.TestMode && BundledTools.ClientDefaults(settings.ClientDirectory,false)?1:0);if(launch && !pendingLauncher && remaining==0)patcher.Play();return remaining;});
    launcherNeeded=pendingLauncher;
@@ -183,9 +182,9 @@ class Window : Form {
    if(launch && !pendingLauncher && needed==0)status.Text="Lineage II launched";
    await ServerStatus();
   } catch(Exception e) {status.Text=e.Message;MessageBox.Show(this,e.Message,Text,MessageBoxButtons.OK,MessageBoxIcon.Information);}
-  finally {busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=host.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}
+  finally {busy=false;foreach(var b in new[]{repair,browse,check,launcherUpdate})b.Enabled=true;folder.Enabled=true;play.Enabled=filesNeeded.HasValue && filesNeeded.Value==0;RefreshUpdateButton();}
  }
- async Task ServerStatus(){bool ok=await Task.Run(()=>{try{using(var c=new TcpClient()){var r=c.BeginConnect(settings.ServerAddress,2106,null,null);if(!r.AsyncWaitHandle.WaitOne(1500))return false;c.EndConnect(r);return true;}}catch{return false;}});server.Text=ok?"Login server reachable":"Login server unavailable • Check server / Tailscale";}
+ async Task ServerStatus(){bool ok=await Task.Run(()=>{try{using(var c=new TcpClient()){var r=c.BeginConnect(settings.ServerAddress,2106,null,null);if(!r.AsyncWaitHandle.WaitOne(1500))return false;c.EndConnect(r);return true;}}catch{return false;}});server.Text=ok?"Login server reachable":"Login server unavailable";}
 }
 static class Program {
  [System.Runtime.InteropServices.DllImport("user32.dll")] static extern bool PrintWindow(IntPtr hwnd,IntPtr hdc,uint flags);

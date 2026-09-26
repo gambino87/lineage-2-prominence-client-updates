@@ -39,7 +39,7 @@ class WindowState {
     window.Show();SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());Checked(window);
     Check(!Field<Button>(window,"launcherUpdate").Enabled,"Startup check disables current launcher update");
 #if TEST_BENCH
-    Check(folder.ReadOnly && Field<TextBox>(window,"host").ReadOnly,"Private launcher locks client folder and host");
+    Check(folder.ReadOnly,"Private launcher locks client folder");
     Check(!Field<Button>(window,"browse").Visible,"Private launcher hides the folder picker");
 #endif
     Check(button.Text=="Install" && button.Enabled,"Initial check enables Install for an empty folder");Snapshot(window,Path.Combine(root,"install.png"));
