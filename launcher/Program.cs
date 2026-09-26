@@ -18,7 +18,20 @@ class PrimaryActionButton : Button {
 }
 class ReleaseNotesBox : RichTextBox {
  public ReleaseNotesBox(){ReadOnly=true;DetectUrls=false;WordWrap=true;ScrollBars=RichTextBoxScrollBars.Vertical;BorderStyle=BorderStyle.FixedSingle;AccessibleName="Release notes";}
+ internal static string NormalizeNotes(string value){
+  if(value==null)return "";
+  // Older release notes contain UTF-8 punctuation decoded as Windows-1252.
+  // Repair only these known sequences; preserve all other Unicode text.
+  var legacy=System.Text.Encoding.GetEncoding(1252);
+  foreach(char punctuation in "\u2013\u2014\u2018\u2019\u201c\u201d\u2022\u2026\u00a0"){
+   string correct=punctuation.ToString();
+   string damaged=legacy.GetString(System.Text.Encoding.UTF8.GetBytes(correct));
+   value=value.Replace(damaged,correct);
+  }
+  return value;
+ }
  public void ShowNotes(string value){
+  value=NormalizeNotes(value);
   Clear();string[] lines=(value??"").Replace("\r\n","\n").Replace('\r','\n').Split('\n');
   using(var regular=new Font(Font,FontStyle.Regular))using(var bold=new Font(Font,FontStyle.Bold)){
    for(int i=0;i<lines.Length;i++){

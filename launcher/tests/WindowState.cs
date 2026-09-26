@@ -24,6 +24,8 @@ class WindowState {
  static void Run(Window window,bool apply,bool fullVerification=false){SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());var task=(Task)typeof(Window).GetMethod("Run",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(window,new object[]{apply,false,fullVerification});Check(!Field<Button>(window,"update").Enabled,"Primary button must remain disabled while busy");Wait(()=>task.IsCompleted);task.GetAwaiter().GetResult();}
  static void Snapshot(Window window,string path){using(var bitmap=new Bitmap(window.Width,window.Height)){window.DrawToBitmap(bitmap,new Rectangle(0,0,window.Width,window.Height));bitmap.Save(path);}}
  [STAThread] static void Main(string[] args){
+  Check(ReleaseNotesBox.NormalizeNotes("Hotfix #2 \u00e2\u20ac\u201d 0.1.12")=="Hotfix #2 \u2014 0.1.12","Repairs legacy punctuation in release notes");
+  Check(ReleaseNotesBox.NormalizeNotes("Correct \u2014 caf\u00e9 \u03a9")=="Correct \u2014 caf\u00e9 \u03a9","Preserves valid Unicode notes");
   Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
   string root=Path.GetFullPath(args[0]),client=Path.Combine(root,"client"),feed=Path.Combine(root,"feed");Directory.CreateDirectory(feed);
   byte[] executable=Encoding.ASCII.GetBytes("fixture executable"),dll=File.ReadAllBytes(args[1]),ini=Encoding.ASCII.GetBytes("personal settings fixture"),first=Encoding.ASCII.GetBytes("interface v1"),second=Encoding.ASCII.GetBytes("interface v2");
