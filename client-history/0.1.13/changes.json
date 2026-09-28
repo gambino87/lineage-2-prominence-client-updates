@@ -1,0 +1,153 @@
+{
+  "Version": "0.1.13",
+  "PreviousVersion": "0.1.12",
+  "Published": "2026-09-28T06:19:45Z",
+  "Notes": "Update 0.1.13\n\nParty play and combat display\n- Parties now use random item distribution, including Sweeper rewards. Each unit in a stack is distributed independently; Adena remains evenly shared.\n- Your character appears first in the party panel. Party headers show the leader crown, level, name, target-relative threat and DPS.\n- Added grey SP bars to player and party panels and a 30-second rolling DPS display. Improved party spacing, backgrounds and threat-indicator stability.\n\nCombat and stances\n- Mystic weapon auto-attacks restore 5 MP on successful hits. Their attack power now uses twice the square root of weapon M.Atk.\n- Lightning Bolt, Wind Bolt, Ice Bolt and Flame of Entropy have increased power. Curse Poison and Venom have a one-second base cast time.\n- Curse Weakness and Wind Shackle now also deal 3 damage per second while active.\n- Bow physical damage gains a distance bonus: 10% beyond 100 units, 20% beyond 300, and 25% beyond 500.\n- Power Shot costs no MP and has a 20-second cooldown. Removed bow accuracy penalties.\n- Mage Stance grants 50% M.Atk with 10% longer casting times. Cleric Stance grants 10% casting speed and 20% healing output.\n- Fighter stances are now named Low Guard and High Guard. Low Guard grants 10% P.Def and M.Def alongside its threat bonus.\n- Wide Guard allows melee auto-attacks to hit up to four additional enemies, with a 33% outgoing damage reduction.\n- Warlock Stance makes Lightning, Wind and Ice Bolt hit up to four nearby additional targets at 80% damage, with matching impact effects.\n- All six stances and guards switch immediately without cancelling current actions and share a three-second switching cooldown.\n- Heal rank 2 is available at level 15.\n\nMonsters and encounters\n- Elven Ruins Leaders and Minions have distinct target badges. Corrected hallway monster level labels.\n- Leaders summon four reinforcements at half health. Reinforcements wait three seconds before engaging.\n- A surviving leader casts Haste II after its original four followers die, and Berserker Spirit II after all four reinforcements die.\n- Improved leader casting and Relic Werewolf weapon appearance, Disarm behavior and animations.\n- WANTED monsters now use 10x HP and 20x reward values, retaining their defense bonuses.\n\nCrafting and equipment\n- Aligned all T1-T3 single-weapon recipes, village key shops and quest exchanges with the current weapon tiers. Added missing T3 crafting coverage, including Falchion and Zweihander.\n- Added nine T4 weapon recipes through Restored Relics. Their five required keys drop from Elven Ruins Leaders and Minions in a separate key reward pool.\n- Jewelry names and M.Def now follow the Magicked, Knowledge, Wisdom and Blue Diamond tiers. Recipe and key names match, and T3 jewelry keys are sold in Elven Village.\n- Existing learned recipes and owned jewelry remain valid. Recipe exchanges are ordered by tier and equipment category.\n- Bronze Shield now has matching weathered bronze artwork.\n\nFixes\n- Fixed an armor tooltip memory-corruption crash and added armor M.Def display.\n- Fixed party-panel target handling, repeated separators and overlapping information.\n- Corrected damaged punctuation in launcher patch notes.\n\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.13",
+  "FilesChanged": [
+    {
+      "Path": "system/armorgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c17e19a896f4c8475c510ccaa2f2ed5d54e1815beac38a8f7eb5477d94ed10a7",
+      "AfterSha256": "acc33e99520c4948e0371a215677de3657394356d74ab9ca8e6a1dc3ebc22f12",
+      "Size": 110128,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/a5d238503c0f282b7274c63005c37b1a32bbdd985c3462cd062015e03b1f5878.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "b165bf9c13b690086401c734f03990c5a88d3de9a2ce32ea69742b26b0f4fcb7",
+      "AfterSha256": "677c8c1fe2ee112e232cd538ae99333b606f0ed6451ec7c45adddae433997ab7",
+      "Size": 30813184,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/ddc31d4d74cc9bd4354569c61300b7624b6aca27bb23f041cf97cc065d4246b2.zip"
+    },
+    {
+      "Path": "system/etcitemgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "ec97d38765d00a6de19abbc6383e3665b41138b3229e34171e9334914a493f4a",
+      "AfterSha256": "5a92bc0a1bb698ecb935cf92ffe22a2b644029b93be9dc189d52d52441a72974",
+      "Size": 83120,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/cac28c0f6b62fe3200e699fb7e4c05ff9dd3d39b58ae7009a8d31e5be18be944.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "38cb740f5b52ccc1f3d9228c0b6ddc0227f4b901649ba8f783f6c927945ee956",
+      "AfterSha256": "1b5bc80ee7bcd376db17287c9e4b6e58f10a16b19c719b16095e8720585306b6",
+      "Size": 24920506,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/dcc92a41a6f53c8f29e68650a0f2bffd2cb4737902bb7bb677850662c8b1a639.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "132eab248ce161ae66355dbcae5530024ba323df42541f3421739c36c8b7dc61",
+      "AfterSha256": "b6588d2dbcca443df90e40cdcbc22595ab3c95a1e0dd3ca37de20bdbdb18c8f4",
+      "Size": 768534,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/c0ec372f2a4b82daae59f7f1e50c06fc9343ff6213e3b3cd8438a9fe8e6f78af.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "a4bc8f5944c542200ab8d62dbba0bf1b1ecebd1fe4f2a338fa26e8a366eadd29",
+      "AfterSha256": "db610fbfc0cd6fca4cebce306118bcdbc6a3ca5864881c0d45eddb84a7b1d43e",
+      "Size": 238128,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/abd083524dd229c213e1ae5a4239ddba96e263a35dd972c654ae2bc65148b4cf.zip"
+    },
+    {
+      "Path": "system/LineageMonster.int",
+      "Change": "Updated",
+      "BeforeSha256": "de77290e2a5036f9adf4f3ef10df287ca1536b4d984b74db985fdaae69206a77",
+      "AfterSha256": "1ad71df43eaa4737d2b42c9985286cca7170e4fdc6671e40be372725c823ccad",
+      "Size": 559789,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/c63458c7eac210bd7277985a95851e2889a284d6fd0128e4bae81b478dcf07d0.zip"
+    },
+    {
+      "Path": "system/npcgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "820d90d84128192cb83a3655fb8bc4338d6cea9ef06b0fbb342ca0b8a67e0bb3",
+      "AfterSha256": "1304eede2ba167c045f5b71e133d051ff923e7dd192a83a72ea7ed81c553e1cf",
+      "Size": 232880,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/eefaf300e37bad359edbd4dd9742413a3755af6cda64c990536340af9cf30f39.zip"
+    },
+    {
+      "Path": "system/recipe-c.dat",
+      "Change": "Updated",
+      "BeforeSha256": "484fb04d3f402e0e627baa3d2e4d0b1dd6b23af490c8c13e1cfeb666b36c6c1f",
+      "AfterSha256": "f68325d733b18d859007524c82ae31c6a1de806773c6126f469dcaa2e71c3c9c",
+      "Size": 2736,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/f22f15f8ac7030350986a96c4b069858143b1d679b6f97f2423986e7d7f7757a.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "e8c0a87876b51b0001d7c5d367af0df55502ebb9b7f034ee68225eac5eef1d34",
+      "AfterSha256": "d5c6d35946c4b27bef058d18301689b8743f438cee3a463fe5d71934e10a3414",
+      "Size": 161840,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/90e84d04a91e45e713ac19e54967887aa00694d15015c762b2ecfe2a3a8b4ef5.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "6b49fc946d2031f3a426ed6f16a71c96ef6d47358d660bf663f02d999cc6c3fb",
+      "AfterSha256": "ac7c6b290c1375b6919f5e60e97273dd6703c0a8526dc0cbc9c23155d980a1a3",
+      "Size": 309680,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/660071b7894204011894e83856efc2dc741f5932b9b50d67349e57093b14a0a8.zip"
+    },
+    {
+      "Path": "system/weapongrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "01e1fd880e97c7f90169e56c21f707c3bd98b95e58e5b2818ac7c54405e10482",
+      "AfterSha256": "0e540c71db0fc51eeb96bebd72f100a2c77210d0d4b155dab7f042a11f5623a7",
+      "Size": 78512,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/8284dd77b197b76583249b7ef66bfd785880589269a48ce40b7a9b0c9456b00e.zip"
+    },
+    {
+      "Path": "systextures/L2UI_CH3.utx",
+      "Change": "Updated",
+      "BeforeSha256": "86b774e30243554d2da73e82f6a196197348978fcc63e15e6abcd0b2672ffdd3",
+      "AfterSha256": "54650fb2785c3489c44329fa174dfdd16af4296c4ae345adce31a986d47bd251",
+      "Size": 227284911,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/5f941e295de9b2770828329736d86749ed923628f27cf72139ef9677aad8e382.zip"
+    },
+    {
+      "Path": "systextures/LineageWeaponsTex.utx",
+      "Change": "Updated",
+      "BeforeSha256": "321ad559f9967946d2b3292199c593ffebbc0664aacdafcc0a7732a3b6d9aa9d",
+      "AfterSha256": "84337b1cbe249deefac582b12ea157d0cb71a302db39317e6c490ab81e4bfb49",
+      "Size": 27392667,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/278c06b63b0c1ac2d0aceb09bf0c2b2f72d1a3156ff28cadbd4badf8e18222c8.zip"
+    },
+    {
+      "Path": "systextures/ProminenceRoleIcons.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "755da4af876b66f2446cf6ba903e4c857932050a28f8ceddb061666c032a1d67",
+      "Size": 204994,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/905f4e267f9be529210f075510d106180c0d75a0d7d2f140cf49c5ad7f192a1f.zip"
+    },
+    {
+      "Path": "systextures/ProminenceSPFrame.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "bdb6cad39381dc48935078a64272ca2e9fcb88fd54d9aa127a98679ea6911bf2",
+      "Size": 204994,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/7e4ed4bba8518d668b896cfd98c003295e7e071dc37eed5f723dde98d10db080.zip"
+    },
+    {
+      "Path": "systextures/ProminenceSPGauge.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "f1d21a06bf9a0cf40ac57ed47e175d30bc0182bf7f8e7a31cc05942ac5b80fd5",
+      "Size": 204994,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/3430f052502293ab2262eac74eb36557539e459c31d512e3c1059e11d10bc9ab.zip"
+    },
+    {
+      "Path": "systextures/ProminenceThreatIcons.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "7113bbd9c6f8e64a5bda35e582e42d9ada0e284fb9c2c4369ca9a0f3eb35bfc6",
+      "Size": 213296,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/81874dbcbe4b8ea7c884bd71b10b015a8470ab02b726c5f67a62864c42339449.zip"
+    }
+  ]
+}
