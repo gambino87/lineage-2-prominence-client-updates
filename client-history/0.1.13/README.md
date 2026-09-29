@@ -75,3 +75,12 @@ Compared with 0.1.12.
 - Server-only hotfix; no client update required.
 
 [Server hotfix record](hotfix-1.md)
+
+## Hotfix #2
+
+- Halved actual Adena amounts dropped by all monsters, at every level, including bosses, WANTED monsters, leaders and minions.
+- The 70% base drop chance and level-difference modifiers are unchanged.
+- Monster Adena values used for item, spoil, T4 key and quest-token budgets are unchanged. XP and SP are unchanged.
+- Server-only hotfix; no client update required.
+
+[Server hotfix record](hotfix-2.md)
