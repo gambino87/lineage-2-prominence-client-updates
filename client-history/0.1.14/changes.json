@@ -1,0 +1,65 @@
+{
+  "Version": "0.1.14",
+  "PreviousVersion": "0.1.13",
+  "Published": "2026-09-30T02:33:28Z",
+  "Notes": "Update 0.1.13\n\nParty play and combat display\n- Parties now use random item distribution, including Sweeper rewards. Each unit in a stack is distributed independently; Adena remains evenly shared.\n- Your character appears first in the party panel. Party headers show the leader crown, level, name, target-relative threat and DPS.\n- Added grey SP bars to player and party panels and a 30-second rolling DPS display. Improved party spacing, backgrounds and threat-indicator stability.\n\nCombat and stances\n- Mystic weapon auto-attacks restore 5 MP on successful hits. Their attack power now uses twice the square root of weapon M.Atk.\n- Lightning Bolt, Wind Bolt, Ice Bolt and Flame of Entropy have increased power. Curse Poison and Venom have a one-second base cast time.\n- Curse Weakness and Wind Shackle now also deal 3 damage per second while active.\n- Bow physical damage gains a distance bonus: 10% beyond 100 units, 20% beyond 300, and 25% beyond 500.\n- Power Shot costs no MP and has a 20-second cooldown. Removed bow accuracy penalties.\n- Mage Stance grants 50% M.Atk; Hotfix #3 changes its penalty to 10% reduced casting speed. Cleric Stance grants 10% casting speed and 20% healing output.\n- Fighter stances are now named Low Guard and High Guard. Low Guard grants 10% P.Def and M.Def alongside its threat bonus.\n- Wide Guard allows melee auto-attacks to hit up to four additional enemies, with a 33% outgoing damage reduction.\n- Warlock Stance makes Lightning, Wind and Ice Bolt hit up to four nearby additional targets at 80% damage, with matching impact effects.\n- All six stances and guards share a three-second switching cooldown. Fighter guards switch immediately; caster stances queue behind the current action (updated in Hotfix #3).\n- Heal rank 2 is available at level 15.\n\nMonsters and encounters\n- Elven Ruins Leaders and Minions have distinct target badges. Corrected hallway monster level labels.\n- Leaders summon four reinforcements at half health. Reinforcements wait three seconds before engaging.\n- A surviving leader casts Haste II after its original four followers die, and Berserker Spirit II after all four reinforcements die.\n- Improved leader casting and Relic Werewolf weapon appearance, Disarm behavior and animations.\n- WANTED monsters now use 10x HP and 20x reward values, retaining their defense bonuses.\n\nCrafting and equipment\n- Aligned all T1-T3 single-weapon recipes, village key shops and quest exchanges with the current weapon tiers. Added missing T3 crafting coverage, including Falchion and Zweihander.\n- Added nine T4 weapon recipes through Restored Relics. Their five required keys drop from Elven Ruins Leaders and Minions in a separate key reward pool.\n- Jewelry names and M.Def now follow the Magicked, Knowledge, Wisdom and Blue Diamond tiers. Recipe and key names match, and T3 jewelry keys are sold in Elven Village.\n- Existing learned recipes and owned jewelry remain valid. Recipe exchanges are ordered by tier and equipment category.\n- Bronze Shield now has matching weathered bronze artwork.\n\nFixes\n- Fixed an armor tooltip memory-corruption crash and added armor M.Def display.\n- Fixed party-panel target handling, repeated separators and overlapping information.\n- Corrected damaged punctuation in launcher patch notes.\n\n\nHotfix #1 \u2014 Armor P.Def baseline\n- Fixed low-level armor lowering P.Def when equipped into empty slots.\n- Empty head, glove and boot slots now provide zero P.Def.\n- Empty chest and leg slots match starting gear: 14/9 P.Def for fighters and 10/7 for mystics.\n- Applied consistently across class progressions. Armor item stats are unchanged.\n- Server-only hotfix; no client update required.\n\nHotfix #2 - Monster Adena payouts\n- Halved actual Adena amounts dropped by all monsters, at every level, including bosses, WANTED monsters, leaders and minions.\n- The 70% base drop chance and level-difference modifiers are unchanged.\n- Monster Adena values used for item, spoil, T4 key and quest-token budgets are unchanged. XP and SP are unchanged.\n- Server-only hotfix; no client update required.\n\nHotfix #3 \u2014 release 0.1.14\n- Skill reuse no longer scales with casting speed or attack speed. Explicit reuse modifiers still apply.\n- Mage, Cleric and Warlock Stance now queue behind the current spell or attack, including switching off, while retaining their shared three-second cooldown.\n- Manually queued spells take priority over automatic attacks. If a queued spell cannot be cast, normal attacks can resume.\n- Restored Ice Bolt\u2019s original casting animation with Ice Dagger\u2019s projectile and impact at every rank. An ice dagger now forms during casting before launch.\n- Cleric Stance now reduces M.Atk by 50%, retaining its casting-speed and healing bonuses.\n- Mage Stance now reduces casting speed by 10% instead of adding a separate cast-time penalty. Its M.Atk bonus remains 50%.\n- Fully resisted hostile spells now show a blue hexagonal shield, sized and centered to fit the target.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.14",
+  "FilesChanged": [
+    {
+      "Path": "animations/Skill.usk",
+      "Change": "Updated",
+      "BeforeSha256": "91324dc030da43fc77bd7a24969be778cb7c3d389828aa39286050cacf978c1a",
+      "AfterSha256": "afe1675026319eeb3fe0ec231b3f5eefe005903d2940315cc7dcec90f56c4ef7",
+      "Size": 232589,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/d9c5ebc5962a4acda9c0b8cb0a8037185953e84a0df3fd06397e6ee8a031fca8.zip"
+    },
+    {
+      "Path": "staticmeshes/LineageEffectsStaticmeshes.usx",
+      "Change": "Updated",
+      "BeforeSha256": "3c3b842bb4bef7435e3213a26e971557db1c27598f1459c4466b3454339b0aea",
+      "AfterSha256": "d6a652e4b18b5e24d83aea083298816bd3ac5def024a836788d956ee796283ae",
+      "Size": 6226313,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/a58e134fd69a196537e892b14739db126f94056096fed1bc9199b41bb47a4871.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "677c8c1fe2ee112e232cd538ae99333b606f0ed6451ec7c45adddae433997ab7",
+      "AfterSha256": "4fc17113f883c33cedb62b42e2825c699c11f6fc556ef1e0326d49cb74e367f7",
+      "Size": 30815744,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/31a9e322ca9b78c6c7958f73a510057881326305d13fa3a6ef5ef15091797eeb.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "7a0c2051654891065be6daf9e4c06e4630acf2bc0af28e3100cbcefc1b756faa",
+      "AfterSha256": "cfbe35e55fa906bdf15d5b06abbdf5e80390ce7deae66fff231e4f7da860b91c",
+      "Size": 2271409,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/a99ee13291ab63c8c8012bb649c3b6c6e271fb94c593eb62599019cc7aeecbdf.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "d5c6d35946c4b27bef058d18301689b8743f438cee3a463fe5d71934e10a3414",
+      "AfterSha256": "c99648d5266eb58ce285c63e532983c61881b12b1fa2a4e64cf0655331a853e9",
+      "Size": 161840,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/0f10d673d7ac8af68f0ca4ff69ba6ff4db73d1437e9e3deacb1966efdf2c6340.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "ac7c6b290c1375b6919f5e60e97273dd6703c0a8526dc0cbc9c23155d980a1a3",
+      "AfterSha256": "fc4852c979a08a5b74fc5141998c92fe4041fd4ea96fc1bb1cbced4be830fd43",
+      "Size": 309680,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/b255d5d7fc3419c50403d83be4fe2e6af67d85c3e6f88c28e42b23304fb58057.zip"
+    },
+    {
+      "Path": "systextures/LineageEffectsTextures.utx",
+      "Change": "Updated",
+      "BeforeSha256": "09596bc330fe82d15ad0c090ef265810faf3b4a3a22770c0e6a69a6ef545fbed",
+      "AfterSha256": "ed49e55c9b12500473aa3e2b75f01163809ef635ad96331394edced5620f9c96",
+      "Size": 33199667,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.14/420015f7c65d9b3b8cc3f697840089325fc4e51b32ca788833af96272f9bc325.zip"
+    }
+  ]
+}

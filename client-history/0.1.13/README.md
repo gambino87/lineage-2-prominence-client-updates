@@ -65,22 +65,3 @@ Compared with 0.1.12.
 | `systextures/ProminenceSPFrame.utx` | Added | [Patch](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/7e4ed4bba8518d668b896cfd98c003295e7e071dc37eed5f723dde98d10db080.zip) |
 | `systextures/ProminenceSPGauge.utx` | Added | [Patch](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/3430f052502293ab2262eac74eb36557539e459c31d512e3c1059e11d10bc9ab.zip) |
 | `systextures/ProminenceThreatIcons.utx` | Added | [Patch](https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.13/81874dbcbe4b8ea7c884bd71b10b015a8470ab02b726c5f67a62864c42339449.zip) |
-
-## Hotfix #1
-
-- Fixed low-level armor lowering P.Def when equipped into empty slots.
-- Empty head, glove and boot slots now provide zero P.Def.
-- Empty chest and leg slots match starting gear: 14/9 P.Def for fighters and 10/7 for mystics.
-- Applied consistently across class progressions. Armor item stats are unchanged.
-- Server-only hotfix; no client update required.
-
-[Server hotfix record](hotfix-1.md)
-
-## Hotfix #2
-
-- Halved actual Adena amounts dropped by all monsters, at every level, including bosses, WANTED monsters, leaders and minions.
-- The 70% base drop chance and level-difference modifiers are unchanged.
-- Monster Adena values used for item, spoil, T4 key and quest-token budgets are unchanged. XP and SP are unchanged.
-- Server-only hotfix; no client update required.
-
-[Server hotfix record](hotfix-2.md)
