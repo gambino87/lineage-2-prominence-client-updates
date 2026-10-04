@@ -1,0 +1,161 @@
+{
+  "Version": "0.1.15",
+  "PreviousVersion": "0.1.14",
+  "Published": "2026-10-04T03:09:21Z",
+  "Notes": "Update 0.1.15\n\nChanges since live 0.1.14\n\nCombat and progression\n- Weapons in the overhaul catalog now follow the approved one-handed sword auto-attack DPS progression at each weapon level. Weapon families retain their own speed, accuracy, critical behavior and attack cycles; magic weapon P.Atk remains half its M.Atk.\n- Magic auto-attacks use a linear M.Atk-versus-M.Def damage formula. Human and Orc Mystics now have B-rated Magic Weapon training, matching the other base Mystics.\n- All caster classes retain Spellcraft, Magician's Movement and Mana Recovery after class transfers. Spellcraft also grants 10% more M.Atk while wearing robes.\n- Physical outgoing damage against monsters now uses the equipped weapon family's training for the combat level comparison. Incoming monster damage uses the training of the armor being worn. Reward level comparisons remain tied to character level.\n- Block, Dodge and Parry training use the same class-normalized chance model.\n- Power Strike, Mortal Blow, Power Shot and Iron Fist use one auto-attack cycle for their action, without a cast bar. Their reuse follows attack cycles, and queued uses resume normal attacks without the extra spell recovery pause.\n- Rank-one damage is 2.5 normal attacks for Power Strike and Iron Fist, 4 for Mortal Blow, and 1.5 for Power Shot. Later ranks retain 3, 6 and 2.5 respectively. Power Strike and Iron Fist share reuse.\n- Power Shot's reuse includes bow firing and restring timing, allowing three normal bow attacks between uses. Power Shot itself adds no restring delay.\n- Lightning Bolt, Ice Bolt and Wind Bolt are learned at level 5 and each have one rank dealing 2.25 times magic-auto damage. They have a four-second base cast and reuse designed around two intervening magic auto-attacks. Ice Bolt no longer slows.\n- Curse Weakness and Wind Shackle now scale their damage over time with M.Atk and M.Def, with 300 total power over 30 seconds. Curse Poison and Venom use 400 total power over 30 seconds. Existing debuffs, landing, cleansing and diminishing returns remain.\n- Wide Guard now prevents parrying and reduces Accuracy by 3.75 while active, retaining its existing cleave and damage penalty.\n\nFirst-transfer abilities\n- Human Knight, Elven Knight and Palus Knight gain Shield Slam: a successful shield block opens a six-second opportunity. A landed Slam deals normal auto-attack damage, interrupts casting and attempts a stun. It costs no MP and has a 30-second cooldown.\n- These Knights also gain Pull at level 20: Inescapable Justice for Human Knight and Divine Lure for Elven and Palus Knight. A clear-path target within 700 units is stumbled, struck and drawn close with themed chain effects and sound. Bosses are immune; reuse is shared and lasts 30 seconds.\n- Aegis replaces High Guard for these Knights, allowing normal shield blocks from every direction.\n- Knight's Oath replaces Low Guard, passively granting 10% P.Def, 10% M.Def and 30% generated threat.\n- Vanguard replaces Wide Guard, allowing full-damage melee auto-attacks against up to five nearby targets without the guard's Accuracy or parry penalties.\n- Warrior and Raider gain Leaping Strike at level 20: a 500-unit gap closer dealing one normal attack, with no MP cost and a fixed 15-second cooldown. Added its leap motion, ground smoke and impact effects and sounds.\n\nMonsters\n- Monsters at level 5 and above gain 50 template HP before existing special HP multipliers.\n- Restored the shared level-based XP baseline by removing accumulated blanket XP increases. Leader, Minion and WANTED reward multipliers remain.\n- All level 1-20 monsters now have matching unbuffed effective P.Def and M.Def. Temporary buffs and debuffs still modify their respective defenses.\n\nInterface and equipment\n- Starter skill tooltips use compact name/rank, skill-type and cast/MP headers, followed by concise description, power/effect and reuse/school lines. Current speed-derived timing numbers are yellow. Fixed times retain their normal color.\n- Corrected compact tooltip selection and preserved timing snapshots when tooltip windows are recreated.\n- Added a collapsible Combat Skills group to the Passive tab and updated the Blunt mastery icon.\n- Inventory sorting groups weapons by type and required level while keeping matching armor sets together.\n- Armor merchants with separate starter-armor menus now offer one Buy Armor option containing their available armor and shields.\n- Equipment hotbar shortcuts now toggle equipped items off and back on. Pending swaps retain combat timing and equipment restrictions.\n- Improved final keyboard-facing synchronization, including signed heading reports and shield-facing checks across the full turn boundary.\n- Updated Triple Sonic Slash motions for male character bodies and Burning Fist's charge effect to cover both hands.\n\nClose Lineage II and use Update in the public launcher when this release becomes available.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.15",
+  "FilesChanged": [
+    {
+      "Path": "animations/DarkElf.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "977ff856c180f78d91a541a5de85ca13b64ee5b0fbbb11d852f9a2a02fb9048d",
+      "AfterSha256": "d724836ffbae7ce82ba57a39b417f2a0cb3d919fc4abbf583f0ee66ee254ad4a",
+      "Size": 22792161,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/26c15da1101f85f6a6e795ca27d16974c482feba463a8aaf8a45bc224718041e.zip"
+    },
+    {
+      "Path": "animations/Dwarf.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "600b189af6001a2cdc59e9c675c3682e76f977ad616d1a3d6d1052095472124e",
+      "AfterSha256": "efa427b5f9135fd67ec136c1fb26ef48f7a359e434ef3d1dc2bd414056f92a6b",
+      "Size": 21095612,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/9393f68fc41236b4c6c17d78982649f526a76ad20e843ee8f23eb41169c7b0a3.zip"
+    },
+    {
+      "Path": "animations/Elf.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "c522c829f9fde7ec2e8bfcb3a59061faf7e5ada607847cf02ca03f88c52006d3",
+      "AfterSha256": "e336e9341c93aa72ec99211f27eca29eb9323f2a76322ccd6f500f7c1644054a",
+      "Size": 21903936,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/96ff1af29784a6544e69adb3f055e28cdac4eef5b0f7ede60a578352408e741a.zip"
+    },
+    {
+      "Path": "animations/Fighter.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "8a22d41ceaa78d52a10b856b923462eb8eb08d61b203d0d7904e464857ae988c",
+      "AfterSha256": "04be6669d4d4faaf76652f7f808740205fb04f7961c849a94a6fdee4d42d01e5",
+      "Size": 26271315,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/8a35c6879ef1964f04032396229c55427aaa5da1b662c4017ff8808af4efbc02.zip"
+    },
+    {
+      "Path": "animations/Magic.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "26443ed7a5b972010c614f74ac8b625e3ae2dbbaa12f7d0a0fa9302622326fa2",
+      "AfterSha256": "1dae497def2b749aa790fab1fae58a3dbb3aec6b974621e5565d4baee65884c3",
+      "Size": 21771377,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/419be050aff1e894f213ef2e86acdeedafbedf726adf2f8fdd2b56bf78a4ff27.zip"
+    },
+    {
+      "Path": "animations/Orc.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "95876b32a7c5a80a580d62297111e8f378a86eecafeab0429b7a56a43e04f9a5",
+      "AfterSha256": "a7ec6458c1048f76bf0546a883eb40ed8238d286af89b4e18823c60b08ed32af",
+      "Size": 21625136,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/5cab68e632af9ca9d26b2d65fe1310911640805bafb2569910fd7967cbf1ce47.zip"
+    },
+    {
+      "Path": "animations/Shaman.ukx",
+      "Change": "Updated",
+      "BeforeSha256": "103cd8166f7f0f31e8294b11d52cb2cc0eae9c9fda0a1572174ae93be5d41adc",
+      "AfterSha256": "f5ed9f8e393222d66d384bbabd21966963013744dd20e583e0e20561b394b47b",
+      "Size": 22419950,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/ca976c8b3880fee185704c095becdd3f132d548aa31ca83715c4b2e97712ad95.zip"
+    },
+    {
+      "Path": "animations/Skill.usk",
+      "Change": "Updated",
+      "BeforeSha256": "afe1675026319eeb3fe0ec231b3f5eefe005903d2940315cc7dcec90f56c4ef7",
+      "AfterSha256": "d2e549acf66cbeb9fe652e930cf1a5ee34429ae71fce5c3f87d46cdeca00d3e7",
+      "Size": 232827,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/81ba731edd8d9419efc4d674a9ca317428e59501f5bd59cc63df765eb6ec5e81.zip"
+    },
+    {
+      "Path": "staticmeshes/LineageEffectsStaticmeshes.usx",
+      "Change": "Updated",
+      "BeforeSha256": "d6a652e4b18b5e24d83aea083298816bd3ac5def024a836788d956ee796283ae",
+      "AfterSha256": "8e90636b5448d916a50fc1b22e8782274649c0767f558f1b05e5c91e3287dffc",
+      "Size": 6410981,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/4b46f47087f655497aa7f979bf3ff3a2515b15436687e1dad932b40fb6414cd0.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "4fc17113f883c33cedb62b42e2825c699c11f6fc556ef1e0326d49cb74e367f7",
+      "AfterSha256": "9a267009c1f0701dbef0efdca25bff1d43f676ae548a78f542faf29681c60851",
+      "Size": 30953984,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/4b0e0470555a1792c170e11013fc5737c56316bf814e69f516fc5d3451b96757.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "1b5bc80ee7bcd376db17287c9e4b6e58f10a16b19c719b16095e8720585306b6",
+      "AfterSha256": "a73d457a10a43be8500929d5f4a47f0dfe848ab6ccf51ba05a954552b46fa420",
+      "Size": 27480044,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/59235bf6540c23e93fee0de0d19ecc472304e1173ef2397a0027de1e799998b1.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "b6588d2dbcca443df90e40cdcbc22595ab3c95a1e0dd3ca37de20bdbdb18c8f4",
+      "AfterSha256": "f7590a62a88041a32dbcad705c0b3e16601ebaec73e79b333cca02a61fa45044",
+      "Size": 797435,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/f5911d6dc60a3867b08ae7345fc14c93ddbee292237d22d40e6e2fa968efc363.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "cfbe35e55fa906bdf15d5b06abbdf5e80390ce7deae66fff231e4f7da860b91c",
+      "AfterSha256": "e57d5ed9e1814646afd10c69d3e5c2d81ec4c8a3d97cb6d5c29367c3deda1883",
+      "Size": 2281084,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/8c91d87d366a1fb023014d3678a469325089144f5670e399368f9c1ee2a51a51.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "c99648d5266eb58ce285c63e532983c61881b12b1fa2a4e64cf0655331a853e9",
+      "AfterSha256": "6ee5eb27be9b08e1a42e11f5869a82f080a5105d67c0c642b9e6512b13c37dab",
+      "Size": 161968,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/2a5b05a2df1de93917605c557448ecf62fb30f9bb67f5b1e4d31a874b1cefca8.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "fc4852c979a08a5b74fc5141998c92fe4041fd4ea96fc1bb1cbced4be830fd43",
+      "AfterSha256": "6a02b5f1e537ff127806c2db337dd74a49f9b0c76b3c37c1319d1ba762230934",
+      "Size": 310960,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/9ebd265b5f1e8e5ba65ced8bf8eb9c943c2deb138cebb7ddf560519f5aa0f877.zip"
+    },
+    {
+      "Path": "system/skillsoundgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "a654745a2e8b90dac45dc2d907fe5a3028d999ac8cbe974e80939841f4d32c2d",
+      "AfterSha256": "428e2a7ea073b9a31399a745cde6ba57bae9a0b007e4bdec1ef133b98fbe8d67",
+      "Size": 28976,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/567092a2c6d4347915541ba41a79f92b5a69ce31f8bf7aefff033b65ccfc390d.zip"
+    },
+    {
+      "Path": "system/weapongrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "0e540c71db0fc51eeb96bebd72f100a2c77210d0d4b155dab7f042a11f5623a7",
+      "AfterSha256": "624a512512ec96af9c36c63a1db5159e130d0120e4442528e6aa6d72f6715043",
+      "Size": 78512,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/07647b9313d6b785a7f52d76d5bad1ef6c820500c1cc51e5b07a7e50271b16e2.zip"
+    },
+    {
+      "Path": "systextures/ProminencePullChains.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "9fda95c32f400e2ef48fe94974115b8b834036d9cd791cd3b4db040b7cd60cc0",
+      "Size": 9985298,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/b224e5735dcdf6f5850f16306c972c3cc2bf6f743a7334676b1e0998457b2f5b.zip"
+    },
+    {
+      "Path": "systextures/ProminenceShieldSlam.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "d55316132bba8dcfc1c1d4088f6d0a1a7fae7e68288b7dcb877c3110a0cf9ca6",
+      "Size": 229916,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.15/79b66717109ec5206d546eff8942fce86e45f4c218968a613727aed918e03abe.zip"
+    }
+  ]
+}
