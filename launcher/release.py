@@ -1,6 +1,6 @@
 """Build a signed, cumulative client release. Does not publish or touch live files."""
 from pathlib import Path
-import argparse, hashlib, json, re, subprocess, zipfile
+import argparse, hashlib, json, os, re, subprocess, zipfile
 
 from workspace import ROOT
 STATE = ROOT / 'state/launcher'
@@ -63,6 +63,17 @@ def build(args):
     out = ROOT / 'outputs/releases' / args.version
     if out.exists():
         raise ValueError('Release already exists. Use a new version; published releases are immutable.')
+    reuse_source = getattr(args, 'reuse_assets_from', None)
+    reusable = {}
+    if reuse_source:
+        if args.repo:
+            raise ValueError('Asset reuse is supported only for private local builds')
+        reuse_source = Path(reuse_source).resolve()
+        from validate_release import validate
+        prior, _ = validate(reuse_source)
+        if not prior['AssetBaseUrl'].startswith('file:') or prior.get('Launcher', {}).get('Channel') != 'test-bench':
+            raise ValueError('Reuse assets only from a validated private test-bench release')
+        reusable = {row['Asset']: row for row in prior['Files'] if row.get('Asset')}
     provenance, base = baseline()
     out.mkdir(parents=True)
     private, public = STATE / 'signing-private.xml', STATE / 'signing-public.xml'
@@ -87,8 +98,14 @@ def build(args):
         row = dict(Path=rel, Sha256=digest, Size=size, Preserve=preserve)
         if original is None or digest != original['Sha256']:
             asset = hashlib.sha256((rel+'\0'+digest).encode()).hexdigest() + '.zip'
-            with zipfile.ZipFile(out/asset, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as z:
-                z.write(file, rel)
+            cached = reusable.get(asset)
+            if cached:
+                assert cached['Path'] == rel and cached['Sha256'] == digest and cached['Size'] == size, 'Reused asset differs from staged client'
+                # These per-version archives are immutable. Never open a reused link for writing.
+                os.link(reuse_source/asset, out/asset)
+            else:
+                with zipfile.ZipFile(out/asset, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+                    z.write(file, rel)
             with zipfile.ZipFile(out/asset) as z, z.open(rel) as entry:
                 assert hashlib.file_digest(entry, 'sha256').hexdigest() == digest, 'Client changed during packaging; rebuild with a new version'
             assert (out/asset).stat().st_size < 2*1024**3, 'Release asset exceeds GitHub limit'

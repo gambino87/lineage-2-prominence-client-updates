@@ -14,7 +14,7 @@ from validate_release import validate
 from workspace import ROOT
 
 
-def prepare(version, source, client_dir=None, notes='Private test-bench candidate.'):
+def prepare(version, source, client_dir=None, notes='Private test-bench candidate.', activate=True, reuse_assets_from=None):
     if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',version):
         raise ValueError('Use a numeric test-bench version such as 0.2.45')
     if (ROOT/'outputs/releases'/version).exists():
@@ -30,7 +30,8 @@ def prepare(version, source, client_dir=None, notes='Private test-bench candidat
     # Building a candidate never installs its client files.
     release.EXE=build_output/'Interlude Launcher.exe'
     release.build(SimpleNamespace(version=version,repo='',client_dir=str(client_dir),
-                                 host='127.0.0.1',title='Prominence — TEST BENCH',notes=notes))
+                                 host='127.0.0.1',title='Prominence — TEST BENCH',notes=notes,
+                                 reuse_assets_from=reuse_assets_from))
     folder=ROOT/'outputs/releases'/version
     config=json.loads((folder/'launcher.json').read_text())
     config['ClientDirectory']=str(output/'client')
@@ -42,6 +43,9 @@ def prepare(version, source, client_dir=None, notes='Private test-bench candidat
         z.writestr('START HERE.txt','Private test bench. Start Test Bench.cmd; apply updates yourself. Never distribute this package.\r\n')
     release.sign_launcher(folder,release.EXE,'test-bench')
     validate(folder)
+    if not activate:
+        print('Signed private candidate validated and held for coordinated testing; the active test-bench feed is unchanged.')
+        return folder
     if not (output/'Interlude Launcher.exe').exists():
         shutil.copy2(release.EXE,output/'Interlude Launcher.exe')
     config['Feed']=(output/'manifest.json').as_uri()
@@ -62,7 +66,10 @@ if __name__=='__main__':
     parser.add_argument('--from-release',type=Path)
     parser.add_argument('--client-dir',type=Path)
     parser.add_argument('--notes',default='Private test-bench candidate.')
+    parser.add_argument('--prepare-only',action='store_true',help='Sign and validate the private candidate without switching the active feed')
+    parser.add_argument('--reuse-assets-from',type=Path,help='Reuse immutable archives from a validated private release on the same volume')
     args=parser.parse_args()
     if not args.from_release and not args.client_dir:
         parser.error('Provide --from-release or --client-dir')
-    prepare(args.version,args.from_release,args.client_dir,args.notes)
+    prepare(args.version,args.from_release,args.client_dir,args.notes,activate=not args.prepare_only,
+            reuse_assets_from=args.reuse_assets_from)
