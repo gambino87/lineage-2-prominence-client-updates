@@ -1,0 +1,161 @@
+{
+  "Version": "0.1.16",
+  "PreviousVersion": "0.1.15",
+  "Published": "2026-10-14T13:11:33Z",
+  "Notes": "Jobs and progression\n- Added the Character Jobs drawer with saved levels, availability and normal town switching.\n- Parent jobs retire from the selectable list after the first successful switch into a promoted child. Unlocking a child alone does not retire the parent; saved progress and hotbars are preserved.\n- Eligible descendants can finish their retired parent's remaining promotion quests and fighter guild lessons.\n- All nine base jobs now cap at level 19. First promotions qualify at 19 with the required quest and start at level 20. Later progression thresholds are unchanged.\n- Trainer skill acquisition and enchantment are disabled. Automatic progression, job, practice, equipment and crafting unlocks remain available.\n\nInterface and controls\n- Added Combat Skills drawers showing weapon, defense and magic training, ranks, caps, training status and class ratings.\n- Added the in-game Hotkeys editor with key capture, conflict swaps, Apply/Cancel and persistent bindings. Fixed empty saved rows, Ctrl+Shift handling and button layout.\n- Improved fullscreen and Alt+Tab reliability with borderless desktop resolution. Fixed cursor alignment and brief Skills-window flashing.\n- Target panels show passive or sight-aggression badges. Level tooltips pair damage and hit information for physical weapons, equipped magic weapons and all six magic schools, including physical front/side/rear chances. Hovered values remain stable until reopened.\n- Improved inventory-opening performance, fixed missing scenery and characters when crossing regions with Ultra terrain, and made zero music volume remain silent at startup.\n\nCombat, monsters and equipment\n- Players receive a flat +20 P.Def after the normal equipment, training, buff and debuff calculation.\n- Magical outgoing damage uses the relevant school training; magic weapon auto-attacks use their own training. Target tooltips reflect the matching rules.\n- Increased Soul Cry fire damage for early Orc Mystic combat and moved it to the shared linear magic formula. Its 2 MP cost per auto-attack, proc rules and timing are preserved.\n- Full Shirt, Leather, Bone Scaled and Hard Leather sets add 1 Accuracy alongside their existing bonuses.\n- Fixed queued attacks and skills after reaching a target while preserving normal range checks and smooth approach turns.\n- Aggressive monsters acquire new targets within a 120-degree forward sight cone or a 40-unit close radius, with line of sight required. Retaliation, assistance and existing combat hate remain active.\n- Reduced physical attack by 1 for all 37 ordinary monster definitions at levels 1\u20133.\n- The first Elven starting field now has four Young Red Keltirs and three Red Keltirs, replacing its two Elder Red Keltirs while preserving population and respawn timing.\n\nQuests, crafting and terrain\n- Added eleven village guild lessons for Power Strike, Mortal Blow and Power Shot. Unlocks are shared across eligible jobs; additional village variants grant their defined XP reward.\n- Guild lessons use separate village contacts and local level 4\u20135 targets, with updated dialogue and journal routes.\n- All 120 quest recipe scrolls sell for 5 Adena per token spent. A two-token recipe sells for 10 Adena; exchange costs and crafting requirements are unchanged.\n- Corrected Talking Island fighter-guild doorway collision, Orc-area floor clearance, the Dark Elf starting route and unsupported lower floors in the Elven region.\n\nEffects and staff tools\n- Improved Iron Fist heat distortion and magic-resist shield orientation, haze and target-size scaling.\n- Added a smaller outward-growing shockwave to critical impact feedback and fixed its loading crash.\n- Improved the existing staff-monitoring bridge's transaction capture and bounded nearby-actor information. Website deployment and live monitoring settings are unchanged by this server package.\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.16",
+  "FilesChanged": [
+    {
+      "Path": "staticmeshes/LineageEffectsStaticmeshes.usx",
+      "Change": "Updated",
+      "BeforeSha256": "8e90636b5448d916a50fc1b22e8782274649c0767f558f1b05e5c91e3287dffc",
+      "AfterSha256": "e516832e2dac4effc4a6ac8f5f10e647eee616516b20fffafb84ea672a4c70a3",
+      "Size": 6410981,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/d711b1a7f6a6666d1f7b86602054df6776c5e233db1f3f30ad23c6f7668f1ba2.zip"
+    },
+    {
+      "Path": "system/D3DDrv.dll",
+      "Change": "Updated",
+      "BeforeSha256": "05622ddea5d96aec5618bc1ae064af9d27d83178f78d9631b5448377502e1323",
+      "AfterSha256": "8a90993f6e99853e5581610ed29f486833d61bf322d3454ff84f1761b4855108",
+      "Size": 1282068,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/2892877832733e1e69a99c1be42f824720d9d8e39ae9154d15bb5a0f3f44b359.zip"
+    },
+    {
+      "Path": "system/engine.dll",
+      "Change": "Updated",
+      "BeforeSha256": "9a267009c1f0701dbef0efdca25bff1d43f676ae548a78f542faf29681c60851",
+      "AfterSha256": "8f02db8704975da0e6f55c02182cb8482d7d6b342d450b9106343dd215742446",
+      "Size": 31069184,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/3d308da48eaf00fc9ecdc6e6926e841257db87609944a49e93237ad9be2158ff.zip"
+    },
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "a73d457a10a43be8500929d5f4a47f0dfe848ab6ccf51ba05a954552b46fa420",
+      "AfterSha256": "c542685766d1641d3b54428a0c3935f5e04952e0ddd4aa8c396e5309e34dc676",
+      "Size": 27702242,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/1be216800a0a59061b6995fb4aad6fbbca3aa7ba81e86daa5f0f513aefa66fd7.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "f7590a62a88041a32dbcad705c0b3e16601ebaec73e79b333cca02a61fa45044",
+      "AfterSha256": "142a6f31a0859bda3646b5a76a3e9b1c32cd92c4c53867abb16fb597ce35a719",
+      "Size": 843887,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/43786a8412f4ecbc283de6d1925b0108ff2c4ed996a9bff8ab4e790a075714a6.zip"
+    },
+    {
+      "Path": "system/itemname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "db610fbfc0cd6fca4cebce306118bcdbc6a3ca5864881c0d45eddb84a7b1d43e",
+      "AfterSha256": "f1db707e9607f719b91934638854e645b6ecaf4dc3c48d14ba07f6197d1b9c2b",
+      "Size": 238128,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/48e8359a37bbda16bea51cbdaecf41d863f07c22b295af12bfc9475130a83b76.zip"
+    },
+    {
+      "Path": "system/lineageeffect.u",
+      "Change": "Updated",
+      "BeforeSha256": "e57d5ed9e1814646afd10c69d3e5c2d81ec4c8a3d97cb6d5c29367c3deda1883",
+      "AfterSha256": "a1ba8affefb78882b856f5fac731b874f1cca6f7db7ecf05a442760d3a5b3520",
+      "Size": 2331726,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/9a841caaae7ecf01aa479c9576c02f434cb16fd5c6b30cc54e0c0c9646db5fed.zip"
+    },
+    {
+      "Path": "system/npcgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "1304eede2ba167c045f5b71e133d051ff923e7dd192a83a72ea7ed81c553e1cf",
+      "AfterSha256": "d8e533e4e0ca33bb95cf181c6c0fcca9415c5e75e2dee8da31d0e41f3dc1cf6d",
+      "Size": 235056,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/6e3f6e850867bab592b1e26708cb43f7f734db76f70cb7e9ec040c8c6abc8989.zip"
+    },
+    {
+      "Path": "system/nwindow.dll",
+      "Change": "Updated",
+      "BeforeSha256": "aaa7e036db77ab0abe742073d35b00b4fcfbb83fc07faf8aeb0a4015796eb2fa",
+      "AfterSha256": "9f0d38d4ff2f937a9b3e2acbbf74811dad85625a93ff05388a999c0e7dd5671b",
+      "Size": 4497408,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/c7930d451d8e094619432033a6095d3a007e08cea4fc21b9ba6170d5e548edf4.zip"
+    },
+    {
+      "Path": "system/PHeat.dll",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "f55b989c2d7f4b0fb8cef420438de62717b7c2bcaa31a1fd0f827e15f96b5f31",
+      "Size": 134656,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/5c5d26e67b86c236af1af46533ea25b09a735d3765c80c97bb326f16550ee6a6.zip"
+    },
+    {
+      "Path": "system/PKeys.dll",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "89799d65b6a62e545274d06ea7086a22b8a06b3cf7a46e246846b461965bde01",
+      "Size": 311296,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/e03e7e7112d1fe66b01c50a9baea032b24f0d02fccffee916dcb12806a393e3f.zip"
+    },
+    {
+      "Path": "system/PKeysPersist.exe",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "018b2abe2f90dcfdec981e9b5844337bfada4dc6f7e5adde9332e3e9967edfd9",
+      "Size": 111616,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/875457523b1dc5c2b6e2aea0bf8ee4fc8563dc5fba694af4ab8414f689d1dfa3.zip"
+    },
+    {
+      "Path": "system/questname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "158eed8244f027179de01577487da5419a162ebb257f0ce0a13ecb2b064b7fec",
+      "AfterSha256": "cb283571f02a4388b9ad644e5d8638cb4db8bf4a6e2dd3052ffd6f2d48f1d748",
+      "Size": 94384,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/f3368574eea253985de9a06815000d5082b9ac6774c5085b7ced99934cf689cb.zip"
+    },
+    {
+      "Path": "system/skillgrp.dat",
+      "Change": "Updated",
+      "BeforeSha256": "6ee5eb27be9b08e1a42e11f5869a82f080a5105d67c0c642b9e6512b13c37dab",
+      "AfterSha256": "1a837ae772c1342b66b5ec7316413d0994199ab39f10303e98b05b7da72177fe",
+      "Size": 162096,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/62857f73d66e6f0cb38943eacf28ebcf2e9292c2242995891bdfe5b96c91b087.zip"
+    },
+    {
+      "Path": "system/skillname-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "6a02b5f1e537ff127806c2db337dd74a49f9b0c76b3c37c1319d1ba762230934",
+      "AfterSha256": "37ba9a6cd323db477aeb0eac384ac18c8c84a5967082ad098e3f7b859c421a64",
+      "Size": 311216,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/b929b64c1e678fb36b022b900bc5e907092c2787d0d05d3d7f6b2f794c9faec8.zip"
+    },
+    {
+      "Path": "system/sysstring-e.dat",
+      "Change": "Updated",
+      "BeforeSha256": "a0c2c467257d34504ab807ada234077f7643fc1da5bb72fc5b08721447ca87ab",
+      "AfterSha256": "8aceb6021ca06a54813ca1618a328f3b6fc532b2fec77a142f6fcedb4d9a3f5b",
+      "Size": 17072,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/d2318665f90d0ad4b8121c161b748284645e351e31112e8a7206cce5a4c3de1f.zip"
+    },
+    {
+      "Path": "system/WinDrv.dll",
+      "Change": "Updated",
+      "BeforeSha256": "40e5b9bc5a72fd3e2b99e99e45a1ec4dd2fdb14693bb3707c8cfe51f2c35c2f6",
+      "AfterSha256": "8e3bf5ef0addd928a752b085176b5470462c62b20a8fa52cab0f85580eeac936",
+      "Size": 634900,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/dcb59caf49472fb330e88b213875a742a49271dbf419f7f18c8fd2e2ccac4c5e.zip"
+    },
+    {
+      "Path": "systextures/LineageEffectsTextures.utx",
+      "Change": "Updated",
+      "BeforeSha256": "ed49e55c9b12500473aa3e2b75f01163809ef635ad96331394edced5620f9c96",
+      "AfterSha256": "868d4cdd4bc9d0821f0fcb0262b388ee45ba8d46fec828686ed7bf3d77f92af4",
+      "Size": 33374873,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/9d008898f608b5a4c6179b45e371ff6d7636c1f0d7725599d5a121fbca127d41.zip"
+    },
+    {
+      "Path": "systextures/ProminenceAggroIcons.utx",
+      "Change": "Added",
+      "BeforeSha256": null,
+      "AfterSha256": "9a4f4c19f72311b3ca44f294a30531b3daa1331c391a82b419fe0187f6591e95",
+      "Size": 221598,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.16/506ff9b7b1237aa9d6e22e5a40688da03cd0147ab0a252052a57606cf340d8eb.zip"
+    }
+  ]
+}
