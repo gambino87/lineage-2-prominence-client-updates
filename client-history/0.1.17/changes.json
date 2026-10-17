@@ -1,0 +1,33 @@
+{
+  "Version": "0.1.17",
+  "PreviousVersion": "0.1.16",
+  "Published": "2026-10-17T17:23:58Z",
+  "Notes": "Jobs and character loading\r\n- Jobs now uses one flat list. Locked base classes stay concealed, and learned promotions appear directly.\r\n- Unlocking a first promotion hides its original base row immediately. Saved progress is preserved.\r\n- Double-click a Ready job to switch in town; the current job is named below the list.\r\n- Corrected Jobs list mouse input and scrolling.\r\n- Fixed character loading for older job histories that skip intermediate classes, and prevented failed loads from entering the world partially initialized.\r\n\r\nDisplay and controls\r\n- Alt+Enter cycles through Windowed, Borderless and Fullscreen modes.\r\n- Windowed mode remembers its previous size, including after relaunch.\r\n- Borderless fills the current monitor and keeps the cursor free while switching applications.\r\n- Added a borderless fallback when Windows rejects exclusive fullscreen, and corrected overlapping device changes during repeated display-mode switches.\r\n",
+  "Release": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/tag/0.1.17",
+  "FilesChanged": [
+    {
+      "Path": "system/interface.u",
+      "Change": "Updated",
+      "BeforeSha256": "c542685766d1641d3b54428a0c3935f5e04952e0ddd4aa8c396e5309e34dc676",
+      "AfterSha256": "0d2ef56eb0770576600bc1f9ec9c4d999b602b5fe141192bc6750457ec042b7c",
+      "Size": 27703334,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.17/c05cfc3d7b8d31ad6dd11e317e98a378c97601c632997898b181d993239307e2.zip"
+    },
+    {
+      "Path": "system/interface.xdat",
+      "Change": "Updated",
+      "BeforeSha256": "142a6f31a0859bda3646b5a76a3e9b1c32cd92c4c53867abb16fb597ce35a719",
+      "AfterSha256": "888bd0155c11730107fd22777c51cc1c2ee574c0ddd1bfad225f71cfa88c66c5",
+      "Size": 843635,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.17/336d135ba4da6ccbc7df03f64189f6e6ff7639e079459282f3ab60e8aceb0847.zip"
+    },
+    {
+      "Path": "system/PHeat.dll",
+      "Change": "Updated",
+      "BeforeSha256": "f55b989c2d7f4b0fb8cef420438de62717b7c2bcaa31a1fd0f827e15f96b5f31",
+      "AfterSha256": "3f334fefd22e4775ba49d4541b7aa8586fc0592e5b42f693fde09e5741479233",
+      "Size": 179712,
+      "Download": "https://github.com/gambino87/lineage-2-prominence-client-updates/releases/download/0.1.17/05c608d55a1b3fa13dd8ed7bd67288fa7780d51e0a132e8ec2a8167bbf890234.zip"
+    }
+  ]
+}
